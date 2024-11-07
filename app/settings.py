@@ -132,6 +132,8 @@ STATICFILES_DIRS = [
 
 MEDIA_URL = "media/"
 
+SHELL_PLUS = "ipython"
+
 MEDIA_ROOT = BASE_DIR / 'media'
 
 INTERNAL_IPS = [
