@@ -11,6 +11,7 @@ class CartQuerySet(models.QuerySet):
         if self:
             return sum(cart.quantity for cart in self)
         return 0 
+
 class Cart(models.Model):
 
     user = models.ForeignKey(to=User, on_delete=models.CASCADE, blank=True, null=True, verbose_name='Пользователь')
@@ -30,4 +31,7 @@ class Cart(models.Model):
         return round(self.product.sell_price() * self.quantity, 2)
 
     def __str__(self) -> str:
-        return f"Корзина {self.user.username} | Товар {self.product.name} | Количество {self.quantity}"
+        if self.user:
+            return f"Корзина {self.user.username} | Товар {self.product.name} | Количество {self.quantity}"
+            
+        return f"Анонимная корзина | Товар {self.product.name} | Количество {self.quantity}"
