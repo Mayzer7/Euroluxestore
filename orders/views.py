@@ -56,12 +56,12 @@ def create_order(request):
                 messages.success(request, str(error))
                 return redirect('cart:order')
     else:
-        inital = {
+        initial = {
             'first_name': request.user.first_name,
             'last_name': request.user.last_name,
         }
 
-        form = CreateOrderForm(initial=inital)
+        form = CreateOrderForm(initial=initial)
 
     context = {
         'title': 'Home - Оформление заказа',
@@ -69,3 +69,4 @@ def create_order(request):
     }
 
     return render(request, 'orders/create_order.html', context)
+

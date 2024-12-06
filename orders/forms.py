@@ -18,3 +18,18 @@ class CreateOrderForm(forms.Form):
             ("1", 'True'),
         ]
     )
+
+    # С помощью приставки clean_ можно создавать собственные валидаторы
+    def clean_phone_number(self): 
+        data = self.cleaned_data['phone_number']
+
+        if not data.isdigit():
+            raise forms.ValidationError("Номер телефона должен содеражть только цифры")
+        
+        if len(data) > 10:
+            raise forms.ValidationError("Номер телефона не может содержать больше 10 символов")
+
+        if len(data) < 10:
+            raise forms.ValidationError("Номер телефона не может содержать меньше 10 символов")
+        
+        return data
