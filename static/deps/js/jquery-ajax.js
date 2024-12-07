@@ -152,12 +152,12 @@ $(document).ready(function () {
             },
 
             success: function (data) {
-                 // Сообщение
+                // Сообщение
                 successMessage.html(data.message);
                 successMessage.fadeIn(400);
-                 // Через 7сек убираем сообщение
+                // Через 7сек убираем сообщение
                 setTimeout(function () {
-                     successMessage.fadeOut(400);
+                    successMessage.fadeOut(400);
                 }, 7000);
 
                 // Изменяем количество товаров в корзине
@@ -208,4 +208,30 @@ $(document).ready(function () {
             $("#deliveryAddressField").hide();
         }
     });
+
+    document.getElementById('id_phone_number').addEventListener('input', function (e) {
+        var phoneField = e.target;
+        var errorDiv = document.getElementById('phone_number_error');
+    
+        // Убираем все лишние символы, кроме цифр
+        var x = phoneField.value.replace(/\D/g, '').substring(1).match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+        
+        // Форматируем номер с приставкой +7
+        phoneField.value = '+7 ' +
+            (!x[1] ? '' : '(' + x[1]) +
+            (!x[2] ? '' : ') ' + x[2]) +
+            (!x[3] ? '' : '-' + x[3]) +
+            (!x[4] ? '' : '-' + x[4]);
+    
+        // Проверка правильности формата
+        var isValid = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(phoneField.value);
+        if (isValid || phoneField.value === '+7 ') {
+            errorDiv.style.display = 'none'; // Скрываем ошибку
+            phoneField.setCustomValidity(''); // Убираем ошибку для валидации
+        } else {
+            errorDiv.style.display = 'block'; // Показываем ошибку
+            phoneField.setCustomValidity('Неверный формат номера'); // Устанавливаем ошибку для HTML5-валидации
+        }
+    });    
 });
+

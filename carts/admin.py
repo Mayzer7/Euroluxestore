@@ -20,10 +20,9 @@ class CartsAdmin(admin.ModelAdmin):
         if obj.user:
             return str(obj.user)
         return "Анонимный пользователь"
-    
-    user_display.short_description = "Имя пользователя"
 
     def product_display(self, obj):
         return str(obj.product.name)
-
-    product_display.short_description = "Название продукта"
+    
+    user_display.short_description = "Пользователь"
+    product_display.short_description = "Товар"

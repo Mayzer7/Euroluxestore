@@ -26,6 +26,7 @@ class Order(models.Model):
         db_table = "order"
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
+        ordering = ("id", )
 
     def __str__(self) -> str:
         return f"Заказ № {self.pk} | Покупатель {self.user.first_name} {self.user.last_name}"
@@ -43,6 +44,7 @@ class OrderItem(models.Model):
         db_table = "order_item"
         verbose_name = "Проданный товар"
         verbose_name_plural = "Проданные товары"
+        ordering = ("id", )
 
     objects = OrderitemQueryset.as_manager()
 
