@@ -31,9 +31,19 @@ class Order(models.Model):
     def __str__(self) -> str:
         return f"Заказ № {self.pk} | Покупатель {self.user.first_name} {self.user.last_name}"
     
+    def delete(self, *args, **kwargs):
+        # Возвращаем товары из всех связанных OrderItem на склад
+        for item in self.order_items.all():  # Достаём все связанные OrderItem
+            item.product.quantity += item.quantity  # Возвращаем товар на склад
+            item.product.save()  # Сохраняем изменения для каждого товара
+        # Удаляем связанные OrderItem перед удалением заказа
+        self.order_items.all().delete()   
+        # Удаляем сам заказ
+        super().delete(*args, **kwargs)
+    
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Заказ")
+    order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Заказ", related_name="order_items")
     product = models.ForeignKey(to=Products, on_delete=models.SET_DEFAULT, null=True, verbose_name="Продукт", default=None)
     name = models.CharField(max_length=150, verbose_name="Название")
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="Цена")
@@ -53,3 +63,9 @@ class OrderItem(models.Model):
     
     def __str__(self) -> str:
         return f"Товар {self.name} | Заказ № {self.order.pk}"
+    
+    def delete(self, *args, **kwargs):
+        # Возвращаем товар на склад перед удалением
+        self.product.quantity += self.quantity
+        self.product.save()
+        super().delete(*args, **kwargs)  # Вызываем стандартное удаление

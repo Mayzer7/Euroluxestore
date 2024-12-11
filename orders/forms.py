@@ -4,7 +4,7 @@ class CreateOrderForm(forms.Form):
 
     first_name = forms.CharField()
     last_name = forms.CharField()
-    phone_number = forms.CharField()
+    phone_number = forms.CharField(min_length=3)
     requires_delivery = forms.ChoiceField(
         choices=[
             ("0", 'False'),

@@ -51,7 +51,9 @@ $(document).ready(function () {
         });
     });
 
-    
+
+
+
     // Ловим собыитие клика по кнопке удалить товар из корзины
     $(document).on("click", ".remove-from-cart", function (e) {
         // Блокируем его базовое действие
@@ -209,29 +211,26 @@ $(document).ready(function () {
         }
     });
 
+    // Форматирования ввода номера телефона в форме (xxx) xxx-хххx
     document.getElementById('id_phone_number').addEventListener('input', function (e) {
-        var phoneField = e.target;
-        var errorDiv = document.getElementById('phone_number_error');
-    
-        // Убираем все лишние символы, кроме цифр
-        var x = phoneField.value.replace(/\D/g, '').substring(1).match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-        
-        // Форматируем номер с приставкой +7
-        phoneField.value = '+7 ' +
-            (!x[1] ? '' : '(' + x[1]) +
-            (!x[2] ? '' : ') ' + x[2]) +
-            (!x[3] ? '' : '-' + x[3]) +
-            (!x[4] ? '' : '-' + x[4]);
-    
-        // Проверка правильности формата
-        var isValid = /^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$/.test(phoneField.value);
-        if (isValid || phoneField.value === '+7 ') {
-            errorDiv.style.display = 'none'; // Скрываем ошибку
-            phoneField.setCustomValidity(''); // Убираем ошибку для валидации
-        } else {
-            errorDiv.style.display = 'block'; // Показываем ошибку
-            phoneField.setCustomValidity('Неверный формат номера'); // Устанавливаем ошибку для HTML5-валидации
-        }
-    });    
-});
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
+        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+    });
 
+    // Проверяем на стороне клинта коррекность номера телефона в форме xxx-xxx-хх-хx
+    $('#create_order_form').on('submit', function (event) {
+        var phoneNumber = $('#id_phone_number').val();
+        var regex = /^\(\d{3}\) \d{3}-\d{4}$/;
+
+        if (!regex.test(phoneNumber)) {
+            $('#phone_number_error').show();
+            event.preventDefault();
+        } else {
+            $('#phone_number_error').hide();
+
+            // Очистка номера телефона от скобок и тире перед отправкой формы
+            var cleanedPhoneNumber = phoneNumber.replace(/[()\-\s]/g, '');
+            $('#id_phone_number').val(cleanedPhoneNumber);
+        }
+    });
+});

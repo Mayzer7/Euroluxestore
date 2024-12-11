@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import format_html
 
 from orders.models import Order, OrderItem
 # Register your models here.
@@ -47,13 +48,18 @@ class OrderTabulareAdmin(admin.TabularInline):
 class OrderAdmin(admin.ModelAdmin):
     list_display = (
         "id",
-        "user",
+        "user_link",
         "requires_delivery",
         "status",
         "payment_on_get",
         "is_paid",
         "created_timestamp",
     )
+
+    def user_link(self, obj):
+        return format_html(f'<a href="/admin/orders/order/{obj.user.id}/change/">{obj.user.username}</a>')
+
+    user_link.short_description = 'User'  # задаем заголовок для этого столбца
 
     search_fields = (
         "id",
