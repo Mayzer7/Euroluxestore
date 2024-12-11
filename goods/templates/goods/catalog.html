@@ -60,6 +60,7 @@
             <h3 class="mt-4">Результат поиска по запросу "{{ request.GET.q }}"</h3>
         {% endif %}
     {% endif %}
+
     {% for product in goods %}
         <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
         <!-- Карта товара -->
