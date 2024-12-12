@@ -33,17 +33,17 @@ class Order(models.Model):
     
     def delete(self, *args, **kwargs):
         # Возвращаем товары из всех связанных OrderItem на склад
-        for item in self.order_items.all():  # Достаём все связанные OrderItem
+        for item in self.orderitem_set.all():  # Достаём все связанные OrderItem
             item.product.quantity += item.quantity  # Возвращаем товар на склад
             item.product.save()  # Сохраняем изменения для каждого товара
         # Удаляем связанные OrderItem перед удалением заказа
-        self.order_items.all().delete()   
+        self.orderitem_set.all().delete()   
         # Удаляем сам заказ
         super().delete(*args, **kwargs)
     
 
 class OrderItem(models.Model):
-    order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Заказ", related_name="order_items")
+    order = models.ForeignKey(to=Order, on_delete=models.CASCADE, verbose_name="Заказ")
     product = models.ForeignKey(to=Products, on_delete=models.SET_DEFAULT, null=True, verbose_name="Продукт", default=None)
     name = models.CharField(max_length=150, verbose_name="Название")
     price = models.DecimalField(max_digits=7, decimal_places=2, verbose_name="Цена")

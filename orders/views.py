@@ -75,12 +75,12 @@ class CreateOrderView(LoginRequiredMixin, FormView):
     def form_invalid(self, form):
         messages.error(self.request, 'Заполните все обязательные поля!')
         return redirect('orders:create_order')
-    
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Оформление заказа'
         context['order'] = True
-        return context
+        return context  
 
 # @login_required
 # def create_order(request):
