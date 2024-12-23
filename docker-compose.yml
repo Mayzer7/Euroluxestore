@@ -13,16 +13,18 @@ services:
       - .:/app
     depends_on:
       - db
+    env_file: 
+      - .env  # Подключаем .env файл
     environment:
-      - DEBUG=True
+      - DEBUG=${DEBUG}  # Используем переменную DEBUG из .env
 
   db:
     image: postgres:15
     container_name: postgres_db
     environment:
-      POSTGRES_USER: home
-      POSTGRES_PASSWORD: home
-      POSTGRES_DB: home
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:
