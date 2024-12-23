@@ -11,7 +11,7 @@ matplotlib-inline==0.1.7
 parso==0.8.4
 Pillow==10.1.0
 prompt_toolkit==3.0.48
-psycopg2==2.9.9
+psycopg2-binary==2.9.9
 pure_eval==0.2.3
 Pygments==2.18.0
 six==1.16.0
@@ -21,4 +21,3 @@ traitlets==5.14.3
 typing_extensions==4.12.2
 tzdata==2024.2
 wcwidth==0.2.13
-python-decouple==3.8

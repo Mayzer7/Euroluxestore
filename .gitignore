@@ -10,5 +10,3 @@ cache/
 
 #django stuff
 db.sqlite3
-
-.env

@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,12 +20,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config('DJANGO_SECRET_KEY', default='your-default-secret-key')
+SECRET_KEY = 's5HstHyMjqxljvssHDk1WNhtnLG1X7qk7n56g7HlaSk75h1UA5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = config('DJANGO_ALLOWED_HOSTS', default='localhost').split(',')
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -90,11 +89,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('POSTGRES_DB', default='default_db'),
-        'USER': config('POSTGRES_USER', default='default_user'),
-        'PASSWORD': config('POSTGRES_PASSWORD', default='default_password'),
-        'HOST': config('POSTGRES_HOST', default='localhost'),
-        'PORT': config('POSTGRES_PORT', default='5432'),
+        'NAME': 'home',       # Замени на имя твоей базы данных
+        'USER': 'home',       # Замени на имя пользователя базы данных
+        'PASSWORD': 'home', # Замени на пароль пользователя
+        'HOST': 'postgres_db',        # Имя сервиса базы данных из docker-compose.yml 'postgres_db'
+        'PORT': 5432,                 # Стандартный порт PostgreSQL
     }
 }
 
@@ -146,6 +145,8 @@ STATIC_URL = 'static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
+
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
 MEDIA_URL = "media/"
 
