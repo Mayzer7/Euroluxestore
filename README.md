@@ -11,14 +11,6 @@ cd ~ # переключение на директорию нового поль�
 
 ---
 
-## Перадача все нужных прав пользователю для работы с nginx и gunicorn:
-
-![image](https://github.com/user-attachments/assets/814dbedf-0ad4-4286-96b5-17f7bd3e1b15)
-
-![image](https://github.com/user-attachments/assets/079afc8d-c171-4196-97ea-56375266cb17)
-
----
-
 ## Обновление и установка необходимых пакетов
 ```bash
 sudo apt-get update
@@ -194,10 +186,8 @@ sudo supervisorctl status название_проекта
 
 Баг фиксы nginx
 -------------------------------------------------------
-![Снимок экрана 2024-12-26 114823](https://github.com/user-attachments/assets/ae6eae5e-2dd0-4efa-866a-072e617995c4)
+![Снимок экрана 2024-12-26 114823](https://github.com/user-attachments/assets/9790ced8-87d4-43e5-85f0-91b4c84a9a0c)
 
-![Снимок экрана 2024-12-26 114842](https://github.com/user-attachments/assets/a98f0554-9d32-4830-b87a-02c2ba24631f)
+![Снимок экрана 2024-12-26 114842](https://github.com/user-attachments/assets/70aec200-6328-4f91-bd58-5b2388f9f13c)
 
-![Снимок экрана 2024-12-26 114856](https://github.com/user-attachments/assets/24b4af39-5cb0-4e71-a57b-18217555c5f6)
-
-
+![Снимок экрана 2024-12-26 114856](https://github.com/user-attachments/assets/64f253ec-2b06-40c4-a592-db6b11211b80)
