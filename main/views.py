@@ -29,11 +29,28 @@ class AboutView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)  
-        context['title'] = 'Home - О нас'
-        context['content'] = 'О нас'
-        context['text_on_page'] = 'Текст о том почему этот магазин такой крутой'
+        context['title'] = 'EUROLUXE - О нас'
+        context['content'] = 'Добро пожаловать в EUROLUXE – ваш проводник в мир премиальной мебели!'
         return context
 
+class DeliveryView(TemplateView):
+    template_name = 'main/delivery.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  
+        context['title'] = 'EUROLUXE - Доставка'
+        context['content'] = 'Доставка и оплата'
+        context['text_on_page'] = 'Текст о том почему этот магазин такой крутой'
+        return context
+    
+class ContactView(TemplateView):
+    template_name = 'main/contact.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  
+        context['title'] = 'EUROLUXE - Контакты'
+        context['content'] = 'Контактная информация'
+        return context
 
 # def about(request):
 #     context = {
