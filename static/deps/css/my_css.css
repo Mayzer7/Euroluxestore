@@ -24,7 +24,7 @@ body {
 }
 
 .custom-link:hover {
-  color: brown;
+  color: rgb(201, 178, 136);
 }
 
 .product_id {
@@ -65,18 +65,17 @@ body {
 }
 
 .main-title {
+  color: black;
   font-size: 50px;
   font-weight: bold;
 }
 
-
-
 .tran {
-  color: white; /* Белый цвет по умолчанию */
+  color: white; 
   transition: color 0.3s ease;
 }
 
 .tran:hover {
-  color: yellowgreen;
+  color: rgb(201, 178, 136);
 }
 
