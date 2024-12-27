@@ -10,10 +10,9 @@ class IndexView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)  
-        context['title'] = 'Home - Главная'
-        context['content'] = 'Магазин мебели HOME'
+        context['title'] = 'EUROLUXE - Главная'
+        context['content'] = 'Магазин мебели EUROLUXE'
         return context
-        
 
 # def index(request):
 

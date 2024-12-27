@@ -211,26 +211,37 @@ $(document).ready(function () {
         }
     });
 
-    // Форматирования ввода номера телефона в форме (xxx) xxx-хххx
+    
+
+
+    
+
+
+
+    // Форматирование ввода номера телефона в формате (xxx) xxx-xx-xx
     document.getElementById('id_phone_number').addEventListener('input', function (e) {
-        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,4})/);
-        e.target.value = !x[2] ? x[1] : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '');
+        var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
+        e.target.value = !x[2] 
+            ? x[1] 
+            : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
     });
 
-    // Проверяем на стороне клинта коррекность номера телефона в форме xxx-xxx-хх-хx
+    // Проверяем на стороне клиента корректность номера телефона в формате (xxx) xxx-xx-xx
     $('#create_order_form').on('submit', function (event) {
         var phoneNumber = $('#id_phone_number').val();
-        var regex = /^\(\d{3}\) \d{3}-\d{4}$/;
+        var regex = /^\(\d{3}\) \d{3}-\d{2}-\d{2}$/;
 
         if (!regex.test(phoneNumber)) {
-            $('#phone_number_error').show();
-            event.preventDefault();
+            // Показываем сообщение об ошибке, если номер некорректен
+            $('#phone_number_error').text('Введите номер телефона в формате (XXX) XXX-XX-XX').show();
+            event.preventDefault(); // Блокируем отправку формы
         } else {
             $('#phone_number_error').hide();
 
-            // Очистка номера телефона от скобок и тире перед отправкой формы
+            // Очистка номера телефона от скобок, пробелов и тире перед отправкой формы
             var cleanedPhoneNumber = phoneNumber.replace(/[()\-\s]/g, '');
             $('#id_phone_number').val(cleanedPhoneNumber);
         }
     });
+
 });
