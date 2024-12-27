@@ -5,6 +5,7 @@ body {
   background-position: center center;
   background-size: cover;
   height: 100%;
+  font-family: "JetBrains Mono", serif;
 }
 
 .dropdown-toggle::after {
@@ -13,6 +14,17 @@ body {
 
 .custom-shadow {
   box-shadow: 5px 5px 25px 19px #000000;
+}
+
+.custom-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  transition: color 0.3s ease;
+}
+
+.custom-link:hover {
+  color: brown;
 }
 
 .product_id {
@@ -37,4 +49,34 @@ body {
   font-size: 0.7rem;
 }
 
+.btn-cart-add {
+  margin-right: 10px;
+  transform: translateY(-5px);
+}
+
+.user {
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.pag {
+  margin-bottom: 100px;
+  z-index: 0;
+}
+
+.main-title {
+  font-size: 50px;
+  font-weight: bold;
+}
+
+
+
+.tran {
+  color: white; /* Белый цвет по умолчанию */
+  transition: color 0.3s ease;
+}
+
+.tran:hover {
+  color: yellowgreen;
+}
 
