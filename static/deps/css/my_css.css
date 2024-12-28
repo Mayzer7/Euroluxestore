@@ -99,13 +99,14 @@ body {
 
 /* По умолчанию (для мобильных устройств) */
 .position-responsive {
-  position: static; /* Элементы не фиксированы */
   margin-bottom: -110px;
   padding-top: 5px;
   padding-bottom: 25px;
   margin-left: -15px;
   width: 100%; /* Ширина контейнера для мобильных устройств */
-  z-index: 1;
+  position: relative; /* Убедимся, что z-index работает */
+  z-index: 1040; /* Установим выше любых фиксированных элементов */
+  pointer-events: auto; /* Разрешаем взаимодействие с элементом */
 }
 
 /* Для планшетов и ПК (≥768px) */
@@ -140,5 +141,29 @@ button.btn.btn-secondary.dropdown-toggle {
       position: absolute; /* Фиксируем кнопку в правом углу */
       right: -230px; /* Отступ справа */
       top: 0; /* Отступ сверху */
+  }
+}
+
+
+
+
+/* Для мобильных устройств */
+@media (max-width: 767px) {
+  .mt-10 {
+      margin-top: 70px; /* Устанавливаем отступ сверху */
+  }
+}
+
+/* Для мобильных устройств */
+@media (max-width: 767px) {
+  .mt-mobile {
+      margin-top: 30px; /* Отступ сверху для мобильных устройств */
+  }
+}
+
+/* Для мобильных устройств */
+@media (max-width: 767px) {
+  .mt-order {
+      margin-top: 70px; /* Отступ сверху для мобильных устройств */
   }
 }
