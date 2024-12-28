@@ -50,8 +50,9 @@ body {
 }
 
 .btn-cart-add {
-  margin-right: 10px;
-  transform: translateY(-5px);
+  margin-left: 10px;
+  transform: translateY(-10px);
+  display: inline-block; 
 }
 
 .user {
@@ -78,4 +79,13 @@ body {
 .tran:hover {
   color: rgb(201, 178, 136);
 }
+
+.mb-large {
+  margin-bottom: 100px;
+}
+
+
+
+
+
 
