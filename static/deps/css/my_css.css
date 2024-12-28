@@ -129,16 +129,13 @@ button.btn.btn-secondary.dropdown-toggle {
 
 
 /* Базовые стили для кнопки */
-.filter-btn {
-  position: relative; /* Для корректной работы с z-index */
-  z-index: 1040; /* Убедимся, что кнопка поверх других элементов */ /* Отступ сверху */
+.filter-btn { /* Убедимся, что кнопка поверх других элементов */ /* Отступ сверху */
   margin-left: 0; /* Чтобы не было сдвига по горизонтали */
 }
 
 /* Для мобильных устройств */
 @media (max-width: 767px) {
-  .filter-btn {
-      position: absolute; /* Фиксируем кнопку в правом углу */
+  .filter-btn { /* Фиксируем кнопку в правом углу */  
       right: -230px; /* Отступ справа */
       top: 0; /* Отступ сверху */
   }
@@ -166,4 +163,31 @@ button.btn.btn-secondary.dropdown-toggle {
   .mt-order {
       margin-top: 70px; /* Отступ сверху для мобильных устройств */
   }
+} 
+
+.total-price {
+  margin-top: 10px;
+  display: block;
+}
+
+
+
+/* Дополнительные стили для кнопки */
+.accordion-button span {
+  display: inline-block;
+}
+
+.accordion-button strong {
+  display: block;
+  margin-top: 5px; /* Отступ сверху для статуса */
+}
+
+
+
+/* Статус на новой строке, по центру */
+.order-status {
+  display: block;
+  margin-top: 5px; /* Отступ сверху для статуса */
+  text-align: center; /* Выравнивание текста по центру */
+  width: 100%; /* Статус займет всю доступную ширину */
 }
