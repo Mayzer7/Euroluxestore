@@ -76,7 +76,7 @@ class UserRegistationView(CreateView):
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
-        context['title'] = 'Home - Регистрация'
+        context['title'] = 'EUROLUXE - Регистрация'
         return context    
 
 
@@ -99,7 +99,7 @@ class UserProfileView(LoginRequiredMixin,CacheMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Home - Кабинет'
+        context['title'] = 'EUROLUXE - Кабинет'
 
     
         orders = Order.objects.filter(user=self.request.user).prefetch_related(
@@ -117,7 +117,7 @@ class UserCartView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = 'Home - Корзина' 
+        context['title'] = 'EUROLUXE - Корзина' 
         return context
 
 
