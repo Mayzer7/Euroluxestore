@@ -100,7 +100,7 @@ body {
 /* По умолчанию (для мобильных устройств) */
 .position-responsive {
   position: static; /* Элементы не фиксированы */
-  margin-bottom: -90px;
+  margin-bottom: -110px;
   padding-top: 5px;
   padding-bottom: 25px;
   margin-left: -15px;
@@ -114,5 +114,31 @@ body {
       position: fixed; /* Фиксированное расположение для больших экранов */
       
       z-index: 1030; /* Гарантия поверх других элементов */
+  }
+}
+
+button.btn.btn-secondary.dropdown-toggle {
+  position: relative; /* Убедимся, что z-index работает */
+  z-index: 1040; /* Установим выше любых фиксированных элементов */
+  pointer-events: auto; /* Разрешаем взаимодействие с элементом */
+}
+
+
+
+
+
+/* Базовые стили для кнопки */
+.filter-btn {
+  position: relative; /* Для корректной работы с z-index */
+  z-index: 1040; /* Убедимся, что кнопка поверх других элементов */ /* Отступ сверху */
+  margin-left: 0; /* Чтобы не было сдвига по горизонтали */
+}
+
+/* Для мобильных устройств */
+@media (max-width: 767px) {
+  .filter-btn {
+      position: absolute; /* Фиксируем кнопку в правом углу */
+      right: -230px; /* Отступ справа */
+      top: 0; /* Отступ сверху */
   }
 }
