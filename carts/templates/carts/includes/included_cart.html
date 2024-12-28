@@ -8,37 +8,43 @@
             </div>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="row text-center">
+                    <div class="row align-items-center">
                         <div class="col p-0">
-                            <div class="input-group">
+                            <div class="input-group justify-content-center align-items-center" style="max-width: 300px;">
+                                <!-- Кнопка "-" -->
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-dark btn-sm decrement"
                                         data-cart-id="{{ cart.id }}" 
                                         data-cart-change-url="{% url "cart:cart_change" %}">
                                         {% csrf_token %}
-                                        -</button>
+                                        -
+                                    </button>
                                 </span>
-                                <input type="text" class="form-control number" value="{{ cart.quantity }}"
-                                    readonly>
+                            
+                                <!-- Поле ввода -->
+                                <input type="text" class="form-control number text-center" value="{{ cart.quantity }}" readonly style="max-width: 150px;">
+                            
+                                <!-- Кнопка "+" -->
                                 <span class="input-group-btn">
                                     <button type="button" class="btn btn-dark btn-sm increment"
                                         data-cart-id="{{ cart.id }}" 
                                         data-cart-change-url="{% url "cart:cart_change" %}">
                                         {% csrf_token %}
-                                        +</button>
+                                        +
+                                    </button>
                                 </span>
                             </div>
                         </div>
-                        <div class="col p-0">
-                            <p>x {{ cart.product.sell_price }} = </p>
+                        <!-- Блок цены -->
+                        <div class="col-12 col-md-3 mb-2 text-center">
+                            <strong class="total-price">{{ cart.products_price }} $</strong>
                         </div>
-                        <div class="col p-0"><strong>{{ cart.products_price }} $</strong></div>
-                        <div class="col p-0">
+                        <!-- Кнопка удаления -->
+                        <div class="col-12 col-md-3 text-center">
                             <a href="{% url "cart:cart_remove" %}" class="remove-from-cart" 
-                            data-cart-id="{{ cart.id }}">
+                                data-cart-id="{{ cart.id }}">
                                 {% csrf_token %}
-                                <img class="mx-1" src="{% static "deps/icons/trash3-fill.svg" %}"
-                                    alt="Catalog Icon" width="16" height="16">
+                                <img src="{% static "deps/icons/trash3-fill.svg" %}" alt="Удалить" width="16" height="16">
                             </a>
                         </div>
                     </div>
@@ -47,16 +53,16 @@
         {% endfor %}
     </div>
     <div class="card mb-3 shadow-lg">
-        <div class="card-footer">
-            <p class="float-left">Итого <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</p>
-            <h4 class="float-left"><strong>{{ carts.total_price }} $</strong></h4>
+        <div class="card-footer d-flex flex-column align-items-center">
+            <p class="mb-1">Итого: <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</p>
+            <h4 class="mb-2"><strong>{{ carts.total_price }} $</strong></h4>
         </div>
     </div>
-    {% if carts and not order%}
-        <a class="btn btn-dark" href="{% url "orders:create_order" %}">
-            Оформить заказ
-        </a>
+    {% if carts and not order %}
+        <div class="text-center">
+            <a class="btn btn-dark" href="{% url "orders:create_order" %}">
+                Оформить заказ
+            </a>
+        </div>
     {% endif %}
 {% endblock %}
-
-

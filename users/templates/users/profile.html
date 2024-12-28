@@ -113,7 +113,10 @@
                                         data-bs-target="#collapse{{ order.id }}" 
                                         aria-expanded="false" 
                                         aria-controls="collapse{{ order.id }}">
-                                        Заказ №{{ order.id }} {{ order.created_timestamp|date:"d.m.Y" }}&nbsp;<strong>{{ order.status }}</strong>    
+                                        <div>
+                                            <span class="order-details">Заказ №{{ order.id }} {{ order.created_timestamp|date:"d.m.Y" }}</span>
+                                            <span class="order-status"><strong>{{ order.status }}</strong></span>
+                                        </div>
                                     </button>
                                 </h2>
                                 <div id="collapse{{ order.id }}" class="accordion-collapse collapse {% if order == orders.0 %}show{% endif %}" aria-labelledby="heading{{ order.id }}" data-bs-parent="#accordionExample">
