@@ -118,6 +118,14 @@ body {
   }
 }
 
+
+
+#jq-notification {
+  z-index: 1098 !important; /* Bootstrap использует значения до 1099 */
+}
+
+
+
 button.btn.btn-secondary.dropdown-toggle {
   position: relative; /* Убедимся, что z-index работает */
   z-index: 1040; /* Установим выше любых фиксированных элементов */
@@ -125,12 +133,9 @@ button.btn.btn-secondary.dropdown-toggle {
 }
 
 
-
-
-
 /* Базовые стили для кнопки */
 .filter-btn { /* Убедимся, что кнопка поверх других элементов */ /* Отступ сверху */
-  margin-left: 0; /* Чтобы не было сдвига по горизонтали */
+  margin-left: 0;
 }
 
 /* Для мобильных устройств */
@@ -140,6 +145,12 @@ button.btn.btn-secondary.dropdown-toggle {
       top: 0; /* Отступ сверху */
   }
 }
+
+
+
+
+
+
 
 
 
@@ -188,6 +199,6 @@ button.btn.btn-secondary.dropdown-toggle {
 .order-status {
   display: block;
   margin-top: 5px; /* Отступ сверху для статуса */
-  text-align: center; /* Выравнивание текста по центру */
+ /* Выравнивание текста по центру */
   width: 100%; /* Статус займет всю доступную ширину */
 }
