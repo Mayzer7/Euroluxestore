@@ -52,8 +52,6 @@ $(document).ready(function () {
     });
 
 
-
-
     // Ловим собыитие клика по кнопке удалить товар из корзины
     $(document).on("click", ".remove-from-cart", function (e) {
         // Блокируем его базовое действие
