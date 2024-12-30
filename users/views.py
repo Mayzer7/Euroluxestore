@@ -29,7 +29,7 @@ class UserLoginView(LoginView):
 
     def get_context_data(self, **kwargs):
         context =  super().get_context_data(**kwargs)
-        context['title'] = 'Home - Авторизация'
+        context['title'] = 'EUROLUXE - Авторизация'
         return context    
     
     def form_valid(self, form):
