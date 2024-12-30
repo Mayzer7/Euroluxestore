@@ -124,6 +124,9 @@ body {
   z-index: 1098 !important; /* Bootstrap использует значения до 1099 */
 }
 
+.drp-menu {
+  z-index: 1050 !important;
+}
 
 
 button.btn.btn-secondary.dropdown-toggle {
