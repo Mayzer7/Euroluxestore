@@ -27,10 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-
-# Application definition
-
-SITE_ID=2
+SITE_ID=3
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -56,6 +53,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.github',
 ]
 
 SOCIALACCOUNT_PROVIDERS = {
@@ -65,6 +63,16 @@ SOCIALACCOUNT_PROVIDERS = {
             "email"
         ],
         "AUTH_PARAMS": {"access_type": "online"}
+    },
+    "github": {
+        "SCOPE": [
+            "user",  # Для доступа к данным профиля
+            "user:email"  # Для получения email
+        ],
+        "AUTH_PARAMS": {
+            "access_type": "online"  # Для GitHub это не обязательно, но можно оставить для совместимости
+        },
+        "OAUTH_PKCE_ENABLED": True  # Включаем PKCE для улучшенной безопасности
     }
 }
 
