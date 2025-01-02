@@ -60,11 +60,11 @@ class UserRegistationView(CreateView):
 
     def form_valid(self, form):
         session_key = self.request.session.session_key
-        user = form.instance
+        user = form.save()
 
-        if user:
-            form.save()
-            auth.login(self.request, user)
+        # Указываем backend для аутентификации
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        auth.login(self.request, user)
 
         if session_key:
             Cart.objects.filter(session_key=session_key).update(user=user)

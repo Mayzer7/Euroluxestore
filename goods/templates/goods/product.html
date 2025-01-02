@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+{% endblock  %}
 
 {% block modal_cart %}
     {% include "includes/cart_button.html" %}
@@ -49,3 +52,15 @@
 </div>
 {% endblock content %}
     
+
+{% block footer %}
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center">
+                <a href="https://github.com/Mayzer7" class="author text-decoration-none">
+                    Copyright &copy; Корзунов А.E
+                </a>
+            </p>
+        </div>
+    </footer>
+{% endblock %}

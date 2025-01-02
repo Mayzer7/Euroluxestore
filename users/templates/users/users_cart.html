@@ -2,6 +2,9 @@
 {% load static %}
 {% load carts_tags %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+{% endblock  %}
 
 {% block content %}
 {% user_carts request as carts %}
@@ -20,3 +23,16 @@
         </div>
     </div>
 {% endblock  %}
+
+
+{% block footer %}
+    <footer class="py-3 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center">
+                <a href="https://github.com/Mayzer7" class="author text-decoration-none">
+                    Copyright &copy; Корзунов А.E
+                </a>
+            </p>
+        </div>
+    </footer>
+{% endblock %}
