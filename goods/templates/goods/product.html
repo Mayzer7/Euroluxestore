@@ -1,16 +1,14 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-{% endblock  %}
+
 
 {% block modal_cart %}
     {% include "includes/cart_button.html" %}
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5">
+<div class="container mt-5 mb-10">
     <div class="card mb-4 custom-shadow mt-order">
         <div class="row">
             <!-- Миниатюры -->
