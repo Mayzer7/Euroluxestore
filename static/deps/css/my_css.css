@@ -205,3 +205,15 @@ button.btn.btn-secondary.dropdown-toggle {
  /* Выравнивание текста по центру */
   width: 100%; /* Статус займет всю доступную ширину */
 }
+
+
+
+
+.author {
+  color: white; 
+  transition: color 0.3s ease; 
+}
+
+.author:hover {
+  color: rgb(201, 178, 136);
+}
