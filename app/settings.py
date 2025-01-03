@@ -15,7 +15,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-SITE_ID=6
+SITE_ID=7
 
 INSTALLED_APPS = [
     'django.contrib.admin',
