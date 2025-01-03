@@ -218,8 +218,6 @@ button.btn.btn-secondary.dropdown-toggle {
   color: rgb(201, 178, 136);
 }
 
-.footr {
-  position: relative; /* Убедимся, что z-index работает */
-  z-index: 1040; /* Установим выше любых фиксированных элементов */
-  pointer-events: auto; /* Разрешаем взаимодействие с элементом */
+.mb-edit {
+  margin-bottom: 30px;
 }

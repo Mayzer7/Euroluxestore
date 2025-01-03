@@ -1,14 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
 
-
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+{% endblock  %}
 
 {% block modal_cart %}
     {% include "includes/cart_button.html" %}
 {% endblock %}
 
 {% block content %}
-<div class="container mt-5 mb-10">
+<div class="container mt-5 mx-auto mb-large">
     <div class="card mb-4 custom-shadow mt-order">
         <div class="row">
             <!-- Миниатюры -->
@@ -19,7 +21,7 @@
             <div class="col-md-8">
                 <div class="card-body">
                     <p class="product_id mt-3">id: {{ product.display_id }}</p>
-                    <p class="card-text">Цена: <strong>{{ product.sell_price }} $</strong></p>
+                    <p class="card-text">Цена: <strong>{{ product.sell_price }}₽</strong></p>
                     <h5 class="card-title">{{ product.name }}</h5>
                     <p class="card-text">{{ product.description }}</p>
                     <a href="{% url "cart:cart_add" %}" class="btn btn-dark add-to-cart" 
@@ -52,7 +54,7 @@
     
 
 {% block footer %}
-    <footer class="py-3 bg-dark">
+    <footer class="py-3 bg-dark footr">
         <div class="container">
             <p class="m-0 text-center">
                 <a href="https://github.com/Mayzer7" class="author text-decoration-none">

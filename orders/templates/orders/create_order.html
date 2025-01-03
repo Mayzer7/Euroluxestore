@@ -2,8 +2,13 @@
 {% load static %}
 {% load carts_tags %}
 
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
+{% endblock  %}
+
 {% block content %}
-<div class="bg-white p-4 mb-4 mx-2 rounded custom-shadow mt-order">
+<div class="bg-white p-4 mb-large mx-auto rounded custom-shadow mt-order">
     <div class="container">
         <h3 class="text-center mb-4">Выбранные товары</h3>
         <div class="container" id="cart-items-container">
@@ -104,3 +109,16 @@
     </div>
 </div>
 {% endblock  %}
+
+
+{% block footer %}
+    <footer class="py-3 bg-dark footr">
+        <div class="container">
+            <p class="m-0 text-center">
+                <a href="https://github.com/Mayzer7" class="author text-decoration-none">
+                    Copyright &copy; Корзунов А.E
+                </a>
+            </p>
+        </div>
+    </footer>
+{% endblock %} 
