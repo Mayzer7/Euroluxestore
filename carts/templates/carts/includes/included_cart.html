@@ -22,7 +22,7 @@
                                 </span>
                             
                                 <!-- Поле ввода -->
-                                <input type="text" class="form-control number text-center" value="{{ cart.quantity }}" readonly style="max-width: 150px;">
+                                <input type="text" class="form-control number text-center" value="{{ cart.quantity }}" readonly style="max-width: 100px;">
                             
                                 <!-- Кнопка "+" -->
                                 <span class="input-group-btn">
@@ -37,7 +37,7 @@
                         </div>
                         <!-- Блок цены -->
                         <div class="col-12 col-md-3 mb-2 text-center">
-                            <strong class="total-price">{{ cart.products_price }} $</strong>
+                            <strong class="total-price">{{ cart.products_price }} ₽</strong>
                         </div>
                         <!-- Кнопка удаления -->
                         <div class="col-12 col-md-3 text-center">
@@ -55,7 +55,7 @@
     <div class="card mb-3 shadow-lg">
         <div class="card-footer d-flex flex-column align-items-center">
             <p class="mb-1">Итого: <strong>{{ carts.total_quantity }}</strong> товар(а) на сумму</p>
-            <h4 class="mb-2"><strong>{{ carts.total_price }} $</strong></h4>
+            <h4 class="mb-2"><strong>{{ carts.total_price }} ₽</strong></h4>
         </div>
     </div>
     {% if carts and not order %}

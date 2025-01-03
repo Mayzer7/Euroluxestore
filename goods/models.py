@@ -26,7 +26,7 @@ class Products(models.Model):
     discount = models.DecimalField(default=0.00, max_digits=4, decimal_places=2, verbose_name="Скидка в %")
     quantity = models.PositiveIntegerField(default=0, verbose_name='Количество')
     category = models.ForeignKey(to=Categories, on_delete=models.CASCADE, verbose_name='Категория')
-
+    
     class Meta:
         db_table = 'product'
         verbose_name = 'Продукт'
@@ -44,5 +44,5 @@ class Products(models.Model):
     
     def sell_price(self):
         if self.discount:
-            return round(self.price * ((100 - self.discount) / 100), 2)
-        return self.price
+            return int(self.price * ((100 - self.discount) / 100))
+        return int(self.price)
