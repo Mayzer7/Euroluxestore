@@ -32,6 +32,10 @@ class UserRegistrationForm(UserCreationForm):
     password2 = forms.CharField()
 
 
+class UserPasswordResetForm(forms.Form):
+    email = forms.EmailField(label='Адрес эл. почты', required=True)
+
+
 class ProfileForm(UserChangeForm):
     class Meta:
         model = User

@@ -6,15 +6,19 @@ from django.views.generic import CreateView, UpdateView, TemplateView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.db.models import Prefetch
+from django.views.generic.edit import FormView
 
 from django.core.cache import cache
 
-from users.forms import UserLoginForm, UserRegistrationForm, ProfileForm
+from users.models import User 
+from users.forms import UserLoginForm, UserRegistrationForm, UserPasswordResetForm, ProfileForm
 from common.mixins import CacheMixin
 from django.urls import reverse, reverse_lazy
 from carts.models import Cart
 from orders.models import Order, OrderItem
 
+
+from users.models import User
 
 class UserLoginView(LoginView):
     template_name = 'users/login.html'
@@ -78,6 +82,35 @@ class UserRegistationView(CreateView):
         context =  super().get_context_data(**kwargs)
         context['title'] = 'EUROLUXE - Регистрация'
         return context    
+
+
+class UserPasswordResetView(FormView):
+    template_name = 'users/password_reset.html'
+    form_class = UserPasswordResetForm  # Используем форму с проверкой только email
+    success_url = reverse_lazy('users:profile')  # Сюда перекидывает после успешного ввода
+
+    def form_valid(self, form):
+        email = form.cleaned_data.get('email')
+
+        try:
+            # Проверяем, есть ли пользователь с этим email
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            # Если пользователь не найден, возвращаем форму с ошибкой
+            form.add_error('email', 'Пользователь с таким email не найден.')
+            return self.form_invalid(form)
+
+        # Если пользователь найден, то редиректим на success_url
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        # Форма останется на той же странице с ошибками
+        return super().form_invalid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = 'EUROLUXE - Забыли пароль'
+        return context
 
 
 # LoginRequiredMixin позволяет проверить зарегистрирован ли пользователь
