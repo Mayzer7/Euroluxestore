@@ -221,3 +221,16 @@ button.btn.btn-secondary.dropdown-toggle {
 .mb-edit {
   margin-bottom: 30px;
 }
+
+
+
+/* Уменьшаем высоту плашки ошибки */
+.alert-danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding-top: 15px;
+  padding-bottom: 0;
+  border-radius: 5px;
+  margin-top: 10px;
+  font-size: 16px;  /* Уменьшаем размер шрифта, если нужно */
+}
