@@ -15,7 +15,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-SITE_ID=7
+SITE_ID=8
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -179,6 +179,7 @@ INTERNAL_IPS = [
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
+
 LOGIN_URL = '/user/login/'
 
 AUTHENTICATION_BACKENDS = (
@@ -190,3 +191,5 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
 SOCIALACCOUNT_LOGIN_ON_GET=True
+
+
