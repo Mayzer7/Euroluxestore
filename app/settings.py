@@ -1,5 +1,5 @@
 from pathlib import Path
-
+from decouple import config
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -15,7 +15,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-SITE_ID=9
+SITE_ID=10
+
+YANDEX_EMAIL = config('YANDEX_EMAIL')
+YANDEX_PASSWORD = config('YANDEX_PASSWORD')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
