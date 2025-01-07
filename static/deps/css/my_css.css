@@ -234,3 +234,7 @@ button.btn.btn-secondary.dropdown-toggle {
   margin-top: 10px;
   font-size: 16px;  /* Уменьшаем размер шрифта, если нужно */
 }
+
+.btn-close {
+  pointer-events: auto; /* Разрешить клик */
+}
