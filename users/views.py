@@ -112,7 +112,7 @@ class UserPasswordResetView(FormView):
             user = User.objects.get(email=email)
         except User.DoesNotExist:
             # Если пользователь не найден, возвращаем форму с ошибкой
-            form.add_error('email', 'Пользователь с таким email не найден.')
+            form.add_error('email', 'Пользователь с таким email не зарегистрирован.')
             return self.form_invalid(form)
         
         # Генерация токена и ссылки

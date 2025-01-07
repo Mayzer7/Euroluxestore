@@ -216,15 +216,15 @@ $(document).ready(function () {
 
 
 
-    // Форматирование ввода номера телефона в формате (xxx) xxx-xx-xx
+    // Форматирование ввода номера телефона с +7
     document.getElementById('id_phone_number').addEventListener('input', function (e) {
         var x = e.target.value.replace(/\D/g, '').match(/(\d{0,3})(\d{0,3})(\d{0,2})(\d{0,2})/);
-        e.target.value = !x[2] 
-            ? x[1] 
+        e.target.value = !x[2]
+            ? x[1]
             : '(' + x[1] + ') ' + x[2] + (x[3] ? '-' + x[3] : '') + (x[4] ? '-' + x[4] : '');
     });
 
-    // Проверяем на стороне клиента корректность номера телефона в формате (xxx) xxx-xx-xx
+    // Проверяем на стороне клиента корректность номера телефона в формате (XXX) XXX-XX-XX
     $('#create_order_form').on('submit', function (event) {
         var phoneNumber = $('#id_phone_number').val();
         var regex = /^\(\d{3}\) \d{3}-\d{2}-\d{2}$/;
@@ -236,10 +236,9 @@ $(document).ready(function () {
         } else {
             $('#phone_number_error').hide();
 
-            // Очистка номера телефона от скобок, пробелов и тире перед отправкой формы
-            var cleanedPhoneNumber = phoneNumber.replace(/[()\-\s]/g, '');
+            // Добавляем префикс +7 и очищаем номер телефона от скобок, пробелов и тире перед отправкой формы
+            var cleanedPhoneNumber = '+7' + phoneNumber.replace(/[()\-\s]/g, '');
             $('#id_phone_number').val(cleanedPhoneNumber);
         }
     });
-
 });
