@@ -1,3 +1,8 @@
+# Интернет магазин мебели
+![store1](https://github.com/user-attachments/assets/9c693333-4dae-4138-acbb-1ecec0921f86)
+![store2](https://github.com/user-attachments/assets/0d2304ec-d297-4465-83c0-8cbbeccc8d38)
+![store3](https://github.com/user-attachments/assets/c1699492-b7e2-4744-a15c-169f71f5ad6a)
+![store4](https://github.com/user-attachments/assets/f5acb862-dc0e-4339-9844-314b28f31660)
 # Deploy django project on server
 
 ## Создание пользователя
