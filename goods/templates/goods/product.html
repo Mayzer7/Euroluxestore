@@ -3,7 +3,15 @@
 
 {% block css %}
     <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-{% endblock  %}
+    <style>
+        .review-card { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
+        .review-image { max-width: 200px; margin-top: 10px; cursor: pointer; }
+        .delete-icon { width: 20px; height: 20px; }
+        .modal-title { color: #000; } /* Чёрный цвет текста в заголовке */
+        .modal-header .user-info { display: flex; align-items: center; } /* Выравнивание аватарки и текста */
+        .modal-header .user-info img { margin-right: 10px; } /* Отступ между аватаркой и текстом */
+    </style>
+{% endblock %}
 
 {% block modal_cart %}
     {% include "includes/cart_button.html" %}
@@ -11,12 +19,11 @@
 
 {% block content %}
 <div class="container mt-5 mx-auto mb-large">
+    <!-- Существующий код карточки товара -->
     <div class="card mb-4 custom-shadow mt-order">
         <div class="row">
-            <!-- Миниатюры -->
             <div class="col-md-4">
-                <img src="{{ product.image.url }}"
-                    class="img-thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal1">
+                <img src="{{ product.image.url }}" class="img-thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal1">
             </div>
             <div class="col-md-8">
                 <div class="card-body">
@@ -27,38 +34,110 @@
                     <a href="{% url "cart:cart_add" %}" class="btn btn-dark add-to-cart" 
                         data-product-id="{{ product.id }}">
                         {% csrf_token %}
-                        Добавить в корзину</a>
-                </div>
-            </div>
-            <!-- Увеличить изображение в модальном окне -->
-            <div class="modal fade" id="imageModal1" tabindex="-1"
-                aria-labelledby="imageModal1Label" aria-hidden="true">
-                <div class="modal-dialog modal-lg">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="imageModal1Label">{{ product.name }}</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                aria-label="Закрыть"></button>
-                        </div>
-                        <div class="modal-body">
-                            <img src="{{ product.image.url }}"
-                                class="img-fluid" alt="Изображение 1">
-                        </div>
-                    </div>
+                        Добавить в корзину
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Секция отзывов -->
+    <div class="reviews-section mt-5 text-white bg-dark p-3 rounded">
+        <h3>Отзывы</h3>
+        
+        <!-- Форма добавления отзыва -->
+        {% if user.is_authenticated %}
+            <form method="post" enctype="multipart/form-data" class="mb-4">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Оставить отзыв</button>
+            </form>
+        {% else %}
+            <p><a href="{% url 'users:login' %}" class="text-white">Войдите</a>, чтобы оставить отзыв</p>
+        {% endif %}
+
+        <!-- Список отзывов -->
+        {% for review in reviews %}
+            <div class="review-card bg-dark border border-light rounded p-3 mb-3 position-relative">
+                <div class="d-flex align-items-center mb-2">
+                    {% if review.user.image %}
+                        <img src="{{ review.user.image.url }}" alt="Аватар" class="rounded-circle me-2" style="width: 40px; height: 40px;">
+                    {% endif %}
+                    <div>
+                        <strong>{{ review.user.username }}</strong>
+                        <small class="opacity-75">{{ review.created_at|date:"d.m.Y H:i" }}</small>
+                    </div>
+                </div>
+                <p class="mb-0">{{ review.text }}</p>
+                {% if review.image %}
+                    <img src="{{ review.image.url }}" alt="Фото отзыва" class="review-image" 
+                         data-bs-toggle="modal" data-bs-target="#reviewImageModal{{ review.id }}">
+                {% endif %}
+                <!-- Кнопка удаления для автора -->
+                {% if review.user == user %}
+                    <form method="post" class="position-absolute top-0 end-0 m-2" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="review_id" value="{{ review.id }}">
+                        <button type="submit" name="delete_review" title="Удалить отзыв" 
+                                style="background: none; border: none; padding: 0; cursor: pointer;">
+                            <img src="{% static 'deps/icons/comment-trash-icon.png' %}" alt="Удалить" class="delete-icon">
+                        </button>
+                    </form>
+                {% endif %}
+            </div>
+
+            <!-- Модальное окно для изображения отзыва -->
+            {% if review.image %}
+                <div class="modal fade" id="reviewImageModal{{ review.id }}" tabindex="-1" 
+                     aria-labelledby="reviewImageModalLabel{{ review.id }}" aria-hidden="true">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <div class="user-info">
+                                    {% if review.user.image %}
+                                        <img src="{{ review.user.image.url }}" alt="Аватар" class="rounded-circle" style="width: 40px; height: 40px;">
+                                    {% endif %}
+                                    <h5 class="modal-title" id="reviewImageModalLabel{{ review.id }}">
+                                        {{ review.user.username }}: {{ review.text }}
+                                    </h5>
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                            </div>
+                            <div class="modal-body">
+                                <img src="{{ review.image.url }}" class="img-fluid" alt="Фото отзыва">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% empty %}
+            <p>Пока нет отзывов. Будьте первым!</p>
+        {% endfor %}
+    </div>
 </div>
-{% endblock content %}
-    
+
+<!-- Модальное окно для изображения товара -->
+<div class="modal fade" id="imageModal1" tabindex="-1" aria-labelledby="imageModal1Label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="imageModal1Label">{{ product.name }}</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            </div>
+            <div class="modal-body">
+                <img src="{{ product.image.url }}" class="img-fluid" alt="Изображение 1">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
 
 {% block footer %}
     <footer class="py-3 bg-dark footr">
         <div class="container">
             <p class="m-0 text-center">
                 <a href="https://github.com/Mayzer7" class="author text-decoration-none">
-                    Copyright &copy; Корзунов А.E
+                    Copyright © Корзунов А.E
                 </a>
             </p>
         </div>

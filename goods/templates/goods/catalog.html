@@ -71,14 +71,14 @@
         <div class="col-lg-4 col-md-6 p-4">
             <div class="card border-primary rounded custom-shadow">
                 {% if product.image %}
-                    <a href="{% url "catalog:product" product.slug %}">
+                    <a href="{% url "catalog:product_detail" product.slug %}">
                         <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
                     </a>
                 {% else %}
                     <img src="{% static "deps/images/Not found image.png" %}" class="card-img-top" alt="...">
                 {% endif %}
                 <div class="card-body">
-                    <a class="custom-link" href="{% url "catalog:product" product.slug %}">
+                    <a class="custom-link" href="{% url "catalog:product_detail" product.slug %}">
                         <p class="card-title">
                             {% autoescape off %}
                             {% if product.headline %}

@@ -238,3 +238,23 @@ button.btn.btn-secondary.dropdown-toggle {
 .btn-close {
   pointer-events: auto; /* Разрешить клик */
 }
+
+
+
+
+.review-card { 
+  margin-bottom: 20px; 
+  border: 2px solid #000000 !important; /* Принудительное применение */
+  background-color: rgba(255, 255, 255, 0.9); /* Белый фон с 90% непрозрачностью */
+  padding: 15px; 
+  border-radius: 5px; 
+}
+
+
+
+.delete-icon {
+  width: 20px;
+  height: 20px;
+  margin-top: 10px;
+  margin-right: 10px;
+}

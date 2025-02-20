@@ -17,8 +17,8 @@ ALLOWED_HOSTS = ['*']
 
 SITE_ID=10
 
-YANDEX_EMAIL = config('YANDEX_EMAIL')
-YANDEX_PASSWORD = config('YANDEX_PASSWORD')
+# YANDEX_EMAIL = config('YANDEX_EMAIL')
+# YANDEX_PASSWORD = config('YANDEX_PASSWORD')
 
 INSTALLED_APPS = [
     'django.contrib.admin',

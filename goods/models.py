@@ -1,5 +1,6 @@
 from django.db import models
 from django.urls import reverse
+from users.models import User
 
 # Create your models here.
 
@@ -46,3 +47,21 @@ class Products(models.Model):
         if self.discount:
             return int(self.price * ((100 - self.discount) / 100))
         return int(self.price)
+    
+
+
+class Review(models.Model):
+    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='reviews')
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    text = models.TextField(verbose_name='Текст отзыва')
+    created_at = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='review_images/', blank=True, null=True, verbose_name='Фото отзыва')
+
+    class Meta:
+        db_table = 'Review'
+        ordering = ['-created_at']
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'
+
+    def __str__(self):
+        return f'Отзыв от {self.user.username} к {self.product.name}'
