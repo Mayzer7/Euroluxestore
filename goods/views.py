@@ -1,14 +1,18 @@
 from django.core.paginator import Paginator
 from django.http import Http404
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
 from django.views.generic import ListView, DetailView
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 
-from goods.models import Products, Categories
+from django.contrib import messages
+
+from goods.models import Products, Categories, Review
 from goods.utils import q_search
+from goods.forms import ReviewForm
 
 class CatalogView(ListView):
     model = Products
-    # queryset = Products.objects.order_by("-id")
     template_name = "goods/catalog.html"
     context_object_name = "goods"
     paginate_by = 3
@@ -28,7 +32,6 @@ class CatalogView(ListView):
             if not goods.exists():
                 raise Http404()
 
-
         if on_sale:
             goods = goods.filter(discount__gt=0)
         
@@ -36,8 +39,6 @@ class CatalogView(ListView):
             goods = goods.order_by(order_by)
 
         return goods
-
-
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -47,22 +48,46 @@ class CatalogView(ListView):
 
 
 class ProductView(DetailView):
-    
-    # model = Products
-    # slug_field = "slug"
     template_name = "goods/product.html"
     slug_url_kwarg = "product_slug"
     context_object_name = "product"
+    model = Products
 
-    def get_object(self, queryset = None):
-        product = Products.objects.get(slug=self.kwargs.get(self.slug_url_kwarg))
-        return product
-    
-    
+    def get_object(self, queryset=None):
+        return get_object_or_404(Products, slug=self.kwargs.get(self.slug_url_kwarg))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['title'] = self.object.name
+        context['reviews'] = self.object.reviews.all()
+        context['form'] = ReviewForm()
         return context
+
+    @method_decorator(login_required)
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        
+        # Проверяем, удаление это или добавление
+        if 'delete_review' in request.POST:
+            review_id = request.POST.get('review_id')
+            review = get_object_or_404(Review, id=review_id, user=request.user)
+            review.delete()
+            messages.success(request, "Отзыв успешно удалён.")
+            return redirect('goods:product_detail', product_slug=self.object.slug)
+
+        # Добавление отзыва
+        form = ReviewForm(request.POST, request.FILES)
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = self.object
+            review.user = request.user
+            review.save()
+            messages.success(request, "Отзыв успешно добавлен.")
+            return redirect('goods:product_detail', product_slug=self.object.slug)
+        
+        context = self.get_context_data()
+        context['form'] = form
+        return self.render_to_response(context)
 
 
 # def catalog(request, category_slug = None):
