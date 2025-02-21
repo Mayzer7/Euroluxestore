@@ -272,6 +272,8 @@ def logout(request):
     return redirect(reverse('main:index'))
 
 
+def test(request):
+    return render(request, 'users/test.html')
 
 
 # def login(request):

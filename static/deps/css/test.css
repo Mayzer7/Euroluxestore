@@ -1,0 +1,96 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Gotham Pro', Arial, sans-serif;
+}
+
+.header {
+    background-color: #ffffff;
+    margin-left: 50px;
+    padding: 30px 30px;
+    border-bottom: none;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000000;
+    margin-right: 20px;
+}
+
+.nav {
+    display: flex;
+    gap: 20px;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.nav a:hover {
+    color: #666666;
+}
+
+.search-bar {
+    flex-grow: 1;
+    margin: 0 20px;
+}
+
+.search-bar input {
+    width: 50%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    font-size: 14px;
+    outline: none;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.test {
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    background-image: url("/static/deps/images/bg-image.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;       /* Изображение растягивается, сохраняя пропорции */
+    background-position: center;  /* Центрируем изображение */
+    height: 100vh;  /* 100% от высоты экрана */
+    width: 100vw;   /* 100% от ширины экрана */
+    display: flex;              /* Для центрирования текста */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.cart {
+    width: 40px;           /* Ширина контейнера корзины */
+    height: 40px;          /* Высота контейнера корзины */
+}
+
+.cart img {
+    max-width: 100%;       /* Изображение не выходит за пределы контейнера */
+    max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+}
+
+.down-arrow {
+    margin-top: 5px;
+    width: 15px;           /* Ширина контейнера корзины */
+    height: 15px;          /* Высота контейнера корзины */
+}
+
+.down-arrow img {
+    max-width: 100%;       /* Изображение не выходит за пределы контейнера */
+    max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+}

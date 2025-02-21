@@ -1,0 +1,57 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "deps/css/test.css" %}">
+    <title>Tech Shop Header</title>
+    <style>
+        @font-face {
+            font-family: 'Gotham Pro';
+            src: url('fonts/GothamPro-Regular.woff2') format('woff2'),
+                 url('fonts/GothamPro-Regular.woff') format('woff');
+            font-weight: bold;
+            font-style: bold;
+        }
+
+        @font-face {
+            font-family: 'Gotham Pro';
+            src: url('fonts/GothamPro-Bold.woff2') format('woff2'),
+                 url('fonts/GothamPro-Bold.woff') format('woff');
+            font-weight: bold;
+            font-style: bold;
+        }
+    </style>
+    
+</head>
+<body>
+    <header class="header">
+        <div class="logo">EUROLUXE</div>
+        
+        <nav class="nav">
+            <a href="#">Shop</a>
+            <a href="#">On Sale</a>
+            <div class="down-arrow">
+                <img src="{% static 'deps/icons/down-arrow.svg' %}">
+            </div>
+            <a href="#">New Arrivals</a>
+            <a href="#">Brands</a>
+        </nav>
+        
+        <div class="search-bar">
+            <input type="text" placeholder="Search for products...">
+        </div>
+
+        
+        <div class="cart">
+            <img src="{% static 'deps/icons/trash.svg' %}">
+        </div>
+    </header>
+
+    <content class="container">
+        <div class="test">ПРИВЕТ МИР</div>
+    </content>
+</body>
+</html>
