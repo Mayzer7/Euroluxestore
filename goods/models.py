@@ -1,3 +1,5 @@
+import os
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from users.models import User
@@ -62,6 +64,15 @@ class Review(models.Model):
         ordering = ['-created_at']
         verbose_name = 'Отзыв'
         verbose_name_plural = 'Отзывы'
+
+    def delete(self, *args, **kwargs):
+        # Удаляем изображение из файловой системы, если оно существует
+        if self.image:
+            image_path = os.path.join(settings.MEDIA_ROOT, self.image.name)
+            if os.path.isfile(image_path):
+                os.remove(image_path)
+        # Вызываем стандартный метод delete для удаления записи из БД
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return f'Отзыв от {self.user.username} к {self.product.name}'
