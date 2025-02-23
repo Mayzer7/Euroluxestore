@@ -7,11 +7,12 @@ body, html {
 
 .header {
     background-color: #ffffff;
-    margin-left: 50px;
-    padding: 30px 30px;
+    padding: 40px 40px;
     border-bottom: none;
     display: flex;
+    justify-content: center;
     align-items: center;
+    gap: 10px;
 }
 
 .logo {
@@ -19,11 +20,11 @@ body, html {
     font-weight: bold;
     color: #000000;
     margin-right: 20px;
+    text-decoration: none;
 }
 
 .nav {
     display: flex;
-    gap: 20px;
 }
 
 .nav a {
@@ -37,18 +38,41 @@ body, html {
     color: #666666;
 }
 
-.search-bar {
-    flex-grow: 1;
-    margin: 0 20px;
+.search-container {
+    display: flex;
+    align-items: center;
+    background: #eee;
+    border-radius: 30px;
+    padding: 8px 15px;
+    width: 500px;
+    height: 30px;
+    border: 2px solid transparent; /* По умолчанию прозрачная граница */
+    margin-right: 10px;
 }
 
-.search-bar input {
-    width: 50%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    font-size: 14px;
+.search-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    opacity: 0.6;
+}
+
+.search-input {
+    border: none;
     outline: none;
+    background: transparent;
+    flex: 1;
+    font-size: 14px;
+    color: #555;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+
+  /* Когда любой элемент внутри контейнера получает фокус */
+.search-container:focus-within {
+    border-color: black; /* Показываем чёрную границу */
 }
 
 .container {
@@ -58,15 +82,14 @@ body, html {
     text-align: center;
 }
 
-.test {
+.content {
     font-size: 30px;
     font-weight: bold;
-    color: white;
-    background-image: url("/static/deps/images/bg-image.jpg");
+    background-color: hsl(0, 0%, 94%);
     background-repeat: no-repeat;
     background-size: cover;       /* Изображение растягивается, сохраняя пропорции */
     background-position: center;  /* Центрируем изображение */
-    height: 100vh;  /* 100% от высоты экрана */
+    height: 616px;  /* 100% от высоты экрана */
     width: 100vw;   /* 100% от ширины экрана */
     display: flex;              /* Для центрирования текста */
     justify-content: center;
@@ -84,8 +107,21 @@ body, html {
     max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
 }
 
+.profile {
+    width: 30px;           /* Ширина контейнера корзины */
+    height: 30px;          /* Высота контейнера корзины */
+}
+
+.profile img {
+    max-width: 100%;       /* Изображение не выходит за пределы контейнера */
+    max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+}
+
 .down-arrow {
-    margin-top: 5px;
+    color: #000000;
+    position: relative;
+    right: 0; 
+    margin-top: 4px;
     width: 15px;           /* Ширина контейнера корзины */
     height: 15px;          /* Высота контейнера корзины */
 }
@@ -93,4 +129,25 @@ body, html {
 .down-arrow img {
     max-width: 100%;       /* Изображение не выходит за пределы контейнера */
     max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+}
+
+
+
+
+/* Стили для ссылок и иконок */
+.icon-link {
+    display: inline-block; /* Чтобы ссылки не растягивались */
+}
+
+/* Стили для SVG */
+.icon-link svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    transition: fill 0.3s ease; /* Плавное изменение цвета */
+}
+
+/* Цвет при наведении */
+.icon-link:hover svg path {
+    fill: gray; /* Меняем цвет на серый */
 }
