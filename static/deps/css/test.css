@@ -5,6 +5,7 @@ body, html {
     font-family: 'Gotham Pro', Arial, sans-serif;
 }
 
+/* ШАПКА */
 .header {
     background-color: #ffffff;
     padding: 40px 40px;
@@ -111,7 +112,7 @@ body, html {
 
 
 /* КОНТЕНТ */
-.container {
+.main-content {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -214,6 +215,39 @@ body, html {
 }
 
 
+/* БРЕНДЫ */
+
+
+.brands-content {
+    display: flex; /* Используем flexbox для горизонтального выравнивания */
+    justify-content: center; /* Центрируем логотипы */
+    align-items: center; /* Выравниваем по центру по вертикали */
+    gap: 120px; /* Расстояние между логотипами */
+    background-color: hsl(175, 38%, 19%); /* Черный фон */
+    padding: 40px 0; /* Отступы сверху и снизу */
+    overflow-x: auto; /* Добавляем горизонтальную прокрутку, если логотипов много */
+}
+
+.brand-logo {
+    height: 60px; /* Высота логотипов */
+    object-fit: contain; /* Сохраняем пропорции логотипа */
+    border-radius: 15px;
+}
 
 
 
+/* НОВАЯ КОЛЛЕКЦИЯ */
+
+.new-arrivals {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.head {
+    margin-top: 77px;
+    margin-bottom: 60px;
+    font-size: 40px;
+    font-weight: 900;
+}
