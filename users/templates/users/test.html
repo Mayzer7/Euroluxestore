@@ -41,7 +41,7 @@
         </nav>
         
         <div class="search-container">
-            <img src="https://cdn-icons-png.flaticon.com/512/622/622669.png" class="search-icon" alt="Search">
+            <img class="search-icon" src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search">
             <input type="text" class="search-input" placeholder="Поиск по названию...">
         </div>
 
@@ -58,11 +58,46 @@
                 <path fill="#000" d="M12 1.875A10.125 10.125 0 1 0 22.125 12 10.137 10.137 0 0 0 12 1.875M7.46 18.428a5.625 5.625 0 0 1 9.08 0 7.85 7.85 0 0 1-9.08 0m1.915-7.178a2.625 2.625 0 1 1 5.25 0 2.625 2.625 0 0 1-5.25 0m8.813 5.62a7.8 7.8 0 0 0-2.72-2.196 4.875 4.875 0 1 0-6.937 0 7.8 7.8 0 0 0-2.719 2.195 7.875 7.875 0 1 1 12.366 0h.01Z"></path>
             </svg>
         </a>
-        
     </header>
 
-    <content class="container">
-        <div class="content"></и>
-    </content>
+    <div class="container">
+        <div class="content">
+            <div class="content-left">
+                <div class="text-container">
+                    <h1 class="text-line">НАЙДИТЕ МЕБЕЛЬ</h1>
+                    <h1 class="text-line">ПОД ВАШ СТИЛЬ</h1>
+                </div>
+            
+                <div class="description">
+                    <p>Воплощение роскоши в вашем доме. Минималистичный дизайн, 
+                    изысканные формы и натуральные материалы создают идеальное пространство для жизни. 
+                    Погрузитесь в мир премиальной мебели, где стиль встречается с комфортом.</p>
+                </div>
+
+                <button class="shop-now-button">
+                    Купить сейчас
+                </button>
+                
+                <div class="info-container">
+                    <div class="info-box">
+                        <span class="info-number">200</span>
+                        <p class="info-text">Различных брендов</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-number">2,000</span>
+                        <p class="info-text">Высококачественной продукции</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-number">30,000</span>
+                        <p class="info-text">Довольных клиентов</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right">
+                <img class="content-img" src="{% static 'deps/images/content-img.jpg' %}" alt="">
+            </div>
+        </div>
+    </div>
 </body>
 </html>

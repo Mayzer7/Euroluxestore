@@ -38,6 +38,20 @@ body, html {
     color: #666666;
 }
 
+.down-arrow {
+    color: #000000;
+    position: relative;
+    right: 0; 
+    margin-top: 4px;
+    width: 15px;           /* Ширина контейнера корзины */
+    height: 15px;          /* Высота контейнера корзины */
+}
+
+.down-arrow img {
+    max-width: 100%;       /* Изображение не выходит за пределы контейнера */
+    max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+}
+
 .search-container {
     display: flex;
     align-items: center;
@@ -75,6 +89,28 @@ body, html {
     border-color: black; /* Показываем чёрную границу */
 }
 
+
+/* Стили для ссылок и иконок */
+.icon-link {
+    display: inline-block; /* Чтобы ссылки не растягивались */
+}
+
+/* Стили для SVG */
+.icon-link svg {
+    width: 24px;
+    height: 24px;
+    margin-right: 5px;
+    transition: fill 0.3s ease; /* Плавное изменение цвета */
+}
+
+/* Цвет при наведении */
+.icon-link:hover svg path {
+    fill: gray; /* Меняем цвет на серый */
+}
+
+
+
+/* КОНТЕНТ */
 .container {
     display: flex;
     justify-content: center;
@@ -97,57 +133,87 @@ body, html {
     text-align: center;
 }
 
-.cart {
-    width: 40px;           /* Ширина контейнера корзины */
-    height: 40px;          /* Высота контейнера корзины */
+.content-left {
+    display: flex;
+    flex-direction: column; /* Вертикальное выравнивание блоков */
+    align-items: flex-start; /* Прижимаем к левому краю */
+    padding: 20px;
+    margin-right: 20px;
+    margin-top: 30px;
 }
 
-.cart img {
-    max-width: 100%;       /* Изображение не выходит за пределы контейнера */
-    max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+.text-container {
+    display: flex;
+    flex-direction: column; /* Текст будет идти по вертикали */
+    align-items: flex-start; /* Текст выравнивается по левому краю */
+    margin-bottom: 20px; /* Добавим пространство между заголовками и описанием */
 }
 
-.profile {
-    width: 30px;           /* Ширина контейнера корзины */
-    height: 30px;          /* Высота контейнера корзины */
+.text-line {
+    font-size: 60px;
+    font-weight: 900;
+    color: #000;
+    margin: 0;
 }
 
-.profile img {
-    max-width: 100%;       /* Изображение не выходит за пределы контейнера */
-    max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+.description p {
+    font-size: 16px;
+    color: #333;
+    line-height: 1.6; /* Увеличиваем межстрочное расстояние для удобства чтения */
+    margin: 0;
+    padding: 0;
+    text-align: left; /* Текст по левому краю */
+    max-width: 600px; /* Ограничиваем ширину текста, чтобы он не растягивался по всему экрану */
 }
 
-.down-arrow {
+.shop-now-button {
+    margin-top: 30px;
+    background-color: #000000; /* Черный фон */
+    color: white; /* Белый текст */
+    font-size: 14px; /* Маленький размер шрифта */
+    font-weight: 600; /* Жирность текста */
+    border: none; /* Без рамки */
+    padding: 20px 60px; /* Увеличенная высота и ширина */
+    border-radius: 30px; /* Скругленные углы */
+    cursor: pointer; /* Курсор как указатель */
+    text-transform: uppercase; /* Преобразуем текст в верхний регистр */
+    transition: background-color 0.3s ease; /* Плавное изменение фона */
+}
+
+.shop-now-button:hover {
+    background-color: #333333; /* Более темный фон при наведении */
+}
+
+.info-container {
+    display: flex;
+    justify-content: center; /* Центрируем по горизонтали */
+    gap: 40px; /* Расстояние между блоками */
+    margin-top: 40px; /* Отступ сверху */
+}
+
+.info-box {
+    text-align: center; /* Центрируем текст */
+}
+
+.info-number {
+    font-size: 40px; /* Размер числа */
+    font-weight: bold; /* Жирность чисел */
     color: #000000;
-    position: relative;
-    right: 0; 
-    margin-top: 4px;
-    width: 15px;           /* Ширина контейнера корзины */
-    height: 15px;          /* Высота контейнера корзины */
 }
 
-.down-arrow img {
-    max-width: 100%;       /* Изображение не выходит за пределы контейнера */
-    max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+.info-text {
+    font-size: 14px; /* Размер текста */
+    color: #666666; /* Цвет текста */
+    margin-top: 10px; /* Отступ между числом и текстом */
+}
+
+.content-img {
+    margin-top: 5px;
+    width: 1080;
+    height: 616px;
 }
 
 
 
 
-/* Стили для ссылок и иконок */
-.icon-link {
-    display: inline-block; /* Чтобы ссылки не растягивались */
-}
 
-/* Стили для SVG */
-.icon-link svg {
-    width: 24px;
-    height: 24px;
-    margin-right: 5px;
-    transition: fill 0.3s ease; /* Плавное изменение цвета */
-}
-
-/* Цвет при наведении */
-.icon-link:hover svg path {
-    fill: gray; /* Меняем цвет на серый */
-}
