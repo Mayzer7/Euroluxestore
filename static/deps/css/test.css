@@ -408,3 +408,129 @@ hr {
     width: 80%;               
     margin-top: 50px;
 }
+
+
+
+
+
+
+
+
+
+/* Контейнер для адаптивности */
+.container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 150px;
+}
+
+.browse-content {
+    width: 80%;
+    max-width: 1200px; /* Соответствует ширине сайта */
+    padding: 40px;
+    background: hsl(220, 14%, 96%);
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.browse-head {
+    font-size: 40px;
+    font-weight: 900;
+    color: #2a2a2a;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+}
+
+.browse-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px; /* Соответствует отступам в других секциях */
+}
+
+.browse-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.browse-item:hover {
+    transform: translateY(-5px); /* Эффект подъема как у карточек товаров */
+}
+
+.browse-link {
+    display: block;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.browse-link img {
+    width: 100%;
+    height: 300px; /* Высота соответствует пропорциям карточек товаров */
+    object-fit: cover;
+    border: 2px solid hsl(175, 38%, 19%);
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+}
+
+.browse-item:hover .browse-link img {
+    transform: scale(1.1); /* Эффект увеличения как у карточек товаров */
+}
+
+.browse-label {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: hsl(175, 38%, 25%);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .browse-head {
+        font-size: 30px;
+        margin-bottom: 40px;
+    }
+
+    .browse-grid {
+        grid-template-columns: 1fr; /* Одна колонка на маленьких экранах */
+        gap: 20px;
+    }
+
+    .browse-link img {
+        height: 250px; /* Уменьшаем высоту для мобильных устройств */
+    }
+
+    .browse-label {
+        font-size: 16px;
+        padding: 8px 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .browse-content {
+        padding: 20px;
+    }
+
+    .browse-head {
+        font-size: 24px;
+    }
+
+    .browse-link img {
+        height: 200px;
+    }
+
+    .browse-label {
+        font-size: 14px;
+        padding: 6px 12px;
+    }
+}
