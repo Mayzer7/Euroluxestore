@@ -209,7 +209,7 @@ body, html {
 }
 
 .content-img {
-    margin-top: 5px;
+    margin-top: 6px;
     width: 1080;
     height: 616px;
 }
@@ -238,11 +238,18 @@ body, html {
 
 /* НОВАЯ КОЛЛЕКЦИЯ */
 
+
+.products-container {
+    display: flex;
+    gap: 40px;
+}
+
 .new-arrivals {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
+    padding-bottom: 100px;
 }
 
 .head {
@@ -250,4 +257,104 @@ body, html {
     margin-bottom: 60px;
     font-size: 40px;
     font-weight: 900;
+    color: #2a2a2a;
+}
+
+/* Стили для карточки товара */
+.product-card {
+    width: 350px;
+    padding: 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Центрируем содержимое карточки */
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+.new-arrivals-images {
+    margin-right: 64px;
+}
+
+.new-arrivals-images img {
+    width: 100%;
+    height: auto;
+    padding: 0 30px;
+    border: 2px solid hsl(175, 38%, 19%);
+    border-radius: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* Плавное масштабирование */
+}
+
+.product-card:hover .new-arrivals-images img {
+    transform: scale(1.1); /* Увеличение на 10% от центра */
+}
+
+.title {
+    margin: 15px 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    line-height: 1.2;
+    text-align: center; /* Центрируем заголовок */
+}
+
+/* Стили для рейтинга */
+.rating {
+    display: flex;
+    align-items: center; /* Вертикальное выравнивание звёзд и чисел */
+    justify-content: center; /* Горизонтальное выравнивание */
+}
+
+.stars {
+    font-size: 20px;
+    color: #e6b800;
+    margin-right: 10px; /* Расстояние между звёздами и числом */
+}
+
+.rating .star {
+    margin: 0 2px;
+}
+
+.rating-numbers {
+    font-size: 16px;
+    font-weight: 500;
+    color: black; /* Более мягкий цвет для чисел */
+}
+
+.price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin-top: 10px; /* Отступ сверху для баланса */
+}
+
+.priceAndButton {
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
+    margin-top: 20px;
+}
+
+/* Стили для кнопки Buy Now */
+.buy-now {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #fff;
+    background-color: hsl(175, 38%, 19%);
+    border: none;
+    border-radius: 25px; /* Овальная форма */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.buy-now:hover {
+    background-color: hsl(175, 38%, 25%);
+    transform: scale(1.05);
 }
