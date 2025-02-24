@@ -5,6 +5,7 @@ body, html {
     font-family: 'Gotham Pro', Arial, sans-serif;
 }
 
+
 /* ШАПКА */
 .header {
     background-color: #ffffff;
@@ -44,13 +45,13 @@ body, html {
     position: relative;
     right: 0; 
     margin-top: 4px;
-    width: 15px;           /* Ширина контейнера корзины */
-    height: 15px;          /* Высота контейнера корзины */
+    width: 15px;           
+    height: 15px;          
 }
 
 .down-arrow img {
-    max-width: 100%;       /* Изображение не выходит за пределы контейнера */
-    max-height: 100%;  /* Убирает лишние пробелы вокруг изображения */
+    max-width: 100%;       
+    max-height: 100%; 
 }
 
 .search-container {
@@ -61,7 +62,7 @@ body, html {
     padding: 8px 15px;
     width: 500px;
     height: 30px;
-    border: 2px solid transparent; /* По умолчанию прозрачная граница */
+    border: 2px solid transparent; 
     margin-right: 10px;
 }
 
@@ -84,29 +85,24 @@ body, html {
 .search-input::placeholder {
     color: #aaa;
 }
-
-  /* Когда любой элемент внутри контейнера получает фокус */
+  
 .search-container:focus-within {
-    border-color: black; /* Показываем чёрную границу */
+    border-color: black;
 }
 
-
-/* Стили для ссылок и иконок */
 .icon-link {
-    display: inline-block; /* Чтобы ссылки не растягивались */
+    display: inline-block; 
 }
 
-/* Стили для SVG */
 .icon-link svg {
     width: 24px;
     height: 24px;
     margin-right: 5px;
-    transition: fill 0.3s ease; /* Плавное изменение цвета */
+    transition: fill 0.3s ease; 
 }
 
-/* Цвет при наведении */
 .icon-link:hover svg path {
-    fill: gray; /* Меняем цвет на серый */
+    fill: gray; 
 }
 
 
@@ -124,11 +120,11 @@ body, html {
     font-weight: bold;
     background-color: hsl(0, 0%, 94%);
     background-repeat: no-repeat;
-    background-size: cover;       /* Изображение растягивается, сохраняя пропорции */
-    background-position: center;  /* Центрируем изображение */
-    height: 616px;  /* 100% от высоты экрана */
-    width: 100vw;   /* 100% от ширины экрана */
-    display: flex;              /* Для центрирования текста */
+    background-size: cover;       
+    background-position: center;  
+    height: 616px; 
+    width: 100vw;   
+    display: flex;              
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -136,8 +132,8 @@ body, html {
 
 .content-left {
     display: flex;
-    flex-direction: column; /* Вертикальное выравнивание блоков */
-    align-items: flex-start; /* Прижимаем к левому краю */
+    flex-direction: column; 
+    align-items: flex-start; 
     padding: 20px;
     margin-right: 20px;
     margin-top: 30px;
@@ -145,9 +141,9 @@ body, html {
 
 .text-container {
     display: flex;
-    flex-direction: column; /* Текст будет идти по вертикали */
-    align-items: flex-start; /* Текст выравнивается по левому краю */
-    margin-bottom: 20px; /* Добавим пространство между заголовками и описанием */
+    flex-direction: column; 
+    align-items: flex-start; 
+    margin-bottom: 20px;
 }
 
 .text-line {
@@ -160,52 +156,52 @@ body, html {
 .description p {
     font-size: 16px;
     color: #333;
-    line-height: 1.6; /* Увеличиваем межстрочное расстояние для удобства чтения */
+    line-height: 1.6; 
     margin: 0;
     padding: 0;
-    text-align: left; /* Текст по левому краю */
-    max-width: 600px; /* Ограничиваем ширину текста, чтобы он не растягивался по всему экрану */
+    text-align: left; 
+    max-width: 600px; 
 }
 
 .shop-now-button {
     margin-top: 30px;
-    background-color: #000000; /* Черный фон */
-    color: white; /* Белый текст */
-    font-size: 14px; /* Маленький размер шрифта */
-    font-weight: 600; /* Жирность текста */
-    border: none; /* Без рамки */
-    padding: 20px 60px; /* Увеличенная высота и ширина */
-    border-radius: 30px; /* Скругленные углы */
-    cursor: pointer; /* Курсор как указатель */
-    text-transform: uppercase; /* Преобразуем текст в верхний регистр */
-    transition: background-color 0.3s ease; /* Плавное изменение фона */
+    background-color: #000000; 
+    color: white; 
+    font-size: 14px; 
+    font-weight: 600; 
+    border: none; 
+    padding: 20px 60px; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    text-transform: uppercase; 
+    transition: background-color 0.3s ease; 
 }
 
 .shop-now-button:hover {
-    background-color: #333333; /* Более темный фон при наведении */
+    background-color: #333333; 
 }
 
 .info-container {
     display: flex;
-    justify-content: center; /* Центрируем по горизонтали */
-    gap: 40px; /* Расстояние между блоками */
-    margin-top: 40px; /* Отступ сверху */
+    justify-content: center; 
+    gap: 40px; 
+    margin-top: 40px; 
 }
 
 .info-box {
-    text-align: center; /* Центрируем текст */
+    text-align: center; 
 }
 
 .info-number {
-    font-size: 40px; /* Размер числа */
-    font-weight: bold; /* Жирность чисел */
+    font-size: 40px; 
+    font-weight: bold; 
     color: #000000;
 }
 
 .info-text {
-    font-size: 14px; /* Размер текста */
-    color: #666666; /* Цвет текста */
-    margin-top: 10px; /* Отступ между числом и текстом */
+    font-size: 14px; 
+    color: #666666; 
+    margin-top: 10px;
 }
 
 .content-img {
@@ -217,39 +213,43 @@ body, html {
 
 /* БРЕНДЫ */
 
-
 .brands-content {
-    display: flex; /* Используем flexbox для горизонтального выравнивания */
-    justify-content: center; /* Центрируем логотипы */
-    align-items: center; /* Выравниваем по центру по вертикали */
-    gap: 120px; /* Расстояние между логотипами */
-    background-color: hsl(175, 38%, 19%); /* Черный фон */
-    padding: 40px 0; /* Отступы сверху и снизу */
-    overflow-x: auto; /* Добавляем горизонтальную прокрутку, если логотипов много */
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 120px; 
+    background-color: hsl(175, 38%, 19%); 
+    padding: 40px 0; 
+    overflow-x: auto; 
 }
 
 .brand-logo {
-    height: 60px; /* Высота логотипов */
-    object-fit: contain; /* Сохраняем пропорции логотипа */
+    height: 60px; 
+    object-fit: contain; 
     border-radius: 15px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.brand-logo:hover {
+    transform: scale(1.3); 
+    filter: brightness(1.2); 
+}
+
+.brands-content:hover .brand-logo:not(:hover) {
+    transform: scale(0.85); 
+    filter: brightness(0.7); 
 }
 
 
 
 /* НОВАЯ КОЛЛЕКЦИЯ */
 
-
-.products-container {
-    display: flex;
-    gap: 40px;
-}
-
 .new-arrivals {
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding-bottom: 100px;
+    padding-bottom: 20px;
 }
 
 .head {
@@ -260,7 +260,25 @@ body, html {
     color: #2a2a2a;
 }
 
-/* Стили для карточки товара */
+.products-container {
+    display: flex;
+    gap: 40px;
+}
+
+.left-arrow img{
+    margin-top: 150px;
+    margin-right: 30px;
+    width: 60px;
+    height: 60px;
+}
+
+.right-arrow img{
+    margin-top: 150px;
+    margin-left: 30px;
+    width: 60px;
+    height: 60px;
+}
+
 .product-card {
     width: 350px;
     padding: 20px;
@@ -270,7 +288,7 @@ body, html {
     transition: transform 0.3s ease;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Центрируем содержимое карточки */
+    align-items: center; 
 }
 
 .product-card:hover {
@@ -288,11 +306,11 @@ body, html {
     border: 2px solid hsl(175, 38%, 19%);
     border-radius: 15px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease; /* Плавное масштабирование */
+    transition: transform 0.3s ease; 
 }
 
 .product-card:hover .new-arrivals-images img {
-    transform: scale(1.1); /* Увеличение на 10% от центра */
+    transform: scale(1.1); 
 }
 
 .title {
@@ -301,20 +319,19 @@ body, html {
     font-weight: 600;
     color: #333;
     line-height: 1.2;
-    text-align: center; /* Центрируем заголовок */
+    text-align: center; 
 }
 
-/* Стили для рейтинга */
 .rating {
     display: flex;
-    align-items: center; /* Вертикальное выравнивание звёзд и чисел */
-    justify-content: center; /* Горизонтальное выравнивание */
+    align-items: center;
+    justify-content: center; 
 }
 
 .stars {
     font-size: 20px;
     color: #e6b800;
-    margin-right: 10px; /* Расстояние между звёздами и числом */
+    margin-right: 10px;
 }
 
 .rating .star {
@@ -324,14 +341,7 @@ body, html {
 .rating-numbers {
     font-size: 16px;
     font-weight: 500;
-    color: black; /* Более мягкий цвет для чисел */
-}
-
-.price {
-    font-size: 22px;
-    font-weight: 700;
-    color: #2a2a2a;
-    margin-top: 10px; /* Отступ сверху для баланса */
+    color: black;
 }
 
 .priceAndButton {
@@ -341,7 +351,13 @@ body, html {
     margin-top: 20px;
 }
 
-/* Стили для кнопки Buy Now */
+.price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #2a2a2a;
+    margin-top: 10px; 
+}
+
 .buy-now {
     padding: 10px 20px;
     font-size: 16px;
@@ -349,7 +365,7 @@ body, html {
     color: #fff;
     background-color: hsl(175, 38%, 19%);
     border: none;
-    border-radius: 25px; /* Овальная форма */
+    border-radius: 25px;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.3s ease;
 }
@@ -357,4 +373,38 @@ body, html {
 .buy-now:hover {
     background-color: hsl(175, 38%, 25%);
     transform: scale(1.05);
+}
+
+
+.button-container {
+    display: flex;             
+    justify-content: center;    
+    align-items: center;        
+}
+
+
+.view-all-btn {
+    margin-top: 30px;
+    background-color: white; 
+    color: black; 
+    font-size: 14px; 
+    font-weight: 500; 
+    border: 1px solid hsl(175, 38%, 25%);  
+    padding: 20px 60px; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    text-transform: uppercase; 
+    transition: background-color 0.3s ease; 
+}
+
+.view-all-btn:hover {
+    background-color: hsl(175, 38%, 25%);
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: #e0e0e0;      
+    width: 80%;               
+    margin-top: 50px;
 }

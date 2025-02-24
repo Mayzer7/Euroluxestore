@@ -101,12 +101,28 @@
     </div>
 
     <div class="brands-content">
-        <img src="{% static 'deps/images/brands/brand1-logo.jpg' %}" alt="Brand 1" class="brand-logo">
-        <img src="{% static 'deps/images/brands/brand2-logo.jpg' %}" alt="Brand 2" class="brand-logo">
-        <img src="{% static 'deps/images/brands/brand3-logo.jpg' %}" class="brand-logo">
-        <img src="{% static 'deps/images/brands/brand4-logo.jpg' %}" class="brand-logo">
-        <img src="{% static 'deps/images/brands/brand5-logo.png' %}" class="brand-logo">
-        <img src="{% static 'deps/images/brands/brand6-logo.jpg' %}" class="brand-logo">
+        <a href="https://skdesign.ru/">
+            <img src="{% static 'deps/images/brands/brand1-logo.jpg' %}" alt="Brand 1" class="brand-logo">
+        </a>
+        <a href="https://dantonehome.ru/">
+            <img src="{% static 'deps/images/brands/brand2-logo.jpg' %}" alt="Brand 2" class="brand-logo">
+        </a>
+        
+        <a href="https://www.moon.ru/">
+            <img src="{% static 'deps/images/brands/brand3-logo.jpg' %}" class="brand-logo">
+        </a>
+
+        <a href="https://wooddi.com/">
+            <img src="{% static 'deps/images/brands/brand4-logo.jpg' %}" class="brand-logo">
+        </a>
+
+        <a href="https://unikamoblar.ru/">
+            <img src="{% static 'deps/images/brands/brand5-logo.png' %}" class="brand-logo">
+        </a>
+
+        <a href="https://fineobjects.ru/">
+            <img src="{% static 'deps/images/brands/brand6-logo.jpg' %}" class="brand-logo">
+        </a>
     </div>
 
     <div class="new-arrivals">
@@ -116,6 +132,11 @@
             </div>
 
             <div class="products-container">
+
+                <a class="left-arrow">
+                    <img src="{% static 'deps/icons/left-arrow.svg' %}">
+                </a>
+
                 <div class="product-card">
                     <a href="https://example.com" class="new-arrivals-images">
                         <img class="product-image" src="{% static 'deps/images/goods/LivingRoomWall/living_room_wall_1.jpg' %}" alt="Гостиная Сплит">
@@ -214,8 +235,142 @@
                         </button>
                     </div>
                 </div>
+
+                <a class="right-arrow">
+                    <img src="{% static 'deps/icons/right-arrow.svg' %}">
+                </a>
+
             </div>
+
         </div>
     </div>
+
+    <div class="button-container">
+        <button class="view-all-btn">Смотреть всё</button>
+    </div>
+
+    {% comment %} <hr> - ПРЯМАЯ ЛИНИЯ {% endcomment %}
+    <hr> 
+
+    <div class="new-arrivals">
+        <div class="new-arrivals-container">
+            <div class="head">
+                ТОПЫ ПРОДАЖ
+            </div>
+
+            <div class="products-container">
+
+                <a class="left-arrow">
+                    <img src="{% static 'deps/icons/left-arrow.svg' %}">
+                </a>
+
+                <div class="product-card">
+                    <a href="https://example.com" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/wardrobes/wardrobes1.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <div class="title">
+                        Шкаф BOSS LINE 180 - 4Д Оникс серый, Графит софт
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">☆</span>
+                        </div>
+                        <div class="rating-numbers">
+                            4.0/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            64 600 ₽
+                        </div>
+    
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+    
+                <div class="product-card">
+                    <a href="https://example.com" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/curbstones/curbstones1.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <div class="title">
+                        Тумба СИМПЛ NEW Крафт табачный, Серый графит
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">☆</span>
+                        </div>
+                        <div class="rating-numbers">
+                            4.5/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            5 999 ₽
+                        </div>
+    
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+    
+                <div class="product-card">
+                    <a href="https://example.com" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/tables/table1.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <div class="title">
+                        Стол-трансформер Венге
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <div class="rating-numbers">
+                            5/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            12 999 ₽
+                        </div>
+    
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+
+                <a class="right-arrow">
+                    <img src="{% static 'deps/icons/right-arrow.svg' %}">
+                </a>
+
+            </div>
+
+        </div>
+    </div>  
+
 </body>
 </html>
