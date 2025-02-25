@@ -440,11 +440,12 @@ hr {
     border: none;
     height: 1px;
     background: #e0e0e0;      
-    width: 80%;               
-    margin-top: 50px;
+    width: 100%;
 }
 
-
+.hr-content {
+    width: 1200px;
+}
 
 
 
@@ -578,7 +579,6 @@ hr {
 .reviews-section {
     text-align: center;
     margin: 80px auto;
-    padding-bottom: 80px;
     max-width: 90%;
 }
 
@@ -728,3 +728,161 @@ hr {
         height: 24px;
     }
 }
+
+
+
+
+/* STAY UPTO DATE ABOUT OUR LATEST OFFERS */
+
+.about-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+footer {
+    background: #fff;
+    padding-top: 40px;
+}
+.aboutletter {
+    width: 1200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: black;
+    border-radius: 30px;
+    color: white;
+    padding: 20px 20px;
+    text-align: center;
+}
+
+.aboutletter h2 {
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.subscribe button {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #eee;
+    border: 2px solid transparent;
+    border-radius: 30px;
+    padding: 8px 15px;
+    width: 385px;
+    height: 46px; /* Такой же, как у input */
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.subscribe button:hover {
+    border-color: #ccc; /* Эффект наведения */
+}
+
+.subscribe button:focus {
+    outline: none;
+}
+
+.subscribe input {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    width: 250px;
+    margin-right: 10px;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: flex-start; /* Выравнивание по левому краю */
+    padding-top: 20px;
+    max-width: 1200px;
+    margin: auto;
+    gap: 50px; /* Можно добавить или уменьшить, если нужно расстояние между блоками */
+}
+
+.about {
+    max-width: 300px;
+    text-align: left; /* Выравнивание текста внутри блока .about */
+}
+
+.links {
+    margin-top: 10px;
+    display: flex;
+    gap: 30px;
+    text-align: left; /* Выравнивание текста внутри списка */
+}
+
+.links div {
+    margin-right: 20px;
+}
+
+.links ul {
+    display: block;
+    width: 100%;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.links ul li {
+    margin-bottom: 10px; /* Добавьте отступы между ссылками */
+}
+
+.links a {
+    text-decoration: none; /* Убирает подчеркивание, если нужно */
+    color: inherit; /* Цвет текста наследуется от родительского элемента */
+}
+
+.footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.payment-icons span {
+    margin: 0 5px;
+}
+
+
+.email-container {
+    display: flex;
+    align-items: center;
+    background: #eee;
+    border-radius: 30px;
+    padding: 8px 15px;
+    width: 350px;
+    height: 30px;
+    border: 2px solid transparent; 
+    margin-right: 10px;
+}
+
+.email-container img {
+    width: 30px; 
+    height: 30px;
+}
+
+.about h3 {
+    font-size: 30px;
+    font-weight: 900;
+}
+
+.about-text {
+    margin-right: 100px;
+}
+
+.about-text h2 {
+    text-align: left; /* Прижимает текст влево */
+    line-height: 1.4; /* Регулирует расстояние между строками */
+}
+
+.social-icons a svg {
+    margin-right: 5px;
+}
+
