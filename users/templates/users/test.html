@@ -27,7 +27,7 @@
     
 </head>
 <body>
-    <header class="header">
+    <header class="header fade-in">
         <a href="#" class="logo">EUROLUXE</a>
         
         <nav class="nav">
@@ -60,9 +60,9 @@
         </a>
     </header>
 
-    <div class="main-content">
+    <div class="main-content fade-in">
         <div class="content">
-            <div class="content-left">
+            <div class="content-left fade-in-left">
                 <div class="text-container">
                     <h1 class="text-line">НАЙДИТЕ МЕБЕЛЬ</h1>
                     <h1 class="text-line">ПОД ВАШ СТИЛЬ</h1>
@@ -94,13 +94,13 @@
                 </div>
             </div>
             
-            <div class="content-right">
+            <div class="content-right fade-in-right">
                 <img class="content-img" src="{% static 'deps/images/content-img.jpg' %}" alt="">
             </div>
         </div>
     </div>
 
-    <div class="brands-content">
+    <div class="brands-content fade-in">
         <a href="https://skdesign.ru/">
             <img src="{% static 'deps/images/brands/brand1-logo.jpg' %}" alt="Brand 1" class="brand-logo">
         </a>
@@ -125,19 +125,19 @@
         </a>
     </div>
 
-    <div class="new-arrivals">
+    <div class="new-arrivals fade-in">
         <div class="new-arrivals-container">
-            <div class="head">
+            <div class="head fade-in">
                 НОВАЯ КОЛЛЕКЦИЯ
             </div>
 
             <div class="products-container">
 
-                <a class="left-arrow">
+                <a class="left-arrow fade-in-left">
                     <img src="{% static 'deps/icons/left-arrow.svg' %}">
                 </a>
 
-                <div class="product-card">
+                <div class="product-card fade-in">
                     <a href="https://example.com" class="new-arrivals-images">
                         <img class="product-image" src="{% static 'deps/images/goods/LivingRoomWall/living_room_wall_1.jpg' %}" alt="Гостиная Сплит">
                     </a>
@@ -170,7 +170,7 @@
                     </div>
                 </div>
     
-                <div class="product-card">
+                <div class="product-card fade-in">
                     <a href="https://example.com" class="new-arrivals-images">
                         <img class="product-image" src="{% static 'deps/images/goods/LivingRoomWall/living_room_wall_2.jpg' %}" alt="Гостиная Сплит">
                     </a>
@@ -203,7 +203,7 @@
                     </div>
                 </div>
     
-                <div class="product-card">
+                <div class="product-card fade-in">
                     <a href="https://example.com" class="new-arrivals-images">
                         <img class="product-image" src="{% static 'deps/images/goods/LivingRoomWall/living_room_wall_3.jpg' %}" alt="Гостиная Сплит">
                     </a>
@@ -236,7 +236,7 @@
                     </div>
                 </div>
 
-                <a class="right-arrow">
+                <a class="right-arrow fade-in-right">
                     <img src="{% static 'deps/icons/right-arrow.svg' %}">
                 </a>
 
@@ -252,19 +252,19 @@
     {% comment %} <hr> - ПРЯМАЯ ЛИНИЯ {% endcomment %}
     <hr> 
 
-    <div class="new-arrivals">
+    <div class="new-arrivals fade-in">
         <div class="new-arrivals-container">
-            <div class="head">
+            <div class="head fade-in">
                 ТОПЫ ПРОДАЖ
             </div>
 
             <div class="products-container">
 
-                <a class="left-arrow">
+                <a class="left-arrow fade-in-left">
                     <img src="{% static 'deps/icons/left-arrow.svg' %}">
                 </a>
 
-                <div class="product-card">
+                <div class="product-card fade-in">
                     <a href="https://example.com" class="new-arrivals-images">
                         <img class="product-image" src="{% static 'deps/images/goods/wardrobes/wardrobes1.jpg' %}" alt="Гостиная Сплит">
                     </a>
@@ -297,7 +297,7 @@
                     </div>
                 </div>
     
-                <div class="product-card">
+                <div class="product-card fade-in">
                     <a href="https://example.com" class="new-arrivals-images">
                         <img class="product-image" src="{% static 'deps/images/goods/curbstones/curbstones1.jpg' %}" alt="Гостиная Сплит">
                     </a>
@@ -330,7 +330,7 @@
                     </div>
                 </div>
     
-                <div class="product-card">
+                <div class="product-card fade-in">
                     <a href="https://example.com" class="new-arrivals-images">
                         <img class="product-image" src="{% static 'deps/images/goods/tables/table1.jpg' %}" alt="Гостиная Сплит">
                     </a>
@@ -363,7 +363,7 @@
                     </div>
                 </div>
 
-                <a class="right-arrow">
+                <a class="right-arrow fade-in-right">
                     <img src="{% static 'deps/icons/right-arrow.svg' %}">
                 </a>
 
@@ -376,29 +376,29 @@
         <button class="view-all-btn">Смотреть всё</button>
     </div>
 
-    <div class="container">
+    <div class="browse-container fade-in">
         <div class="browse-content">
-            <div class="browse-head">выбери нужный тебе интерьер</div>
+            <div class="browse-head fade-in">выбери нужный тебе интерьер</div>
             <div class="browse-grid">
-                <div class="browse-item">
+                <div class="browse-item fade-in">
                     <a href="#" class="browse-link">
                         <img src="{% static 'deps/images/goods/random/test1.jpg' %}" alt="Гостиные">
                         <span class="browse-label">Гостиная</span>
                     </a>
                 </div>
-                <div class="browse-item">
+                <div class="browse-item fade-in">
                     <a href="#" class="browse-link">
                         <img src="{% static 'deps/images/goods/random/test2.jpg' %}" alt="Шкафы">
                         <span class="browse-label">Спальня</span>
                     </a>
                 </div>
-                <div class="browse-item">
+                <div class="browse-item fade-in">
                     <a href="#" class="browse-link">
                         <img src="{% static 'deps/images/goods/random/test3.jpg' %}" alt="Тумбы">
                         <span class="browse-label">Кухня</span>
                     </a>
                 </div>
-                <div class="browse-item">
+                <div class="browse-item fade-in">
                     <a href="#" class="browse-link">
                         <img src="{% static 'deps/images/goods/random/test4.jpg' %}" alt="Столы">
                         <span class="browse-label">Ванная</span>
@@ -410,5 +410,26 @@
 
     <div>заглушка</div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+        
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+        });
+        </script>
 </body>
 </html>
