@@ -408,10 +408,60 @@
         </div>
     </div>
 
-    <div>заглушка</div>
+    <div class="browse-container fade-in">
+        <section class="reviews-section">
+            <div class="header-controls">
+                <h2>НАШИ ДОВОЛЬНЫЕ КЛИЕНТЫ</h2>
+                <div class="arrow-container">
+                    <button class="arrow left-arrow-review">
+                        <img src="{% static 'deps/icons/left-arrow.svg' %}" alt="Previous">
+                    </button>
+                    <button class="arrow right-arrow-review">
+                        <img src="{% static 'deps/icons/right-arrow.svg' %}" alt="Next">
+                    </button>
+                </div>
+            </div>
+            <div class="review-carousel">
+                <div class="review-slider">
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <h3>Отличное качество!</h3>
+                        <p>Очень довольна покупкой, качество на высоте.</p>
+                        <p><strong>Анна Смирнова</strong></p>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★☆</div>
+                        <h3>Хороший сервис</h3>
+                        <p>Доставка быстрая, товар соответствует описанию.</p>
+                        <p><strong>Максим Орлов</strong></p>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <h3>Лучший магазин!</h3>
+                        <p>Не первый раз заказываю здесь, всегда доволен!</p>
+                        <p><strong>Екатерина Лебедева</strong></p>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★☆☆</div>
+                        <h3>Ожидал лучшего</h3>
+                        <p>В целом неплохо, но упаковка была повреждена.</p>
+                        <p><strong>Алексей Иванов</strong></p>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <h3>Рекомендую!</h3>
+                        <p>Прекрасный магазин, вежливые консультанты.</p>
+                        <p><strong>Ольга Петрова</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // Анимации появления при скролле
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
             
             const observer = new IntersectionObserver((entries) => {
@@ -429,7 +479,116 @@
             elements.forEach(element => {
                 observer.observe(element);
             });
-        });
-        </script>
+            
+            // Переключения между карточками отзывов
+            const slider = document.querySelector('.review-slider');
+            const cards = document.querySelectorAll('.review-card');
+            const leftArrow = document.querySelector('.left-arrow-review');
+            const rightArrow = document.querySelector('.right-arrow-review');
+        
+            let currentIndex = 0;
+            const cardWidth = cards[0].offsetWidth + 20; // 20px — отступ между карточками
+            const maxIndex = cards.length - 1;
+            const minIndex = -maxIndex;
+        
+            function updateCarousel() {
+                slider.style.transition = 'transform 0.4s ease-in-out';
+                slider.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
+            }
+        
+            leftArrow.addEventListener('click', () => {
+                if (currentIndex > minIndex) {
+                    currentIndex--;  // Двигаем влево
+                    updateCarousel();   
+                }
+            });
+        
+            rightArrow.addEventListener('click', () => {
+                if (currentIndex < maxIndex) {
+                    currentIndex++;  // Двигаем вправо
+                    updateCarousel();
+                }
+            });
+        
+            // Обновляем положение карусели при загрузке
+            updateCarousel();
+
+
+            // Логика для свайпов (мобильные и ПК)
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            // Для мобильных устройств
+            slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            slider.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            // Для ПК (мышь)
+            let mouseDownX = 0;
+            let mouseUpX = 0;
+            
+            slider.addEventListener('mousedown', (e) => {
+                mouseDownX = e.screenX;
+            });
+
+            slider.addEventListener('mouseup', (e) => {
+                mouseUpX = e.screenX;
+                handleSwipe();
+            });
+
+            // Логика для обработки свайпа
+            function handleSwipe() {
+                const swipeThreshold = 50;  // Минимальное расстояние для свайпа
+
+                // Проверка для мобильных
+                if (Math.abs(touchStartX - touchEndX) > swipeThreshold) {
+                    if (touchStartX > touchEndX) {
+                        // Свайп влево
+                        if (currentIndex < maxIndex) {
+                            currentIndex++;  // Двигаем вправо
+                        } else {
+                            currentIndex = minIndex;  // Переходим на первый элемент
+                        }
+                    } else {
+                        // Свайп вправо
+                        if (currentIndex > minIndex) {
+                            currentIndex--;  // Двигаем влево
+                        } else {
+                            currentIndex = maxIndex;  // Переходим на последний элемент
+                        }
+                    }
+                    updateCarousel();
+                }
+
+                // Проверка для ПК (свайп через мышь)
+                if (Math.abs(mouseDownX - mouseUpX) > swipeThreshold) {
+                    if (mouseDownX > mouseUpX) {
+                        // Свайп влево
+                        if (currentIndex < maxIndex) {
+                            currentIndex++;  // Двигаем вправо
+                        } else {
+                            currentIndex = minIndex;  // Переходим на первый элемент
+                        }
+                    } else {
+                        // Свайп вправо
+                        if (currentIndex > minIndex) {
+                            currentIndex--;  // Двигаем влево
+                        } else {
+                            currentIndex = maxIndex;  // Переходим на последний элемент
+                        }
+                    }
+                    updateCarousel();
+                }
+            }
+        
+            // Обновляем положение карусели при загрузке
+            updateCarousel();
+        });        
+    </script>
 </body>
 </html>
