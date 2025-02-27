@@ -348,6 +348,7 @@ body, html {
 }
 
 .title {
+    text-decoration: none;
     margin: 15px 0;
     font-size: 18px;
     font-weight: 600;
@@ -419,6 +420,7 @@ body, html {
 
 
 .view-all-btn {
+    text-decoration: none;
     margin-top: 30px;
     background-color: white; 
     color: black; 

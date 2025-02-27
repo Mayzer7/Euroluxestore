@@ -13,4 +13,6 @@ urlpatterns = [
     path('users-cart/', views.UserCartView.as_view(), name='users_cart'),
     path('logout/', views.logout, name='logout'),
     path('test/', views.test, name='test'),
+    path('product/', views.product, name='product'),
+    path('catalog/', views.catalog, name='catalog'),
 ]

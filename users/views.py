@@ -275,6 +275,12 @@ def logout(request):
 def test(request):
     return render(request, 'users/test.html')
 
+def product(request):
+    return render(request, 'users/product.html')
+
+def catalog(request):
+    return render(request, 'users/catalog.html')
+
 
 # def login(request):
 #     if request.method == 'POST':

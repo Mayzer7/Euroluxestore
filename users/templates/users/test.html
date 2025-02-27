@@ -138,13 +138,13 @@
                 </a>
 
                 <div class="product-card fade-in">
-                    <a href="https://example.com" class="new-arrivals-images">
+                    <a href="{% url "user:product" %}" class="new-arrivals-images">
                         <img class="product-image" src="{% static 'deps/images/goods/LivingRoomWall/living_room_wall_1.jpg' %}" alt="Гостиная Сплит">
                     </a>
                     
-                    <div class="title">
+                    <a class="title" href="{% url "user:product" %}">
                         Гостиная Сплит 260-1 Крафт табачный, Серый графит
-                    </div>
+                    </a>
                     
                     <div class="rating">
                         <div class="stars">
@@ -246,7 +246,7 @@
     </div>
 
     <div class="button-container">
-        <button class="view-all-btn">Смотреть всё</button>
+        <a href="{% url "user:catalog" %}" class="view-all-btn">Смотреть всё</a>
     </div>
 
     {% comment %} <hr> - ПРЯМАЯ ЛИНИЯ {% endcomment %}
@@ -377,7 +377,7 @@
     </div> 
     
     <div class="button-container">
-        <button class="view-all-btn">Смотреть всё</button>
+        <a href="{% url "user:catalog" %}" class="view-all-btn">Смотреть всё</a>
     </div>
 
     <div class="browse-container fade-in">
