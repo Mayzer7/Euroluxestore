@@ -36,7 +36,7 @@
             </a>
             <a href="#">По скидке</a>
             <a href="#">Новая коллекция</a>
-            <a href="#">Брэнды</a>
+            <a href="#">Бренды</a>
         </nav>
         
         <div class="search-container">
@@ -59,103 +59,139 @@
         </a>
     </header>
 
-    <div class="breadcrumb-container">
+    <div class="breadcrumb-container fade-in">
         <nav class="breadcrumb">
             <a href="{% url "user:test" %}">Главная</a> > <a href="#">Каталог</a>
         </nav>
     </div>
 
-    <div class="product-container">
-        <div class="catalog">
-            <aside class="filters">
-                <h3>Фильтры</h3>
-                <div class="filter-section">
+    <div class="product-container fade-in">
+        <div class="catalog fade-in">
+            <aside class="filters fade-in">
+                <h3 class="fade-in">Фильтры</h3>
+                <div class="filter-section fade-in">
                     <label>Категория</label>
-                    <select>
-                        <option value="jackets">Jackets</option>
-                        <option value="pants">Pants</option>
-                    </select>
+
+                    <div class="form-group fade-in">
+                        <select name="select-brand fade-in">
+                            <option selected>Любая</option>
+                            <option>ГОСТИННАЯ</option>
+                            <option>СПАЛЬНЯ</option>
+                            <option>КУХНЯ</option>
+                            <option>ВАННА</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="filter-section">
-                    <label>Цена</label>
-                    <input type="range" min="200" max="8000" value="200" class="price-slider">
-                    <div class="price-range">$200 - $8000</div>
-                </div>
-                <div class="filter-section">
+
+                <div class="filter-section fade-in">
                     <label>Цвет</label>
-                    <div class="color-swatches">
-                        <div class="color" style="background-color: #ffffff;"></div>
-                        <div class="color" style="background-color: #000000;"></div>
-                        <div class="color" style="background-color: #ff69b4;"></div>
-                        <div class="color" style="background-color: #ffa500;"></div>
-                        <div class="color" style="background-color: #ff0000;"></div>
-                        <div class="color" style="background-color: #00ffff;"></div>
-                        <div class="color" style="background-color: #00ff00;"></div>
-                        <div class="color" style="background-color: #800080;"></div>
-                        <div class="color" style="background-color: #0000ff;"></div>
-                        <div class="color" style="background-color: #ffff00;"></div>
+                    <div class="form-group fade-in">
+                        <select name="select-brand fade-in">
+                            <option selected>Любой</option>
+                            <option>Бежевый</option>
+                            <option>Белый</option>
+                            <option>Коричневый</option>
+                            <option>Серый</option>
+                        </select>
                     </div>
                 </div>
-                <div class="filter-section">
-                    <label>Размер</label>
-                    <div class="size-buttons">
-                        <button>XX-Small</button>
-                        <button>X-Small</button>
-                        <button>Small</button>
-                        <button>Medium</button>
-                        <button>Large</button>
-                        <button>X-Large</button>
-                        <button>XX-Large</button>
-                        <button>3X-Large</button>
+
+                <div class="filter-section fade-in">
+                    <label>Цена</label>
+                    <input type="range" min="200" max="8000" value="200" class="price-slider fade-in">
+                    <div class="price-range fade-in">
+                        <div class="left-price fade-in">
+                            3000 ₽
+                        </div>
+
+                        <div class="right-price fade-in">
+                            300 000 ₽
+                        </div>
                     </div>
+                </div>
+
+                <div class="filter-section fade-in">
+                    <label>Размеры</label>
+                    <form class="size-filter">
+                        <div class="size-input">
+                          <label for="width">Ширина (см)</label>
+                          <input type="number" id="width" name="width" placeholder="до 100см">
+                        </div>
+                      
+                        <div class="size-input">
+                          <label for="length">Длина (см)</label>
+                          <input type="number" id="length" name="length" placeholder="до 200см">
+                        </div>
+                      
+                        <div class="size-input">
+                          <label for="height">Высота (см)</label>
+                          <input type="number" id="height" name="height" placeholder="до 150см">
+                        </div>
+                    </form>    
+                    
+                    <button class="acceptButton">
+                        Применить
+                    </button>
                 </div>
             </aside>
-            <main class="products">
-                <div class="sort-bar-container">
-                    <div class="sort-bar">
-                        Sort by: 
+            <main class="products fade-in">
+                <div class="sort-bar-container fade-in">
+                    <div class="sort-bar fade-in">
+                        Сортировать по: 
                         <select>
-                            <option>Most Popular</option>
-                            <option>Price Low to High</option>
-                            <option>Price High to Low</option>
+                            <option>По популярности</option>
+                            <option>По возрастанию цены</option>
+                            <option>По убыванию цены</option>
                         </select>
                     </div>
                     
-                    <h1 class="catalog-title">Каталог</h1>
+                    <h1 class="catalog-title fade-in">Каталог</h1>
                 </div>
-                <div class="product-grid">
-                    <div class="product-card">
-                        <img src="{% static 'deps/images/goods/random/test1.jpg' %}" alt="NAPAPIJRI ANORAK">
+                <div class="product-grid fade-in">
+                    <div class="product-card fade-in">
+                        <a href="{% url 'user:product' %}" class="product-image fade-in">
+                            <img src="{% static 'deps/images/goods/random/test1.jpg' %}" alt="NAPAPIJRI ANORAK">
+                        </a>
                         <h3>ГОСТИННАЯ ЛОФТ</h3>
-                        <div class="rating">★★★★★ (5/5)</div>
-                        <div class="price">$800 <span class="discount">$960</span> <span class="discount-label">20%</span></div>
+                        <div class="rating fade-in">★★★★★ (5/5)</div>
+                        <div class="price fade-in">$800 <span class="discount">$960</span> <span class="discount-label">20%</span></div>
                     </div>
-                    <div class="product-card">
-                        <img src="{% static 'deps/images/goods/random/test2.jpg' %}" alt="RIOT DIVISION PANTS">
+                    <div class="product-card fade-in">
+                        <a href="{% url "user:product" %}" class="product-image fade-in">
+                            <img src="{% static 'deps/images/goods/random/test2.jpg' %}" alt="RIOT DIVISION PANTS">
+                        </a>
                         <h3>СПАЛЬНЯ ЛОФТ</h3>
-                        <div class="rating">★★★★★ (4.8/5)</div>
-                        <div class="price">$500</div>
+                        <div class="rating fade-in">★★★★★ (4.8/5)</div>
+                        <div class="price fade-in">$500</div>
                     </div>
-                    <div class="product-card">
-                        <img src="{% static 'deps/images/goods/random/test3.jpg' %}" alt="MA.STRUM JACKET">
+                    <div class="product-card fade-in">
+                        <a href="{% url "user:product" %}" class="product-image fade-in">
+                            <img src="{% static 'deps/images/goods/random/test3.jpg' %}" alt="MA.STRUM JACKET">
+                        </a>
                         <h3>КУХНЯ ЛОФТ</h3>
                         <div class="rating">★★★★ (3.9/5)</div>
                         <div class="price">$600</div>
                     </div>
-                    <div class="product-card">
-                        <img src="{% static 'deps/images/goods/random/test4.jpg' %}" alt="MA.STRUM JACKET">
+                    <div class="product-card fade-in">
+                        <a href="{% url "user:product" %}" class="product-image fade-in">
+                            <img src="{% static 'deps/images/goods/random/test4.jpg' %}" alt="MA.STRUM JACKET">
+                        </a>
                         <h3>ВАННА ЛОФТ</h3>
                         <div class="rating">★★★★ (3.9/5)</div>
                         <div class="price">$600</div>
                     </div>
-                    <div class="product-card">
-                        <img src="{% static 'deps/images/goods/sofas/sofas1.jpg' %}" alt="NAPAPIJRI ANORAK">
+                    <div class="product-card fade-in">
+                        <a href="{% url "user:product" %}" class="product-image fade-in">
+                            <img src="{% static 'deps/images/goods/sofas/sofas1.jpg' %}" alt="NAPAPIJRI ANORAK">
+                        </a>
                         <h3>ДИВАН ЧЕРНЫЙ</h3>
                         <div class="rating">★★★★★ (5/5)</div>
                         <div class="price">$800 <span class="discount">$960</span> <span class="discount-label">20%</span></div>
                     </div>
-                    <div class="product-card">
-                        <img src="{% static 'deps/images/goods/sofas/sofas2.jpg' %}" alt="RIOT DIVISION PANTS">
+                    <div class="product-card fade-in">
+                        <a href="{% url "user:product" %}" class="product-image fade-in">
+                            <img src="{% static 'deps/images/goods/sofas/sofas2.jpg' %}" alt="RIOT DIVISION PANTS">
+                        </a>
                         <h3>ДИВАН СЕРЫЙ</h3>
                         <div class="rating">★★★★★ (4.8/5)</div>
                         <div class="price">$500</div>
@@ -167,6 +203,35 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+
+            const priceSlider = document.querySelector('.price-slider');
+            const leftPrice = document.querySelector('.left-price');
+
+            // Устанавливаем диапазон для слайдера (от 0 до 100)
+            priceSlider.min = 0;
+            priceSlider.max = 100;
+            priceSlider.value = 0; // Начальное значение
+
+            // Функция для преобразования линейного значения в логарифмическое
+            function scalePrice(value) {
+                const minPrice = 3000;
+                const maxPrice = 300000;
+                const logMin = Math.log10(minPrice);
+                const logMax = Math.log10(maxPrice);
+                
+                // Переводим линейный диапазон в логарифмический
+                const scaledValue = Math.pow(10, logMin + (value / 100) * (logMax - logMin));
+
+                // Округляем до 100 рублей
+                return Math.round(scaledValue / 100) * 100;
+            }
+
+            // Обработчик изменения ползунка
+            priceSlider.addEventListener('input', (event) => {
+                let price = scalePrice(event.target.value);
+                leftPrice.textContent = `${price.toLocaleString()} ₽`; // Форматируем с пробелами
+            });
+
             // Анимации появления при скролле
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
             
@@ -303,6 +368,8 @@
                     }
                 }
             });
+
+            
         });        
     </script>
 </body>

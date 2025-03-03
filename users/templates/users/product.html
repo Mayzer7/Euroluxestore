@@ -82,55 +82,67 @@
             <div class="modal" id="imageModal">
                 <span class="close-modal">×</span>
                 <img class="modal-content" id="modalImage">
-                <button class="prev-btn"><</button>
-                <button class="next-btn">></button>
+                
+                <!-- Кнопка "Назад" -->
+                <button class="prev-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="black" d="M15.53 19.53a.75.75 0 0 0 0-1.06L9.06 12l6.47-6.47a.75.75 0 1 0-1.06-1.06l-7 7a.75.75 0 0 0 0 1.06l7 7a.75.75 0 0 0 1.06 0Z"/>
+                    </svg>
+                </button>
+
+                <!-- Кнопка "Вперёд" -->
+                <button class="next-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="black" d="M8.47 19.53a.75.75 0 0 1 0-1.06L14.94 12 8.47 5.53a.75.75 0 1 1 1.06-1.06l7 7a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0Z"/>
+                    </svg>
+                </button>
             </div>
         </div>
 
-        <div class="product-details">
-            <h1>Кровать BOSS 160 велюр Monolit белый</h1>
-            <div class="rating">
+        <div class="product-details fade-in">
+            <h1 class="fade-in">Кровать BOSS 160 велюр Monolit белый</h1>
+            <div class="rating fade-in">
                 ★★★★★ <span class="ratingNumber">4.5/5</span> <span class="discount">10% скидка</span>
             </div>
-            <div class="price">
-                <span class="current-price">40 950 ₽</span>
-                <span class="original-price">45 500 ₽</span>
+            <div class="price fade-in">
+                <span class="current-price fade-in">40 950 ₽</span>
+                <span class="original-price fade-in">45 500 ₽</span>
             </div>
-            <p class="description">
+            <p class="description fade-in">
                 Кровать BOSS — это воплощение элегантности и минимализма. Её лаконичный дизайн, подчёркнутый мягким изголовьем с геометричным узором, делает эту кровать центральным элементом любой спальни. Комфортные обивки создают неповторимое ощущение уюта и способствуют полноценному отдыху.
             </p>
 
-            <div class="options">
-                <div class="color-selector">
+            <div class="options fade-in">
+                <div class="color-selector fade-in">
                     <label>Выберите цвет</label>
-                    <div class="colors">
-                        <button class="color red" data-color="red"></button>
-                        <button class="color purple" data-color="purple"></button>
-                        <button class="color blue" data-color="blue"></button>
+                    <div class="colors fade-in">
+                        <button class="color red fade-in" data-color="red"></button>
+                        <button class="color purple fade-in" data-color="purple"></button>
+                        <button class="color blue fade-in" data-color="blue"></button>
                     </div>
                 </div>
 
-                <div class="size-selector">
+                <div class="size-selector fade-in">
                     <label>Выберите размер</label>
-                    <div class="sizes">
-                        <button class="size" data-size="small">140x200</button>
-                        <button class="size" data-size="middle">160x200</button>
-                        <button class="size" data-size="max">180x200</button>
+                    <div class="sizes fade-in">
+                        <button class="size fade-in" data-size="small">140x200</button>
+                        <button class="size fade-in" data-size="middle">160x200</button>
+                        <button class="size fade-in" data-size="max">180x200</button>
                     </div>
                 </div>
 
-                <div class="quantity">
-                    <button class="quantity-btn">-</button>
-                    <span class="quantity-value">1</span>
-                    <button class="quantity-btn">+</button>
+                <div class="quantity fade-in">
+                    <button class="quantity-btn fade-in">-</button>
+                    <span class="quantity-value fade-in">1</span>
+                    <button class="quantity-btn fade-in">+</button>
                 </div>
                 
-                <button class="add-to-cart">Добавить в корзину</button>
+                <button class="add-to-cart fade-in">Добавить в корзину</button>
             </div>
         </div>
     </div>
 
-    <script>
+    <script>    
         document.addEventListener('DOMContentLoaded', () => {
             // Анимации появления при скролле
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
