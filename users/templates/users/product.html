@@ -66,36 +66,16 @@
         </nav>
     </div>
 
-    <div class="product-container">
-        <div class="product-images">
-            <div class="dopImg">
+    <div class="product-container fade-in">
+        <div class="product-images fade-in">
+            <div class="dopImg fade-in">
                 <img src="{% static 'deps/images/goods/random/test1.jpg' %}" alt="Jacket Model 1" class="thumbnail">
                 <img src="{% static 'deps/images/goods/random/test2.jpg' %}" alt="Jacket Model 2" class="thumbnail">
                 <img src="{% static 'deps/images/goods/random/test3.jpg' %}" alt="Jacket Model 3" class="thumbnail">
             </div>
 
-            <div class="mainImg">
+            <div class="mainImg fade-in">
                 <img src="{% static 'deps/images/goods/bads/bad1.jpg' %}" alt="MainImg">
-            </div>
-
-            <!-- Модальное окно -->
-            <div class="modal" id="imageModal">
-                <span class="close-modal">×</span>
-                <img class="modal-content" id="modalImage">
-                
-                <!-- Кнопка "Назад" -->
-                <button class="prev-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="black" d="M15.53 19.53a.75.75 0 0 0 0-1.06L9.06 12l6.47-6.47a.75.75 0 1 0-1.06-1.06l-7 7a.75.75 0 0 0 0 1.06l7 7a.75.75 0 0 0 1.06 0Z"/>
-                    </svg>
-                </button>
-
-                <!-- Кнопка "Вперёд" -->
-                <button class="next-btn">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
-                        <path fill="black" d="M8.47 19.53a.75.75 0 0 1 0-1.06L14.94 12 8.47 5.53a.75.75 0 1 1 1.06-1.06l7 7a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0Z"/>
-                    </svg>
-                </button>
             </div>
         </div>
 
@@ -140,6 +120,26 @@
                 <button class="add-to-cart fade-in">Добавить в корзину</button>
             </div>
         </div>
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="imageModal">
+        <span class="close-modal">×</span>
+        <img class="modal-content" id="modalImage">
+        
+        <!-- Кнопка "Назад" -->
+        <button class="prev-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="black" d="M15.53 19.53a.75.75 0 0 0 0-1.06L9.06 12l6.47-6.47a.75.75 0 1 0-1.06-1.06l-7 7a.75.75 0 0 0 0 1.06l7 7a.75.75 0 0 0 1.06 0Z"/>
+            </svg>
+        </button>
+
+        <!-- Кнопка "Вперёд" -->
+        <button class="next-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="black" d="M8.47 19.53a.75.75 0 0 1 0-1.06L14.94 12 8.47 5.53a.75.75 0 1 1 1.06-1.06l7 7a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0Z"/>
+            </svg>
+        </button>
     </div>
 
     <script>    
