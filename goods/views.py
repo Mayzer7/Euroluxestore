@@ -12,7 +12,7 @@ from django.views.generic import TemplateView
 from .models import Products
 
 
-
+from django.db.models import F, ExpressionWrapper, DecimalField
 
 
 class CatalogView(TemplateView):
@@ -25,6 +25,29 @@ class CatalogView(TemplateView):
 
         # Получаем все товары
         products_list = Products.objects.all()
+        
+        # Определяем сортировку
+        sort_order = self.request.GET.get('sort', '')
+
+        if sort_order == 'discount':
+            # Фильтровать по товарам со скидкой
+            products_list = products_list.filter(discount__gt=0)
+        elif sort_order == 'price_asc':
+            # Сортировка по цене с учётом скидочных товаров
+            products_list = products_list.annotate(
+                final_price=ExpressionWrapper(
+                    F('price') * (100 - F('discount')) / 100, 
+                    output_field=DecimalField()
+                )
+            ).order_by('final_price')
+        elif sort_order == 'price_desc':
+            # Сортировка по убыванию цены с учётом скидочных товаров
+            products_list = products_list.annotate(
+                final_price=ExpressionWrapper(
+                    F('price') * (100 - F('discount')) / 100, 
+                    output_field=DecimalField()
+                )
+            ).order_by('-final_price')
         
         # Пагинация
         paginator = Paginator(products_list, 9)  # 9 товаров на страницу

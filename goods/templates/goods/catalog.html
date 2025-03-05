@@ -86,15 +86,14 @@
                 <div class="sort-bar-container fade-in">
                     <div class="sort-bar fade-in">
                         Сортировать по: 
-                        <select>
-                            <option>По популярности</option>
-
-                            <option>
-                                По возрастанию цены
-                            </option>
-                            
-                            <option>По убыванию цены</option>
-                        </select>
+                        <form method="GET" action="">
+                            <select name="sort" onchange="this.form.submit()">
+                                <option value="popularity" {% if request.GET.sort == 'popularity' %}selected{% endif %}>По популярности</option>
+                                <option value="discount" {% if request.GET.sort == 'discount' %}selected{% endif %}>По скидке</option>
+                                <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>По возрастанию цены</option>
+                                <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>По убыванию цены</option>
+                            </select>
+                        </form>                                            
                     </div>
                     
                     <h1 class="catalog-title fade-in">Каталог</h1>
@@ -127,7 +126,7 @@
                 <div class="pagination">
                     <div class="arrow">
                         {% if page_obj.has_previous %}
-                            <a href="?page={{ page_obj.previous_page_number }}">
+                            <a href="?page={{ page_obj.previous_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
                                 <svg viewBox="0 0 24 24">
                                     <path d="M15 19l-7-7 7-7"></path>
                                 </svg>
@@ -141,13 +140,13 @@
                         {% if page_obj.number == num %}
                             <div class="page active">{{ num }}</div>  <!-- Текущая страница -->
                         {% else %}
-                            <a href="?page={{ num }}" class="page">{{ num }}</a>
+                            <a href="?page={{ num }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}" class="page">{{ num }}</a>
                         {% endif %}
                     {% endfor %}
                 
                     <div class="arrow">
                         {% if page_obj.has_next %}
-                            <a href="?page={{ page_obj.next_page_number }}">
+                            <a href="?page={{ page_obj.next_page_number }}{% if request.GET.sort %}&sort={{ request.GET.sort }}{% endif %}">
                                 <svg viewBox="0 0 24 24">
                                     <path d="M9 5l7 7-7 7"></path>
                                 </svg>
@@ -157,6 +156,7 @@
                         {% endif %}
                     </div>
                 </div>
+                
                 
             </main>
         </div>
