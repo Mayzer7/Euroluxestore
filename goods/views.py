@@ -31,7 +31,9 @@ class CatalogView(TemplateView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-        context['products'] = page_obj  # Передаём в шаблон объект страницы
+        context['products'] = page_obj  # Передаем в шаблон объект страницы
+        context['page_obj'] = page_obj  # Передаем объект страницы для пагинации
+        context['paginator'] = paginator  # Передаем объект пагинатора для пагинации
         return context
 
 class ProductView(TemplateView):

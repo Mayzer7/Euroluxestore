@@ -538,28 +538,135 @@ select::-ms-expand {
 
 
 
+
+
+
+
+
 .pagination {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
-    padding: 10px 0;
+    align-items: center;
+    margin: 20px 0;
+    font-family: Arial, sans-serif;
 }
+
 .page-link {
-    padding: 8px 16px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin: 0 5px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
     color: #333;
-    transition: background 0.3s ease;
-}
-.page-link:hover {
-    background: #f0f0f0;
-}
-.current {
-    padding: 8px 16px;
-    background: #333;
-    color: #fff;
-    border-radius: 5px;
     font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+}
+
+.page-link:hover {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.page-link.current {
+    background-color: #007bff;
+    color: #fff;
+    pointer-events: none;
+}
+
+.page-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+.page-link.first-page, .page-link.last-page {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.page-link.prev-page, .page-link.next-page {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.page-link.first-page:hover, .page-link.last-page:hover {
+    background-color: #0056b3;
+}
+
+.page-link.prev-page:hover, .page-link.next-page:hover {
+    background-color: #218838;
+}
+
+.page-link:focus {
+    outline: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.page {
+    padding: 10px 15px;
+    font-weight: 600;
+    border-radius: 6px;
+    background: #202020; /* Черный фон для обычных страниц */
+    color: #fff; /* Белый цвет текста для номеров страниц */
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.3s;
+    text-decoration: none; /* Убираем подчеркивание */
+}
+
+.page:hover {
+    background: #333; /* Более светлый серый фон при наведении */
+}
+
+.active {
+    background: #555; /* Светло-серый фон для активной страницы */
+}
+
+.arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+    background: #202020;
+    cursor: pointer;
+    color: #f3f3f3; /* Белый цвет для стрелок */
+}
+
+.arrow:hover {
+    background: #333; /* Более светлый серый фон при наведении */
+}
+
+.arrow svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: #f3f3f3; /* Белый цвет стрелок */
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
 }

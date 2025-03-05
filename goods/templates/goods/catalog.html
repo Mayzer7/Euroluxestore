@@ -121,29 +121,43 @@
                             <p>Нет товаров в каталоге.</p>
                         {% endfor %}
                     
-                        <div class="pagination">
-                            {% if products.has_previous %}
-                                <a href="?page=1" class="page-link">Первая</a>
-                                <a href="?page={{ products.previous_page_number }}" class="page-link">Предыдущая</a>
-                            {% endif %}
-                        
-                            {% for num in products.paginator.page_range %}
-                                {% if products.number == num %}
-                                    <span class="page-link current">{{ num }}</span>
-                                {% elif num > products.number|add:"-3" and num < products.number|add:"3" %}
-                                    <a href="?page={{ num }}" class="page-link">{{ num }}</a>
-                                {% endif %}
-                            {% endfor %}
-                        
-                            {% if products.has_next %}
-                                <a href="?page={{ products.next_page_number }}" class="page-link">Следующая</a>
-                                <a href="?page={{ products.paginator.num_pages }}" class="page-link">Последняя</a>
-                            {% endif %}
-                        </div>
-
                     </div>
-
                 </div>
+
+                <div class="pagination">
+                    <div class="arrow">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M15 19l-7-7 7-7"></path>
+                                </svg>
+                            </a>
+                        {% else %}
+                            <span>&#8249;</span>
+                        {% endif %}
+                    </div>
+                
+                    {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                            <div class="page active">{{ num }}</div>  <!-- Текущая страница -->
+                        {% else %}
+                            <a href="?page={{ num }}" class="page">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+                
+                    <div class="arrow">
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}">
+                                <svg viewBox="0 0 24 24">
+                                    <path d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        {% else %}
+                            <span>&#8250;</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
             </main>
         </div>
     </div>
