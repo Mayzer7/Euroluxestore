@@ -48,7 +48,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    text-align: center;
 }
 
 .logo {
@@ -131,6 +131,7 @@ body, html {
 .icon-link svg {
     width: 24px;
     height: 24px;
+    margin-left: 10px;
     margin-right: 5px;
     transition: fill 0.3s ease; 
 }
