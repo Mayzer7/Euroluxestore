@@ -1,161 +1,323 @@
 {% extends "base.html" %}
 {% load static %}
-{% load goods_tags %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-{% endblock  %}
+    <link rel="stylesheet" href="{% static "deps/css/catalog.css" %}">
+{% endblock css %}
 
-{% block modal_cart %}
-    {% include "includes/cart_button.html" %}
-{% endblock %}
 
 {% block content %}
-<!-- Контент на странице -->
-<div class="row">
-    <!-- Форма фильтров -->
-    <div class="dropdown mb-2">
-        <button class="btn btn-secondary dropdown-toggle btn-dark filter-btn" type="button" data-bs-toggle="dropdown"
-            aria-expanded="false">
-            Фильтры
-        </button>
-
-        <form action="{% if request.GET.q %}{% url "catalog:search" %}{% else %}{% url "catalog:index" slug_url %}{% endif %}" method="get" class="dropdown-menu bg-dark" data-bs-theme="dark">
-            <div class="form-check text-white mx-3">
-                <input class="form-check-input" type="checkbox" name="on_sale" id="flexCheckDefault" value="on" {% if  request.GET.on_sale == 'on'%}checked{% endif %}>
-                {% if request.GET.q %}
-                    <input type="hidden" name="q" value="{{ request.GET.q }}">
-                {% endif %} 
-                <label class="form-check-label" for="flexCheckDefault">
-                    Товары по акции
-                </label>
-            </div>
-            <p class="text-white mx-3 mt-3">Сортировать:</p>
-            <div class="form-check text-white mx-3">
-                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault1" value="default"
-                {% if not request.GET.order_by or request.GET.order_by == 'default'%}checked{% endif %}>
-                <label class="form-check-label" for="flexRadioDefault1">
-                    По умолчанию
-                </label>
-            </div>
-            <div class="form-check text-white mx-3">
-                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault2" value="price" 
-                {% if  request.GET.order_by == 'price'%}checked{% endif %}>
-                <label class="form-check-label" for="flexRadioDefault2">
-                    От дешевых к дорогим
-                </label>
-            </div>
-            <div class="form-check text-white mx-3">
-                <input class="form-check-input" type="radio" name="order_by" id="flexRadioDefault3" value="-price" 
-                {% if  request.GET.order_by == '-price'%}checked{% endif %}>
-                <label class="form-check-label" for="flexRadioDefault3">
-                    От дорогих к дешевым
-                </label>
-            </div>
-            <button type="submit" class="btn btn-primary mx-3 mt-3">Применить</button>
-        </form>
+    <div class="breadcrumb-container fade-in">
+        <nav class="breadcrumb">
+            <a href="#">Главная</a> > <a href="#">Каталог</a>
+        </nav>
     </div>
 
-    {% if request.GET.q %}
-        {% if not goods %}
-            <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-            <h2 class="mt-4">По запросу "{{ request.GET.q }}" ничего не найдено</h2>
-        {% else %}
-            <h3 class="mt-4">Результат поиска по запросу "{{ request.GET.q }}"</h3>
-        {% endif %}
-    {% endif %}
+    <div class="product-container fade-in">
+        <div class="catalog fade-in">
+            <aside class="filters fade-in">
+                <h3 class="fade-in">Фильтры</h3>
+                <div class="filter-section fade-in">
+                    <label>Категория</label>
 
-    {% for product in goods %}
-        <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-        <!-- Карта товара -->
-        <div class="col-lg-4 col-md-6 p-4">
-            <div class="card border-primary rounded custom-shadow">
-                {% if product.image %}
-                    <a href="{% url "catalog:product_detail" product.slug %}">
-                        <img src="{{ product.image.url }}" class="card-img-top" alt="{{ product.name }}">
-                    </a>
-                {% else %}
-                    <img src="{% static "deps/images/Not found image.png" %}" class="card-img-top" alt="...">
-                {% endif %}
-                <div class="card-body">
-                    <a class="custom-link" href="{% url "catalog:product_detail" product.slug %}">
-                        <p class="card-title">
-                            {% autoescape off %}
-                            {% if product.headline %}
-                            {{ product.headline }}
-                            {% else %} 
-                            {{ product.name }} 
-                            {% endif %}
-                            {% endautoescape %}
-                        </p>
-                    </a>
-                    <p class="card-text">
-                        {% autoescape off %}
-                            {% if product.bodyline %}
-                            {{ product.bodyline|truncatechars:100 }}
-                            {% else %} 
-                            {{ product.description|truncatechars:49 }} 
-                            {% endif %}
-                        {% endautoescape %}
-                    </p> 
-                    <p class="product_id">id: {{ product.display_id }}</p>
-                    <div class="d-flex justify-content-between">
-                        
-                        {% if product.discount%}
-                            <p><s>{{ product.price|floatformat:0 }}</s>₽</p>
-                            <p><strong>{{ product.sell_price }}₽</strong></p>
-                            <span class="badge bg-warning text-dark">Скидка {{ product.discount|floatformat:0 }}%</span>
-                        {% else %}
-                            <p><strong>{{ product.price|floatformat:0 }}₽</strong></p> 
-                        {% endif %}
-
-                        <a href="{% url "cart:cart_add" %}" class="btn-cart-add btn add-to-cart" data-product-id="{{ product.id }}">
-                            {% csrf_token %}
-                            <img class="mx-1" src="{% static "deps/icons/cart-plus.svg" %}" alt="Catalog Icon"
-                                width="32" height="32">
-                        </a>
+                    <div class="form-group fade-in">
+                        <select name="select-brand fade-in">
+                            <option selected>Любая</option>
+                            <option>ГОСТИННАЯ</option>
+                            <option>СПАЛЬНЯ</option>
+                            <option>КУХНЯ</option>
+                            <option>ВАННА</option>
+                        </select>
                     </div>
                 </div>
-            </div>
-        </div>
-    {% endfor %}
 
-    <!-- Пагинация -->
-    {% if goods %}
-        <nav aria-label="Page navigation example mb-edit">
-            <ul class="pagination justify-content-center">
-                <div class="pag custom-shadow d-flex">
-                    <li class="page-item {% if not page_obj.has_previous %}disabled{% endif %}">
-                    <a class="page-link" href="{% if page_obj.has_previous %}?{% change_params page=page_obj.previous_page_number%}{% else %}#{% endif %}">Назад</a>
-                    </li>
-
-                    {% for page in page_obj.paginator.page_range %}
-                        {% if page >= page_obj.number|add:-2 and page <= page_obj.number|add:2 %}
-                            <li class="page-item {% if page_obj.number == page %} active {% endif %}">
-                                <a class="page-link" href="?{% change_params page=page%}">{{ page }}</a>
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                
-                    <li class="page-item {% if not page_obj.has_next %}disabled{% endif %}">
-                        <a class="page-link" href="{% if page_obj.has_next %}?{% change_params page=page_obj.next_page_number%}{% else %}#{% endif %}">Вперед</a>
-                    </li>
+                <div class="filter-section fade-in">
+                    <label>Цвет</label>
+                    <div class="form-group fade-in">
+                        <select name="select-brand fade-in">
+                            <option selected>Любой</option>
+                            <option>Бежевый</option>
+                            <option>Белый</option>
+                            <option>Коричневый</option>
+                            <option>Серый</option>
+                        </select>
+                    </div>
                 </div>
-            </ul>
-        </nav>
-    {% endif %}
-{% endblock content %}
 
-{% block footer %}
-    <footer class="py-3 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center">
-                <a href="https://github.com/Mayzer7" class="author text-decoration-none">
-                    Copyright &copy; Корзунов А.E
-                </a>
-            </p>
+                <div class="filter-section fade-in">
+                    <label>Цена</label>
+                    <input type="range" min="200" max="8000" value="200" class="price-slider fade-in">
+                    <div class="price-range fade-in">
+                        <div class="left-price fade-in">
+                            3000 ₽
+                        </div>
+
+                        <div class="right-price fade-in">
+                            300 000 ₽
+                        </div>
+                    </div>
+                </div>
+
+                <div class="filter-section fade-in">
+                    <label>Размеры</label>
+                    <form class="size-filter">
+                        <div class="size-input">
+                        <label for="width">Ширина (см)</label>
+                        <input type="number" id="width" name="width" placeholder="до 100см">
+                        </div>
+                    
+                        <div class="size-input">
+                        <label for="length">Длина (см)</label>
+                        <input type="number" id="length" name="length" placeholder="до 200см">
+                        </div>
+                    
+                        <div class="size-input">
+                        <label for="height">Высота (см)</label>
+                        <input type="number" id="height" name="height" placeholder="до 150см">
+                        </div>
+                    </form>    
+                    
+                    <button class="acceptButton">
+                        Применить
+                    </button>
+                </div>
+            </aside>
+            <main class="products fade-in">
+                <div class="sort-bar-container fade-in">
+                    <div class="sort-bar fade-in">
+                        Сортировать по: 
+                        <select>
+                            <option>По популярности</option>
+
+                            <option>
+                                По возрастанию цены
+                            </option>
+                            
+                            <option>По убыванию цены</option>
+                        </select>
+                    </div>
+                    
+                    <h1 class="catalog-title fade-in">Каталог</h1>
+                </div>
+
+                <div class="product-grid fade-in">
+                    <div class="product-grid fade-in">
+                        {% for product in products %}
+                            <div class="product-card fade-in">
+                                <a href="#" class="product-image fade-in">
+                                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                                </a>
+                                <h3>{{ product.name }}</h3>
+                                <div class="rating fade-in">★★★★★ (5/5)</div>
+                                <div class="price fade-in">
+                                    {{ product.sell_price }} ₽
+                                    {% if product.discount > 0 %}
+                                        <span class="discount">{{ product.price }} ₽</span> 
+                                        <span class="discount-label">{{ product.discount }}%</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>Нет товаров в каталоге.</p>
+                        {% endfor %}
+                    
+                        <div class="pagination">
+                            {% if products.has_previous %}
+                                <a href="?page=1" class="page-link">Первая</a>
+                                <a href="?page={{ products.previous_page_number }}" class="page-link">Предыдущая</a>
+                            {% endif %}
+                        
+                            {% for num in products.paginator.page_range %}
+                                {% if products.number == num %}
+                                    <span class="page-link current">{{ num }}</span>
+                                {% elif num > products.number|add:"-3" and num < products.number|add:"3" %}
+                                    <a href="?page={{ num }}" class="page-link">{{ num }}</a>
+                                {% endif %}
+                            {% endfor %}
+                        
+                            {% if products.has_next %}
+                                <a href="?page={{ products.next_page_number }}" class="page-link">Следующая</a>
+                                <a href="?page={{ products.paginator.num_pages }}" class="page-link">Последняя</a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+
+                </div>
+            </main>
         </div>
-    </footer>
-{% endblock %}
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
+            const priceSlider = document.querySelector('.price-slider');
+            const leftPrice = document.querySelector('.left-price');
+
+            // Устанавливаем диапазон для слайдера (от 0 до 100)
+            priceSlider.min = 0;
+            priceSlider.max = 100;
+            priceSlider.value = 0; // Начальное значение
+
+            // Функция для преобразования линейного значения в логарифмическое
+            function scalePrice(value) {
+                const minPrice = 3000;
+                const maxPrice = 300000;
+                const logMin = Math.log10(minPrice);
+                const logMax = Math.log10(maxPrice);
+                
+                // Переводим линейный диапазон в логарифмический
+                const scaledValue = Math.pow(10, logMin + (value / 100) * (logMax - logMin));
+
+                // Округляем до 100 рублей
+                return Math.round(scaledValue / 100) * 100;
+            }
+
+            // Обработчик изменения ползунка
+            priceSlider.addEventListener('input', (event) => {
+                let price = scalePrice(event.target.value);
+                leftPrice.textContent = `${price.toLocaleString()} ₽`; // Форматируем с пробелами
+            });
+
+            // Анимации появления при скролле
+            const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+        
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Color selection
+            const colors = document.querySelectorAll('.color');
+            colors.forEach(color => {
+                color.addEventListener('click', () => {
+                    colors.forEach(c => c.classList.remove('active'));
+                    color.classList.add('active');
+                });
+            });
+
+            // Size selection
+            const sizes = document.querySelectorAll('.size');
+            sizes.forEach(size => {
+                size.addEventListener('click', () => {
+                    sizes.forEach(s => s.classList.remove('active'));
+                    size.classList.add('active');
+                });
+            });
+
+            // Quantity control
+            const quantityValue = document.querySelector('.quantity-value');
+            const decrementBtn = document.querySelector('.quantity-btn:nth-child(1)');
+            const incrementBtn = document.querySelector('.quantity-btn:nth-child(3)');
+
+            decrementBtn.addEventListener('click', () => {
+                let value = parseInt(quantityValue.textContent);
+                if (value > 1) {
+                    quantityValue.textContent = value - 1;
+                }
+            });
+
+            incrementBtn.addEventListener('click', () => {
+                let value = parseInt(quantityValue.textContent);
+                quantityValue.textContent = value + 1;
+            });
+
+            // Add to Cart (simple alert for demo)
+            const addToCartBtn = document.querySelector('.add-to-cart');
+            addToCartBtn.addEventListener('click', () => {
+                alert('Product added to cart!');
+            });
+
+            // Логика для изображений
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImg = document.querySelector('.mainImg img');
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeModal = document.querySelector('.close-modal');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            // Массив всех изображений (основное + миниатюры)
+            const images = [
+                mainImg.src, // Основное изображение идет первым
+                ...Array.from(thumbnails).map(thumbnail => thumbnail.src) // Миниатюры
+            ];
+            let currentIndex = 0;
+
+            // Функция для обновления главного изображения
+            function updateMainImage(index) {
+                mainImg.src = images[index];
+            }
+
+            // Клик по миниатюре для изменения главного изображения
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.addEventListener('click', () => {
+                    currentIndex = index + 1; // +1, так как основное изображение идет первым
+                    updateMainImage(currentIndex);
+                });
+            });
+
+            // Открытие модального окна при клике на главное изображение
+            mainImg.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = images[currentIndex];
+            });
+
+            // Закрытие модального окна
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+                updateMainImage(currentIndex); // Синхронизация главного изображения при закрытии
+            });
+
+            // Закрытие модального окна при клике вне изображения
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    updateMainImage(currentIndex); // Синхронизация главного изображения
+                }
+            });
+
+            // Переключение на предыдущее изображение
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                modalImg.src = images[currentIndex];
+                updateMainImage(currentIndex); // Обновляем главное изображение
+            });
+
+            // Переключение на следующее изображение
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % images.length;
+                modalImg.src = images[currentIndex];
+                updateMainImage(currentIndex); // Обновляем главное изображение
+            });
+
+            // Переключение с клавиатуры
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        prevBtn.click();
+                    } else if (e.key === 'ArrowRight') {
+                        nextBtn.click();
+                    } else if (e.key === 'Escape') {
+                        modal.style.display = 'none';
+                        updateMainImage(currentIndex); // Синхронизация при закрытии
+                    }
+                }
+            });
+
+            
+        });        
+    </script>
+{% endblock content %}
 

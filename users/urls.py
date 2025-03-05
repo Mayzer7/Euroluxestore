@@ -5,14 +5,14 @@ from users import views
 app_name = 'users'
 
 urlpatterns = [
-    path('login/', views.UserLoginView.as_view(), name = 'login'),
-    path('registration/', views.UserRegistationView.as_view(), name='registration'),
-    path('password-reset/', views.UserPasswordResetView.as_view(), name='password_reset'),
-    path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),  # Новый URL
-    path('profile/', views.UserProfileView.as_view(), name='profile'),
-    path('users-cart/', views.UserCartView.as_view(), name='users_cart'),
-    path('logout/', views.logout, name='logout'),
-    path('test/', views.test, name='test'),
-    path('product/', views.product, name='product'),
-    path('catalog/', views.catalog, name='catalog'),
+    # path('login/', views.UserLoginView.as_view(), name = 'login'),
+    # path('registration/', views.UserRegistationView.as_view(), name='registration'),
+    # path('password-reset/', views.UserPasswordResetView.as_view(), name='password_reset'),
+    # path('reset/<uidb64>/<token>/', views.PasswordResetConfirmView.as_view(), name='password_reset_confirm'),  # Новый URL
+    # path('profile/', views.UserProfileView.as_view(), name='profile'),
+    # path('users-cart/', views.UserCartView.as_view(), name='users_cart'),
+    # path('logout/', views.logout, name='logout'),
+    # path('test/', views.test, name='test'),
+    # path('product/', views.product, name='product'),
+    # path('catalog/', views.catalog, name='catalog'),
 ]

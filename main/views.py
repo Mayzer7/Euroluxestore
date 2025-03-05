@@ -14,6 +14,15 @@ class IndexView(TemplateView):
         context['content'] = 'Магазин мебели EUROLUXE'
         return context
 
+class CatalogView(TemplateView):
+    template_name = 'main/index.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  
+        context['title'] = 'EUROLUXE - Главная'
+        context['content'] = 'Магазин мебели EUROLUXE'
+        return context
+
 # def index(request):
 
 #     context = {

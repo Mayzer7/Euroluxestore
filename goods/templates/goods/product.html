@@ -2,144 +2,237 @@
 {% load static %}
 
 {% block css %}
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-    <style>
-        .review-card { margin-bottom: 20px; border: 1px solid #ddd; padding: 15px; border-radius: 5px; }
-        .review-image { max-width: 200px; margin-top: 10px; cursor: pointer; }
-        .delete-icon { width: 20px; height: 20px; }
-        .modal-title { color: #000; } /* Чёрный цвет текста в заголовке */
-        .modal-header .user-info { display: flex; align-items: center; } /* Выравнивание аватарки и текста */
-        .modal-header .user-info img { margin-right: 10px; } /* Отступ между аватаркой и текстом */
-    </style>
-{% endblock %}
+    <link rel="stylesheet" href="{% static "deps/css/product.css" %}">
+{% endblock css %}
 
-{% block modal_cart %}
-    {% include "includes/cart_button.html" %}
-{% endblock %}
 
 {% block content %}
-<div class="container mt-5 mx-auto mb-large">
-    <!-- Существующий код карточки товара -->
-    <div class="card mb-4 custom-shadow mt-order">
-        <div class="row">
-            <div class="col-md-4">
-                <img src="{{ product.image.url }}" class="img-thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal1">
+    <div class="breadcrumb-container">
+        <nav class="breadcrumb">
+            <a href="#">Главная</a> > <a href="#">Кровать BOSS 160 велюр Monolit белый</a>
+        </nav>
+    </div>
+
+    <div class="product-container fade-in">
+        <div class="product-images fade-in">
+            <div class="dopImg fade-in">
+                <img src="{% static 'deps/images/goods/random/test1.jpg' %}" alt="Jacket Model 1" class="thumbnail">
+                <img src="{% static 'deps/images/goods/random/test2.jpg' %}" alt="Jacket Model 2" class="thumbnail">
+                <img src="{% static 'deps/images/goods/random/test3.jpg' %}" alt="Jacket Model 3" class="thumbnail">
             </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <p class="product_id mt-3">id: {{ product.display_id }}</p>
-                    <p class="card-text">Цена: <strong>{{ product.sell_price }}₽</strong></p>
-                    <h5 class="card-title">{{ product.name }}</h5>
-                    <p class="card-text">{{ product.description }}</p>
-                    <a href="{% url "cart:cart_add" %}" class="btn btn-dark add-to-cart" 
-                        data-product-id="{{ product.id }}">
-                        {% csrf_token %}
-                        Добавить в корзину
-                    </a>
-                </div>
+
+            <div class="mainImg fade-in">
+                <img src="{% static 'deps/images/goods/bads/bad1.jpg' %}" alt="MainImg">
             </div>
         </div>
-    </div>
 
-    <!-- Секция отзывов -->
-    <div class="reviews-section mt-5 text-white bg-dark p-3 rounded">
-        <h3>Отзывы</h3>
-        
-        <!-- Форма добавления отзыва -->
-        {% if user.is_authenticated %}
-            <form method="post" enctype="multipart/form-data" class="mb-4">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-primary">Оставить отзыв</button>
-            </form>
-        {% else %}
-            <p><a href="{% url 'users:login' %}" class="text-white">Войдите</a>, чтобы оставить отзыв</p>
-        {% endif %}
-
-        <!-- Список отзывов -->
-        {% for review in reviews %}
-            <div class="review-card bg-dark border border-light rounded p-3 mb-3 position-relative">
-                <div class="d-flex align-items-center mb-2">
-                    {% if review.user.image %}
-                        <img src="{{ review.user.image.url }}" alt="Аватар" class="rounded-circle me-2" style="width: 40px; height: 40px;">
-                    {% endif %}
-                    <div>
-                        <strong>{{ review.user.username }}</strong>
-                        <small class="opacity-75">{{ review.created_at|date:"d.m.Y H:i" }}</small>
-                    </div>
-                </div>
-                <p class="mb-0">{{ review.text }}</p>
-                {% if review.image %}
-                    <img src="{{ review.image.url }}" alt="Фото отзыва" class="review-image" 
-                         data-bs-toggle="modal" data-bs-target="#reviewImageModal{{ review.id }}">
-                {% endif %}
-                <!-- Кнопка удаления для автора -->
-                {% if review.user == user %}
-                    <form method="post" class="position-absolute top-0 end-0 m-2" style="display: inline;">
-                        {% csrf_token %}
-                        <input type="hidden" name="review_id" value="{{ review.id }}">
-                        <button type="submit" name="delete_review" title="Удалить отзыв" 
-                                style="background: none; border: none; padding: 0; cursor: pointer;">
-                            <img src="{% static 'deps/icons/comment-trash-icon.png' %}" alt="Удалить" class="delete-icon">
-                        </button>
-                    </form>
-                {% endif %}
+        <div class="product-details fade-in">
+            <h1 class="fade-in">Кровать BOSS 160 велюр Monolit белый</h1>
+            <div class="rating fade-in">
+                ★★★★★ <span class="ratingNumber">4.5/5</span> <span class="discount">10% скидка</span>
             </div>
-
-            <!-- Модальное окно для изображения отзыва -->
-            {% if review.image %}
-                <div class="modal fade" id="reviewImageModal{{ review.id }}" tabindex="-1" 
-                     aria-labelledby="reviewImageModalLabel{{ review.id }}" aria-hidden="true">
-                    <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <div class="user-info">
-                                    {% if review.user.image %}
-                                        <img src="{{ review.user.image.url }}" alt="Аватар" class="rounded-circle" style="width: 40px; height: 40px;">
-                                    {% endif %}
-                                    <h5 class="modal-title" id="reviewImageModalLabel{{ review.id }}">
-                                        {{ review.user.username }}: {{ review.text }}
-                                    </h5>
-                                </div>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
-                            </div>
-                            <div class="modal-body">
-                                <img src="{{ review.image.url }}" class="img-fluid" alt="Фото отзыва">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            {% endif %}
-        {% empty %}
-            <p>Пока нет отзывов. Будьте первым!</p>
-        {% endfor %}
-    </div>
-</div>
-
-<!-- Модальное окно для изображения товара -->
-<div class="modal fade" id="imageModal1" tabindex="-1" aria-labelledby="imageModal1Label" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="imageModal1Label">{{ product.name }}</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+            <div class="price fade-in">
+                <span class="current-price fade-in">40 950 ₽</span>
+                <span class="original-price fade-in">45 500 ₽</span>
             </div>
-            <div class="modal-body">
-                <img src="{{ product.image.url }}" class="img-fluid" alt="Изображение 1">
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock %}
-
-{% block footer %}
-    <footer class="py-3 bg-dark footr">
-        <div class="container">
-            <p class="m-0 text-center">
-                <a href="https://github.com/Mayzer7" class="author text-decoration-none">
-                    Copyright © Корзунов А.E
-                </a>
+            <p class="description fade-in">
+                Кровать BOSS — это воплощение элегантности и минимализма. Её лаконичный дизайн, подчёркнутый мягким изголовьем с геометричным узором, делает эту кровать центральным элементом любой спальни. Комфортные обивки создают неповторимое ощущение уюта и способствуют полноценному отдыху.
             </p>
+
+            <div class="options fade-in">
+                <div class="color-selector fade-in">
+                    <label>Выберите цвет</label>
+                    <div class="colors fade-in">
+                        <button class="color red fade-in" data-color="red"></button>
+                        <button class="color purple fade-in" data-color="purple"></button>
+                        <button class="color blue fade-in" data-color="blue"></button>
+                    </div>
+                </div>
+
+                <div class="size-selector fade-in">
+                    <label>Выберите размер</label>
+                    <div class="sizes fade-in">
+                        <button class="size fade-in" data-size="small">140x200</button>
+                        <button class="size fade-in" data-size="middle">160x200</button>
+                        <button class="size fade-in" data-size="max">180x200</button>
+                    </div>
+                </div>
+
+                <div class="quantity fade-in">
+                    <button class="quantity-btn fade-in">-</button>
+                    <span class="quantity-value fade-in">1</span>
+                    <button class="quantity-btn fade-in">+</button>
+                </div>
+                
+                <button class="add-to-cart fade-in">Добавить в корзину</button>
+            </div>
         </div>
-    </footer>
-{% endblock %}
+    </div>
+
+    <!-- Модальное окно -->
+    <div class="modal" id="imageModal">
+        <span class="close-modal">×</span>
+        <img class="modal-content" id="modalImage">
+        
+        <!-- Кнопка "Назад" -->
+        <button class="prev-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="black" d="M15.53 19.53a.75.75 0 0 0 0-1.06L9.06 12l6.47-6.47a.75.75 0 1 0-1.06-1.06l-7 7a.75.75 0 0 0 0 1.06l7 7a.75.75 0 0 0 1.06 0Z"/>
+            </svg>
+        </button>
+
+        <!-- Кнопка "Вперёд" -->
+        <button class="next-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
+                <path fill="black" d="M8.47 19.53a.75.75 0 0 1 0-1.06L14.94 12 8.47 5.53a.75.75 0 1 1 1.06-1.06l7 7a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0Z"/>
+            </svg>
+        </button>
+    </div>
+    
+
+    <script>    
+        document.addEventListener('DOMContentLoaded', () => {
+            // Анимации появления при скролле
+            const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+        
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Color selection
+            const colors = document.querySelectorAll('.color');
+            colors.forEach(color => {
+                color.addEventListener('click', () => {
+                    colors.forEach(c => c.classList.remove('active'));
+                    color.classList.add('active');
+                });
+            });
+
+            // Size selection
+            const sizes = document.querySelectorAll('.size');
+            sizes.forEach(size => {
+                size.addEventListener('click', () => {
+                    sizes.forEach(s => s.classList.remove('active'));
+                    size.classList.add('active');
+                });
+            });
+
+            // Quantity control
+            const quantityValue = document.querySelector('.quantity-value');
+            const decrementBtn = document.querySelector('.quantity-btn:nth-child(1)');
+            const incrementBtn = document.querySelector('.quantity-btn:nth-child(3)');
+
+            decrementBtn.addEventListener('click', () => {
+                let value = parseInt(quantityValue.textContent);
+                if (value > 1) {
+                    quantityValue.textContent = value - 1;
+                }
+            });
+
+            incrementBtn.addEventListener('click', () => {
+                let value = parseInt(quantityValue.textContent);
+                quantityValue.textContent = value + 1;
+            });
+
+            // Add to Cart (simple alert for demo)
+            const addToCartBtn = document.querySelector('.add-to-cart');
+            addToCartBtn.addEventListener('click', () => {
+                alert('Product added to cart!');
+            });
+
+
+
+
+            // Логика для изображений
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImg = document.querySelector('.mainImg img');
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeModal = document.querySelector('.close-modal');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            // Массив всех изображений (основное + миниатюры)
+            const images = [
+                mainImg.src, // Основное изображение идет первым
+                ...Array.from(thumbnails).map(thumbnail => thumbnail.src) // Миниатюры
+            ];
+            let currentIndex = 0;
+
+            // Функция для обновления главного изображения
+            function updateMainImage(index) {
+                mainImg.src = images[index];
+            }
+
+            // Клик по миниатюре для изменения главного изображения
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.addEventListener('click', () => {
+                    currentIndex = index + 1; // +1, так как основное изображение идет первым
+                    updateMainImage(currentIndex);
+                });
+            });
+
+            // Открытие модального окна при клике на главное изображение
+            mainImg.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = images[currentIndex];
+            });
+
+            // Закрытие модального окна
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+                updateMainImage(currentIndex); // Синхронизация главного изображения при закрытии
+            });
+
+            // Закрытие модального окна при клике вне изображения
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    updateMainImage(currentIndex); // Синхронизация главного изображения
+                }
+            });
+
+            // Переключение на предыдущее изображение
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                modalImg.src = images[currentIndex];
+                updateMainImage(currentIndex); // Обновляем главное изображение
+            });
+
+            // Переключение на следующее изображение
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % images.length;
+                modalImg.src = images[currentIndex];
+                updateMainImage(currentIndex); // Обновляем главное изображение
+            });
+
+            // Переключение с клавиатуры
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        prevBtn.click();
+                    } else if (e.key === 'ArrowRight') {
+                        nextBtn.click();
+                    } else if (e.key === 'Escape') {
+                        modal.style.display = 'none';
+                        updateMainImage(currentIndex); // Синхронизация при закрытии
+                    }
+                }
+            });
+        });        
+    </script>
+{% endblock content %}
+
+

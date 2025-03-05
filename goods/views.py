@@ -7,87 +7,123 @@ from django.utils.decorators import method_decorator
 
 from django.contrib import messages
 
-from goods.models import Products, Categories, Review
-from goods.utils import q_search
-from goods.forms import ReviewForm
+from django.views.generic import TemplateView
 
-class CatalogView(ListView):
-    model = Products
-    template_name = "goods/catalog.html"
-    context_object_name = "goods"
-    paginate_by = 3
+from .models import Products
 
-    def get_queryset(self):
-        category_slug = self.kwargs.get("category_slug")
-        on_sale = self.request.GET.get('on_sale')
-        order_by = self.request.GET.get('order_by')
-        query = self.request.GET.get('q')
 
-        if category_slug == 'all':
-            goods = super().get_queryset()
-        elif query:
-            goods = q_search(query) 
-        else:
-            goods = super().get_queryset().filter(category__slug=category_slug)
-            if not goods.exists():
-                raise Http404()
 
-        if on_sale:
-            goods = goods.filter(discount__gt=0)
-        
-        if order_by and order_by != "default":
-            goods = goods.order_by(order_by)
 
-        return goods
+
+class CatalogView(TemplateView):
+    template_name = 'goods/catalog.html'
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = "EUROLUXE - Каталог"
-        context['slug_url'] = self.kwargs.get("category_slug")
+        context = super().get_context_data(**kwargs)  
+        context['title'] = 'EUROLUXE - Каталог'
+        context['content'] = 'Магазин мебели EUROLUXE'
+
+        # Получаем все товары
+        products_list = Products.objects.all()
+        
+        # Пагинация
+        paginator = Paginator(products_list, 9)  # 9 товаров на страницу
+        page_number = self.request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
+
+        context['products'] = page_obj  # Передаём в шаблон объект страницы
         return context
 
+class ProductView(TemplateView):
+    template_name = 'goods/product.html'
 
-class ProductView(DetailView):
-    template_name = "goods/product.html"
-    slug_url_kwarg = "product_slug"
-    context_object_name = "product"
-    model = Products
+    products_list = Products.objects.all()
 
-    def get_object(self, queryset=None):
-        return get_object_or_404(Products, slug=self.kwargs.get(self.slug_url_kwarg))
+    print(products_list)
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['title'] = self.object.name
-        context['reviews'] = self.object.reviews.all()
-        context['form'] = ReviewForm()
+        context = super().get_context_data(**kwargs)  
+        context['title'] = 'EUROLUXE - Товар'
+        context['content'] = 'Магазин мебели EUROLUXE'
         return context
 
-    @method_decorator(login_required)
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        
-        # Проверяем, удаление это или добавление
-        if 'delete_review' in request.POST:
-            review_id = request.POST.get('review_id')
-            review = get_object_or_404(Review, id=review_id, user=request.user)
-            review.delete()
-            messages.success(request, "Отзыв успешно удалён.")
-            return redirect('goods:product_detail', product_slug=self.object.slug)
+# class CatalogView(ListView):
+#     model = Products
+#     template_name = "goods/catalog.html"
+#     context_object_name = "goods"
+#     paginate_by = 3
 
-        # Добавление отзыва
-        form = ReviewForm(request.POST, request.FILES)
-        if form.is_valid():
-            review = form.save(commit=False)
-            review.product = self.object
-            review.user = request.user
-            review.save()
-            messages.success(request, "Отзыв успешно добавлен.")
-            return redirect('goods:product_detail', product_slug=self.object.slug)
+#     def get_queryset(self):
+#         category_slug = self.kwargs.get("category_slug")
+#         on_sale = self.request.GET.get('on_sale')
+#         order_by = self.request.GET.get('order_by')
+#         query = self.request.GET.get('q')
+
+#         if category_slug == 'all':
+#             goods = super().get_queryset()
+#         elif query:
+#             goods = q_search(query) 
+#         else:
+#             goods = super().get_queryset().filter(category__slug=category_slug)
+#             if not goods.exists():
+#                 raise Http404()
+
+#         if on_sale:
+#             goods = goods.filter(discount__gt=0)
         
-        context = self.get_context_data()
-        context['form'] = form
-        return self.render_to_response(context)
+#         if order_by and order_by != "default":
+#             goods = goods.order_by(order_by)
+
+#         return goods
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = "EUROLUXE - Каталог"
+#         context['slug_url'] = self.kwargs.get("category_slug")
+#         return context
+
+
+# class ProductView(DetailView):
+#     template_name = "goods/product.html"
+#     slug_url_kwarg = "product_slug"
+#     context_object_name = "product"
+#     model = Products
+
+#     def get_object(self, queryset=None):
+#         return get_object_or_404(Products, slug=self.kwargs.get(self.slug_url_kwarg))
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)
+#         context['title'] = self.object.name
+#         context['reviews'] = self.object.reviews.all()
+#         context['form'] = ReviewForm()
+#         return context
+
+#     @method_decorator(login_required)
+#     def post(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+        
+#         # Проверяем, удаление это или добавление
+#         if 'delete_review' in request.POST:
+#             review_id = request.POST.get('review_id')
+#             review = get_object_or_404(Review, id=review_id, user=request.user)
+#             review.delete()
+#             messages.success(request, "Отзыв успешно удалён.")
+#             return redirect('goods:product_detail', product_slug=self.object.slug)
+
+#         # Добавление отзыва
+#         form = ReviewForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             review = form.save(commit=False)
+#             review.product = self.object
+#             review.user = request.user
+#             review.save()
+#             messages.success(request, "Отзыв успешно добавлен.")
+#             return redirect('goods:product_detail', product_slug=self.object.slug)
+        
+#         context = self.get_context_data()
+#         context['form'] = form
+#         return self.render_to_response(context)
 
 
 # def catalog(request, category_slug = None):

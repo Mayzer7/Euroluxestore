@@ -1,144 +1,40 @@
 {% load static %}
-{% load goods_tags %}
-{% load cache %}
-{% load socialaccount %}
-
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "deps/css/bootstrap/bootstrap.min.css" %}">
-    <link rel="stylesheet" href="{% static "deps/css/my_css.css" %}">
+    {% block css %}
+        <link rel="stylesheet" href="{% static "deps/css/test.css" %}">
+    {% endblock css %}
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
-
-    <!-- Стиль footer-a для главной страницы -->
-     {% block css %}
-
-     {% endblock %}
-    <!-- Favicons for different platforms -->
-    <link rel="apple-touch-icon" sizes="180x180" href="{% static "deps/favicon/apple-touch-icon.png" %}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{% static "deps/favicon/favicon-32x32.png" %}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{% static "deps/favicon/favicon-16x16.png" %}">
-    <link rel="icon" type="image/png" sizes="192x192" href="{% static "deps/favicon/android-chrome-192x192.png" %}">
-    <link rel="icon" type="image/x-icon" sizes="48x48" href="{% static 'deps/favicon/favicon.ico' %}">
     <title>{{ title }}</title>
-</head>
+    <style>
+        @font-face {
+            font-family: 'Gotham Pro';
+            src: url('{% static "fonts/GothamPro-Regular.woff2" %}') format('woff2'),
+                 url('{% static "fonts/GothamPro-Regular.woff" %}') format('woff');
+            font-weight: normal;
+            font-style: normal;
+        }
 
+        @font-face {
+            font-family: 'Gotham Pro';
+            src: url('{% static "fonts/GothamPro-Bold.woff2" %}') format('woff2'),
+                 url('{% static "fonts/GothamPro-Bold.woff" %}') format('woff');
+            font-weight: bold;
+            font-style: normal;
+        }
+    </style>
+</head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
-            <div class="container">
-                <a class="tran navbar-brand" href="{% url "main:index" %}">EUROLUXE</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item dropdown ">
-                            <a class="nav-link dropdown-toggle tran" href="#" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                                Информация
-                            </a>
-                            <ul class="dropdown-menu drp-menu">
-                                <li><a class="dropdown-item  tran" href="{% url "main:delivery" %}">Доставка и оплата</a></li>
-                                <li><a class="dropdown-item  tran" href="{% url "main:contact" %}">Контактная информация</a></li>
-                                <li><a class="dropdown-item  tran" href="{% url "main:about" %}">Про нас</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link tran" href="{% url "user:users_cart" %}">Корзина</a>
-                        </li>
-                        {% if not user.is_authenticated %}
-                            <li class="nav-item">
-                                <a class="tran nav-link" href="{% url "user:login" %}">Войти</a>
-                            </li>   
-                        {% else %}
-                            <li class="nav-item dropdown ">
-                                <a class="tran nav-link dropdown-toggle" href="#" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    Мой профиль
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item  tran" href="{% url "user:profile" %}">Личный кабинет</a>
-                                    </li>
-                                    {% if user.is_admin or user.is_staff%}
-                                        <li><a class="dropdown-item  tran" href="{% url "admin:index" %}">Админ панель</a></li>
-                                    {% endif %}
-                                    <li>
-                                        <hr class="dropdown-divider">
-                                    </li>
-                                    <li><a class="dropdown-item  tran" href="{% url "user:logout" %}">Выйти</a></li>
-                                </ul>
-                            </li>
-                            <li class="nav-item">
-                                <a class="tran nav-link" href="{% url "user:test" %}">ТЕСТ</a>
-                            </li>
-                        {% endif %}
-                    </ul>
-                    <form class="d-flex" role="search" action="{% url "catalog:search" %}" method="get">
-                        <input id="input-search" class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search">
-                        <button id="search-button" class="btn btn-outline-success text-white" type="submit">Поиск</button>
-                    </form>
-                </div>
-            </div>
-        </nav>
-    </header>
-    
-    <section>
-        <div class="container">
-            <!-- Каталог и корзина с фиксированным расположением на странице -->
-            <div class="row mt-1 position-responsive z-3">
-                <!-- Каталог -->
-                <div class="dropdown mb-2">
-                    <button class="btn btn-secondary dropdown-toggle btn-dark" type="button" data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                        Каталог
-                        <img class="mx-1" src="{% static "deps/icons/grid-fill.svg" %}" alt="Catalog Icon" width="16"
-                            height="16">
-                    </button>
-                    <ul class="dropdown-menu bg-dark" data-bs-theme="dark">
-                        {% cache 60 catalog_categories %}
-                        {% tag_categories as categories %}
-                        {% for category in categories %}
-                            <li><a class="dropdown-item text-white" href="{% url "catalog:index" category.slug %}">{{ category.name }}</a></li>
-                        {% endfor %}
-                        {% endcache %}
-                    </ul>
-                </div>
-                <!-- Значек корзины, вызывает модальное окно -->
-                {% block modal_cart %}{% endblock  %}
-                <!-- Закончилась разметка модального окна -->
-            </div>
-        </div>
-        <!-- Контент -->
-        <div class="container">
-            <div class="row mt-1">
-                <div class="col-lg-2">
-                    <!-- Пустой блок на Ваше усмотрение -->
-                </div>
-                <div class="col-lg-10">
-                    <!-- Контент на странице -->
-                    {% include "includes/notifications.html" %}
-                    {% block content %}{% endblock %}
-                </div>
-            </div>
-        </div>
-    </section>
-    {% block footer %}
-    
+    {% block header %}
+        {% include "includes/header.html" %}
     {% endblock %}
-    <script src="{% static "deps/js/jquery/jquery-3.7.0.min.js" %}"></script>
-    <script src="{% static "deps/js/jquery-ajax.js" %}"></script>
-    <script src="{% static "deps/js/bootstrap/bootstrap.bundle.min.js" %}"></script>
-    <script src="{% static "deps/js/search_button.js" %}"></script>
+
+    {% block content %}
+
+    {% endblock %}
 </body>
 </html>

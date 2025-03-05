@@ -1,30 +1,622 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-{% endblock  %}
-
-
-{% block modal_cart %}
-    {% include "includes/cart_button.html" %}
-{% endblock %}
-
 {% block content %}
-    <h1 class="mt-5 pt-5">
-        <strong class="main-title">{{ content }}</strong>
-    </h1>
+    <div class="main-content fade-in">
+        <div class="content">
+            <div class="content-left fade-in-left">
+                <div class="text-container">
+                    <h1 class="text-line">НАЙДИТЕ МЕБЕЛЬ</h1>
+                    <h1 class="text-line">ПОД ВАШ СТИЛЬ</h1>
+                </div>
+            
+                <div class="description">
+                    <p>Воплощение роскоши в вашем доме. Минималистичный дизайн, 
+                    изысканные формы и натуральные материалы создают идеальное пространство для жизни. 
+                    Погрузитесь в мир премиальной мебели, где стиль встречается с комфортом.</p>
+                </div>
+
+                <button class="shop-now-button">
+                    Купить сейчас
+                </button>
+                
+                <div class="info-container">
+                    <div class="info-box">
+                        <span class="info-number">200</span>
+                        <p class="info-text">Различных брендов</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-number">2,000</span>
+                        <p class="info-text">Высококачественной продукции</p>
+                    </div>
+                    <div class="info-box">
+                        <span class="info-number">30,000</span>
+                        <p class="info-text">Довольных клиентов</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="content-right fade-in-right">
+                <img class="content-img" src="{% static 'deps/images/content-img.jpg' %}" alt="">
+            </div>
+        </div>
+    </div>
+
+    <div class="brands-content fade-in">
+        <a href="https://skdesign.ru/">
+            <img src="{% static 'deps/images/brands/brand1-logo.jpg' %}" alt="Brand 1" class="brand-logo">
+        </a>
+        <a href="https://dantonehome.ru/">
+            <img src="{% static 'deps/images/brands/brand2-logo.jpg' %}" alt="Brand 2" class="brand-logo">
+        </a>
+        
+        <a href="https://www.moon.ru/">
+            <img src="{% static 'deps/images/brands/brand3-logo.jpg' %}" class="brand-logo">
+        </a>
+
+        <a href="https://wooddi.com/">
+            <img src="{% static 'deps/images/brands/brand4-logo.jpg' %}" class="brand-logo">
+        </a>
+
+        <a href="https://unikamoblar.ru/">
+            <img src="{% static 'deps/images/brands/brand5-logo.png' %}" class="brand-logo">
+        </a>
+
+        <a href="https://fineobjects.ru/">
+            <img src="{% static 'deps/images/brands/brand6-logo.jpg' %}" class="brand-logo">
+        </a>
+    </div>
+
+    <div class="new-arrivals fade-in">
+        <div class="new-arrivals-container">
+            <div class="head fade-in">
+                НОВАЯ КОЛЛЕКЦИЯ
+            </div>
+
+            <div class="products-container">
+
+                <a class="left-arrow fade-in-left">
+                    <img src="{% static 'deps/icons/left-arrow.svg' %}">
+                </a>
+
+                <div class="product-card fade-in">
+                    <a href="{% url "goods:product" %}" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/LivingRoomWall/living_room_wall_1.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <a class="title" href="#">
+                        Гостиная Сплит 260-1 Крафт табачный, Серый графит
+                    </a>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">☆</span>
+                        </div>
+                        <div class="rating-numbers">
+                            4.0/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            26 496 ₽
+                        </div>
+
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <a href="https://example.com" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/LivingRoomWall/living_room_wall_2.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <div class="title">
+                        Гостиная Сплит 275-1 Сонома, Белый снег
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">☆</span>
+                        </div>
+                        <div class="rating-numbers">
+                            4.5/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            22 496 ₽
+                        </div>
+
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <a href="https://example.com" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/LivingRoomWall/living_room_wall_3.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <div class="title">
+                        Стенка Монтана Крафт табачный, Серый графит
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <div class="rating-numbers">
+                            5/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            24 999 ₽
+                        </div>
+
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+
+                <a class="right-arrow fade-in-right">
+                    <img src="{% static 'deps/icons/right-arrow.svg' %}">
+                </a>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div class="button-container">
+        <a href="{% url "goods:catalog" %}" class="view-all-btn">Смотреть всё</a>
+    </div>
+
+    {% comment %} <hr> - ПРЯМАЯ ЛИНИЯ {% endcomment %}
+    <div class="about-container fade-in">
+        <div class="hr-content">
+            <hr> 
+        </div>
+    </div>
+
+    <div class="new-arrivals fade-in">
+        <div class="new-arrivals-container">
+            <div class="head fade-in">
+                ТОПЫ ПРОДАЖ
+            </div>
+
+            <div class="products-container">
+
+                <a class="left-arrow fade-in-left">
+                    <img src="{% static 'deps/icons/left-arrow.svg' %}">
+                </a>
+
+                <div class="product-card fade-in">
+                    <a href="https://example.com" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/wardrobes/wardrobes1.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <div class="title">
+                        Шкаф BOSS LINE 180 - 4Д Оникс серый, Графит софт
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">☆</span>
+                        </div>
+                        <div class="rating-numbers">
+                            4.0/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            64 600 ₽
+                        </div>
+
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <a href="https://example.com" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/curbstones/curbstones1.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <div class="title">
+                        Тумба СИМПЛ NEW Крафт табачный, Серый графит
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">☆</span>
+                        </div>
+                        <div class="rating-numbers">
+                            4.5/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            5 999 ₽
+                        </div>
+
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card fade-in">
+                    <a href="https://example.com" class="new-arrivals-images">
+                        <img class="product-image" src="{% static 'deps/images/goods/tables/table1.jpg' %}" alt="Гостиная Сплит">
+                    </a>
+                    
+                    <div class="title">
+                        Стол-трансформер Венге
+                    </div>
+                    
+                    <div class="rating">
+                        <div class="stars">
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                            <span class="star">★</span>
+                        </div>
+                        <div class="rating-numbers">
+                            5/5
+                        </div>
+                    </div>
+                    
+                    <div class="priceAndButton">
+                        <div class="price">
+                            12 999 ₽
+                        </div>
+
+                        <button class="buy-now">
+                            КУПИТЬ
+                        </button>
+                    </div>
+                </div>
+
+                <a class="right-arrow fade-in-right">
+                    <img src="{% static 'deps/icons/right-arrow.svg' %}">
+                </a>
+            </div>
+
+        </div>
+    </div> 
+
+    <div class="button-container">
+        <a href="{% url "goods:catalog" %}" class="view-all-btn">Смотреть всё</a>
+    </div>
+
+    <div class="browse-container fade-in">
+        <div class="browse-content">
+            <div class="browse-head fade-in">выбери нужный тебе интерьер</div>
+            <div class="browse-grid">
+                <div class="browse-item fade-in">
+                    <a href="#" class="browse-link">
+                        <img src="{% static 'deps/images/goods/random/test1.jpg' %}" alt="Гостиные">
+                        <span class="browse-label">Гостиная</span>
+                    </a>
+                </div>
+                <div class="browse-item fade-in">
+                    <a href="#" class="browse-link">
+                        <img src="{% static 'deps/images/goods/random/test2.jpg' %}" alt="Шкафы">
+                        <span class="browse-label">Спальня</span>
+                    </a>
+                </div>
+                <div class="browse-item fade-in">
+                    <a href="#" class="browse-link">
+                        <img src="{% static 'deps/images/goods/random/test3.jpg' %}" alt="Тумбы">
+                        <span class="browse-label">Кухня</span>
+                    </a>
+                </div>
+                <div class="browse-item fade-in">
+                    <a href="#" class="browse-link">
+                        <img src="{% static 'deps/images/goods/random/test4.jpg' %}" alt="Столы">
+                        <span class="browse-label">Ванная</span>
+                    </a>    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="browse-container fade-in">
+        <section class="reviews-section">
+            <div class="header-controls">
+                <h2>НАШИ ДОВОЛЬНЫЕ КЛИЕНТЫ</h2>
+                <div class="arrow-container">
+                    <button class="arrow left-arrow-review">
+                        <img src="{% static 'deps/icons/left-arrow.svg' %}" alt="Previous">
+                    </button>
+                    <button class="arrow right-arrow-review">
+                        <img src="{% static 'deps/icons/right-arrow.svg' %}" alt="Next">
+                    </button>
+                </div>
+            </div>
+            <div class="review-carousel">
+                <div class="review-slider">
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <h3>Отличное качество!</h3>
+                        <p>Очень довольна покупкой, качество на высоте.</p>
+                        <p><strong>Анна Смирнова</strong></p>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★☆</div>
+                        <h3>Хороший сервис</h3>
+                        <p>Доставка быстрая, товар соответствует описанию.</p>
+                        <p><strong>Максим Орлов</strong></p>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <h3>Лучший магазин!</h3>
+                        <p>Не первый раз заказываю здесь, всегда доволен!</p>
+                        <p><strong>Екатерина Лебедева</strong></p>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★☆☆</div>
+                        <h3>Ожидал лучшего</h3>
+                        <p>В целом неплохо, но упаковка была повреждена.</p>
+                        <p><strong>Алексей Иванов</strong></p>
+                    </div>
+                    <div class="review-card">
+                        <div class="stars">★★★★★</div>
+                        <h3>Рекомендую!</h3>
+                        <p>Прекрасный магазин, вежливые консультанты.</p>
+                        <p><strong>Ольга Петрова</strong></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div class="about-container fade-in">
+        <footer>
+            <div class="aboutletter">
+                <div class="about-text">
+                    <h2>БУДЬТЕ В КУРСЕ НАШИХ<br>ПОСЛЕДНИХ ПРЕДЛОЖЕНИЯХ</h2>
+                </div>
+                <div class="subscribe">
+                    <div class="email-container">
+                        <img class="search-icon" src="{% static 'deps/icons/email-icon.svg' %}" alt="Search">
+                        <input type="text" class="search-input" placeholder="Введите ваш email адрес...">
+                    </div>
+                    <button>Подписаться на новости</button>
+                </div>
+            </div>
+            <div class="footer-content">
+                <div class="about">
+                    <h3>EUROLUXE</h3>
+                    <p>Мы создаём мебель, которая подчеркнёт ваш стиль и станет важной частью вашего пространства.</p>
+                    <div class="social-icons">
+                        <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none"><circle cx="14" cy="14" r="14" fill="#fff"></circle><circle cx="14" cy="14" r="13.5" stroke="#000" stroke-opacity="0.2"></circle><path fill="#000" d="M20.207 10.983a5.1 5.1 0 0 1-1.327.373c.466-.28.838-.722 1.001-1.258a5 5 0 0 1-1.466.56 2.32 2.32 0 0 0-1.676-.722 2.285 2.285 0 0 0-2.282 2.28c0 .187.023.35.07.513a6.52 6.52 0 0 1-4.726-2.398c-.186.35-.302.722-.302 1.141 0 .791.396 1.49 1.024 1.909a2.7 2.7 0 0 1-1.047-.28v.024a2.3 2.3 0 0 0 1.838 2.258 2.6 2.6 0 0 1-.605.07 3 3 0 0 1-.442-.047c.303.908 1.14 1.583 2.142 1.583a4.66 4.66 0 0 1-2.84.978c-.187 0-.373 0-.536-.023a6.5 6.5 0 0 0 3.515 1.024c4.214 0 6.519-3.492 6.519-6.518v-.303a4.2 4.2 0 0 0 1.14-1.164"></path></svg></a>
+                        <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none"><circle cx="14" cy="14" r="14" fill="#000"></circle><path fill="#fff" d="M12.709 20.304V14.75h-1.87v-2.164h1.87V10.99c0-1.852 1.131-2.861 2.783-2.861.792 0 1.472.059 1.67.085v1.936h-1.146c-.898 0-1.072.428-1.072 1.054v1.382h2.143l-.28 2.164h-1.863v5.554z"></path></svg></a>
+                        <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none"><circle cx="14" cy="14" r="14" fill="#fff"></circle><circle cx="14" cy="14" r="13.5" stroke="#000" stroke-opacity="0.2"></circle><path fill="#000" d="M14 8.447c1.81 0 2.024.007 2.738.04.43.005.855.084 1.258.233a2.24 2.24 0 0 1 1.286 1.286c.15.402.228.828.233 1.258.032.714.04.928.04 2.737s-.007 2.023-.04 2.737a3.8 3.8 0 0 1-.233 1.259 2.24 2.24 0 0 1-1.286 1.285c-.403.15-.828.228-1.258.234-.714.032-.928.039-2.737.039s-2.024-.007-2.738-.04a3.8 3.8 0 0 1-1.258-.233 2.24 2.24 0 0 1-1.286-1.285 3.8 3.8 0 0 1-.233-1.259c-.032-.714-.04-.928-.04-2.737s.008-2.023.04-2.737c.005-.43.084-.855.233-1.258a2.24 2.24 0 0 1 1.286-1.286c.403-.15.829-.228 1.258-.233.715-.033.929-.04 2.738-.04Zm0-1.22c-1.838 0-2.07.007-2.792.04a5 5 0 0 0-1.645.315c-.452.17-.861.437-1.2.782a3.3 3.3 0 0 0-.782 1.2 5 5 0 0 0-.314 1.645c-.033.721-.04.953-.04 2.792s.007 2.07.04 2.793c.011.562.118 1.118.315 1.645.17.452.437.861.782 1.2.338.344.747.611 1.2.781a5 5 0 0 0 1.645.315c.722.032.953.04 2.792.04 1.84 0 2.07-.007 2.793-.04a5 5 0 0 0 1.645-.315 3.47 3.47 0 0 0 1.981-1.982 5 5 0 0 0 .315-1.645c.032-.722.04-.954.04-2.792 0-1.839-.008-2.07-.04-2.793a5 5 0 0 0-.316-1.645 3.3 3.3 0 0 0-.781-1.2 3.3 3.3 0 0 0-1.2-.782 5 5 0 0 0-1.645-.314c-.722-.033-.954-.04-2.792-.04Z"></path><path fill="#000" d="M14.002 10.523a3.479 3.479 0 1 0 0 6.958 3.479 3.479 0 0 0 0-6.958m0 5.737a2.258 2.258 0 1 1 0-4.516 2.258 2.258 0 0 1 0 4.516m3.616-5.062a.813.813 0 1 0 0-1.626.813.813 0 0 0 0 1.626"></path></svg></a>
+                        <a href=""><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none"><circle cx="14" cy="14" r="14" fill="#fff"></circle><circle cx="14" cy="14" r="13.5" stroke="#000" stroke-opacity="0.2"></circle><path fill="#000" fill-rule="evenodd" d="M14.607 7.227a6.464 6.464 0 0 0-6.48 6.48c0 2.861 1.863 5.291 4.428 6.155.324.054.432-.135.432-.324v-1.107c-1.81.405-2.187-.864-2.187-.864-.297-.756-.73-.945-.73-.945-.593-.405.055-.405.055-.405.648.054.999.675.999.675.567 1 1.512.702 1.89.54.054-.432.216-.702.405-.864-1.431-.162-2.943-.729-2.943-3.213 0-.702.243-1.296.675-1.728-.054-.162-.297-.81.054-1.727 0 0 .54-.162 1.782.675a6.5 6.5 0 0 1 1.62-.216c.54 0 1.107.08 1.62.216 1.242-.837 1.782-.675 1.782-.675.35.89.135 1.538.054 1.727.405.46.675 1.026.675 1.728 0 2.484-1.512 3.024-2.97 3.186.243.19.432.594.432 1.188v1.782c0 .162.108.378.459.324a6.45 6.45 0 0 0 4.428-6.129 6.464 6.464 0 0 0-6.48-6.48Z" clip-rule="evenodd"></path></svg></a>
+                    </div>
+                </div>
+                <div class="links">
+                    <div>
+                        <h4>КОМПАНИЯ</h4>
+                        <ul>
+                            <li><a href="https://example.com">О нас</a></li>
+                            <li><a href="https://example.com">Функции</a></li>
+                            <li><a href="https://example.com">Работы</a></li>
+                            <li><a href="https://example.com">Карьера</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>ПОМОЩЬ</h4>
+                        <ul>
+                            <li><a href="https://example.com">Поддержка клиентов</a></li>
+                            <li><a href="https://example.com">Детали доставки</a></li>
+                            <li><a href="https://example.com">Условия и положения</a></li>
+                            <li><a href="https://example.com">Политика конфиденциальности</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>FAQ</h4>
+                        <ul>
+                            <li><a href="https://example.com">Аккаунт</a></li>
+                            <li><a href="https://example.com">Управление заказами</a></li>
+                            <li><a href="https://example.com">Заказы</a></li>
+                            <li><a href="https://example.com">Оплата</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4>БРЕНДЫ</h4>
+                        <ul>
+                            <li><a href="https://skdesign.ru/">SKDESIGN</a></li>
+                            <li><a href="https://dantonehome.ru/">DANTONEHOME</a></li>
+                            <li><a href="https://www.moon.ru/">MOON</a></li>
+                            <li><a href="https://wooddi.com/">WOODDI</a></li>
+                            <li><a href="https://unikamoblar.ru/">UNIKAMOBLAR</a></li>
+                            <li><a href="https://fineobjects.ru/">FINEOBJECTS</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    {% comment %} <hr> - ПРЯМАЯ ЛИНИЯ {% endcomment %}
+    <div class="about-container fade-in">
+        <div class="hr-content">
+            <hr> 
+        </div>
+    </div>
+
+    <div class="about-container fade-in">
+        <div class="footer-bottom">
+            <p class="company-name">EUROLUXE © 2025 Корзунов А.E, Все права защищены</p>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Анимации появления при скролле
+            const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+        
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+            
+            // Переключения между карточками отзывов
+            const slider = document.querySelector('.review-slider');
+            const cards = document.querySelectorAll('.review-card');
+            const leftArrow = document.querySelector('.left-arrow-review');
+            const rightArrow = document.querySelector('.right-arrow-review');
+        
+            let currentIndex = 0;
+            const cardWidth = cards[0].offsetWidth + 20; // 20px — отступ между карточками
+            const maxIndex = cards.length - 1;
+            const minIndex = -maxIndex;
+        
+            function updateCarousel() {
+                slider.style.transition = 'transform 0.4s ease-in-out';
+                slider.style.transform = `translateX(${-currentIndex * cardWidth}px)`;
+            }
+        
+            leftArrow.addEventListener('click', () => {
+                if (currentIndex > minIndex) {
+                    currentIndex--;  // Двигаем влево
+                    updateCarousel();   
+                }
+            });
+        
+            rightArrow.addEventListener('click', () => {
+                if (currentIndex < maxIndex) {
+                    currentIndex++;  // Двигаем вправо
+                    updateCarousel();
+                }
+            });
+        
+            // Обновляем положение карусели при загрузке
+            updateCarousel();
+
+
+            // Логика для свайпов (мобильные и ПК)
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            // Для мобильных устройств
+            slider.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+            });
+
+            slider.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            });
+
+            // Для ПК (мышь)
+            let mouseDownX = 0;
+            let mouseUpX = 0;
+            
+            slider.addEventListener('mousedown', (e) => {
+                mouseDownX = e.screenX;
+            });
+
+            slider.addEventListener('mouseup', (e) => {
+                mouseUpX = e.screenX;
+                handleSwipe();
+            });
+
+            // Логика для обработки свайпа
+            function handleSwipe() {
+                const swipeThreshold = 50;  // Минимальное расстояние для свайпа
+
+                // Проверка для мобильных
+                if (Math.abs(touchStartX - touchEndX) > swipeThreshold) {
+                    if (touchStartX > touchEndX) {
+                        // Свайп влево
+                        if (currentIndex < maxIndex) {
+                            currentIndex++;  // Двигаем вправо
+                        } else {
+                            currentIndex = minIndex;  // Переходим на первый элемент
+                        }
+                    } else {
+                        // Свайп вправо
+                        if (currentIndex > minIndex) {
+                            currentIndex--;  // Двигаем влево
+                        } else {
+                            currentIndex = maxIndex;  // Переходим на последний элемент
+                        }
+                    }
+                    updateCarousel();
+                }
+
+                // Проверка для ПК (свайп через мышь)
+                if (Math.abs(mouseDownX - mouseUpX) > swipeThreshold) {
+                    if (mouseDownX > mouseUpX) {
+                        // Свайп влево
+                        if (currentIndex < maxIndex) {
+                            currentIndex++;  // Двигаем вправо
+                        } else {
+                            currentIndex = minIndex;  // Переходим на первый элемент
+                        }
+                    } else {
+                        // Свайп вправо
+                        if (currentIndex > minIndex) {
+                            currentIndex--;  // Двигаем влево
+                        } else {
+                            currentIndex = maxIndex;  // Переходим на последний элемент
+                        }
+                    }
+                    updateCarousel();
+                }
+            }
+        
+            // Обновляем положение карусели при загрузке
+            updateCarousel();
+        });        
+    </script>
 {% endblock %}
 
-{% block footer %}
-    <footer class="py-3 bg-dark">
-        <div class="container">
-            <p class="m-0 text-center">
-                <a href="https://github.com/Mayzer7" class="author text-decoration-none">
-                    Copyright &copy; Корзунов А.E
-                </a>
-            </p>
-        </div>
-    </footer>
-{% endblock %}
 
