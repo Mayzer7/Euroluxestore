@@ -9,52 +9,54 @@
 {% block content %}
     <div class="breadcrumb-container">
         <nav class="breadcrumb">
-            <a href="#">Главная</a> > <a href="#">Кровать BOSS 160 велюр Monolit белый</a>
+            <a href="{% url "main:index" %}">Главная</a> > <a href="{% url "goods:catalog" %}">Каталог</a> > <a href="{% url 'goods:product_detail' product.id %}">{{ product.name }}</a>
         </nav>
     </div>
 
     <div class="product-container fade-in">
         <div class="product-images fade-in">
             <div class="dopImg fade-in">
-                <img src="{% static 'deps/images/goods/random/test1.jpg' %}" alt="Jacket Model 1" class="thumbnail">
-                <img src="{% static 'deps/images/goods/random/test2.jpg' %}" alt="Jacket Model 2" class="thumbnail">
-                <img src="{% static 'deps/images/goods/random/test3.jpg' %}" alt="Jacket Model 3" class="thumbnail">
+                {% if product.image_additional_1 %}
+                    <img src="{{ product.image_additional_1.url }}" alt="{{ product.name }}" class="thumbnail">
+                {% endif %}
+                
+                {% if product.image_additional_2 %}
+                    <img src="{{ product.image_additional_2.url }}" alt="{{ product.name }}" class="thumbnail">
+                {% endif %}
+
+                {% if product.image_additional_3 %}
+                    <img src="{{ product.image_additional_3.url }}" alt="{{ product.name }}" class="thumbnail">
+                {% endif %}
             </div>
 
             <div class="mainImg fade-in">
-                <img src="{% static 'deps/images/goods/bads/bad1.jpg' %}" alt="MainImg">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
             </div>
         </div>
 
         <div class="product-details fade-in">
-            <h1 class="fade-in">Кровать BOSS 160 велюр Monolit белый</h1>
+            <h1 class="fade-in">{{ product.name }}</h1>
             <div class="rating fade-in">
                 ★★★★★ <span class="ratingNumber">4.5/5</span> <span class="discount">10% скидка</span>
             </div>
             <div class="price fade-in">
-                <span class="current-price fade-in">40 950 ₽</span>
-                <span class="original-price fade-in">45 500 ₽</span>
+                <span class="current-price fade-in">{{ product.sell_price }} ₽</span>
+                <span class="original-price fade-in">{{ product.price }} ₽</span>
             </div>
-            <p class="description fade-in">
-                Кровать BOSS — это воплощение элегантности и минимализма. Её лаконичный дизайн, подчёркнутый мягким изголовьем с геометричным узором, делает эту кровать центральным элементом любой спальни. Комфортные обивки создают неповторимое ощущение уюта и способствуют полноценному отдыху.
-            </p>
+            <div class="price fade-in">
+                <label>{{ product.description }}</label>
+            </div>
 
             <div class="options fade-in">
                 <div class="color-selector fade-in">
-                    <label>Выберите цвет</label>
-                    <div class="colors fade-in">
-                        <button class="color red fade-in" data-color="red"></button>
-                        <button class="color purple fade-in" data-color="purple"></button>
-                        <button class="color blue fade-in" data-color="blue"></button>
-                    </div>
+                    <label>Цвет: {{ product.color }}</label>
                 </div>
 
                 <div class="size-selector fade-in">
-                    <label>Выберите размер</label>
                     <div class="sizes fade-in">
-                        <button class="size fade-in" data-size="small">140x200</button>
-                        <button class="size fade-in" data-size="middle">160x200</button>
-                        <button class="size fade-in" data-size="max">180x200</button>
+                        <label>Длина: {{ product.length }}см,</label>
+                        <label>Ширина: {{ product.width }}см,</label>
+                        <label>Размеры: {{ product.height }}см</label>
                     </div>
                 </div>
 

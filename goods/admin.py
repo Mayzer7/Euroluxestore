@@ -24,7 +24,9 @@ class ProductsAdmin(admin.ModelAdmin):
         "category",
         "slug",
         "description",
-        "image",
+        ("image", "image_additional_1", "image_additional_2", "image_additional_3"),
         ("price", "discount"),
+        "color",
+        ("width", "length", "height"),
         "quantity",
     ]

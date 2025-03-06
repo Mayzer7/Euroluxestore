@@ -1,6 +1,7 @@
 from django.core.paginator import Paginator
 from django.http import Http404
 from django.shortcuts import get_object_or_404, render, redirect
+from django.views import View
 from django.views.generic import ListView, DetailView
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
@@ -9,7 +10,7 @@ from django.contrib import messages
 
 from django.views.generic import TemplateView
 
-from .models import Products
+from .models import Products, Categories
 
 
 from django.db.models import F, ExpressionWrapper, DecimalField
@@ -26,14 +27,19 @@ class CatalogView(TemplateView):
         # Получаем все товары
         products_list = Products.objects.all()
         
+        # Фильтрация по категории
+        category_slug = self.kwargs.get('category_slug') or self.request.GET.get('category')
+        if category_slug and category_slug != 'all':
+            category = get_object_or_404(Categories, slug=category_slug)
+            products_list = products_list.filter(category=category)
+            context['selected_category'] = category_slug  # Для сохранения выбора в select
+
         # Определяем сортировку
         sort_order = self.request.GET.get('sort', '')
 
         if sort_order == 'discount':
-            # Фильтровать по товарам со скидкой
             products_list = products_list.filter(discount__gt=0)
         elif sort_order == 'price_asc':
-            # Сортировка по цене с учётом скидочных товаров
             products_list = products_list.annotate(
                 final_price=ExpressionWrapper(
                     F('price') * (100 - F('discount')) / 100, 
@@ -41,22 +47,22 @@ class CatalogView(TemplateView):
                 )
             ).order_by('final_price')
         elif sort_order == 'price_desc':
-            # Сортировка по убыванию цены с учётом скидочных товаров
             products_list = products_list.annotate(
                 final_price=ExpressionWrapper(
                     F('price') * (100 - F('discount')) / 100, 
                     output_field=DecimalField()
                 )
             ).order_by('-final_price')
-        
+
         # Пагинация
-        paginator = Paginator(products_list, 9)  # 9 товаров на страницу
+        paginator = Paginator(products_list, 9)
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-        context['products'] = page_obj  # Передаем в шаблон объект страницы
-        context['page_obj'] = page_obj  # Передаем объект страницы для пагинации
-        context['paginator'] = paginator  # Передаем объект пагинатора для пагинации
+        context['products'] = page_obj
+        context['page_obj'] = page_obj
+        context['paginator'] = paginator
+        context['categories'] = Categories.objects.all()  # Передаем список категорий
         return context
 
 class ProductView(TemplateView):
@@ -69,6 +75,12 @@ class ProductView(TemplateView):
         context['title'] = 'EUROLUXE - Товар'
         context['content'] = 'Магазин мебели EUROLUXE'
         return context
+
+class ProductDetailView(View):
+    def get(self, request, pk):
+        product = get_object_or_404(Products, id=pk)
+        return render(request, 'goods/product.html', {'product': product})
+
 
 # class CatalogView(ListView):
 #     model = Products
