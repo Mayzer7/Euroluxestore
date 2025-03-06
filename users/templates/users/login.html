@@ -12,6 +12,9 @@
 
 <body>
 
+    {% block notifications %}
+        {% include "includes/notifications.html" %}
+    {% endblock %}
 
     <div class="container">
         <video src="{% static "deps/videos/bg.mp4" %}" autoplay loop playsinline muted></video>

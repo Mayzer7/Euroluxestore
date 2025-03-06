@@ -16,7 +16,7 @@ def login_view(request):
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
                 messages.success(request, 'Вы успешно вошли!')
@@ -31,14 +31,15 @@ def login_view(request):
 
 def registration_view(request):
     if request.method == 'POST':
-        form = UserRegistrationForm(request.POST, request.FILES)
+        form = UserRegistrationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # Авторизуем пользователя сразу после регистрации
+            user = form.save(commit=False)  # Создаём объект, но не сохраняем
+            user.save()  # Сохраняем в базу данных
             messages.success(request, 'Вы успешно зарегистрировались!')
-            return redirect('users:profile')
+            return redirect('users:login')
         else:
-            messages.error(request, 'Ошибка регистрации. Пожалуйста, попробуйте еще раз.')
+            print(form.errors)  # Выведет ошибки в консоль
+            messages.error(request, 'Ошибка регистрации. Проверьте введённые данные.')
     else:
         form = UserRegistrationForm()
     return render(request, 'users/registration.html', {'form': form})

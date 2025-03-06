@@ -49,14 +49,24 @@
 
             <div class="options fade-in">
                 <div class="color-selector fade-in">
-                    <label>Цвет: {{ product.color }}</label>
+                    {% if product.color %}
+                        <label>Цвет: {{ product.color }}</label>
+                    {% endif %}
                 </div>
 
                 <div class="size-selector fade-in">
                     <div class="sizes fade-in">
-                        <label>Длина: {{ product.length }}см,</label>
-                        <label>Ширина: {{ product.width }}см,</label>
-                        <label>Размеры: {{ product.height }}см</label>
+                        {% if product.length %}
+                            <label>Длина: {{ product.length }}см,</label>
+                        {% endif %}
+
+                        {% if product.width %}
+                            <label>Ширина: {{ product.width }}см,</label>
+                        {% endif %}
+                        
+                        {% if product.height %}
+                            <label>Размеры: {{ product.height }}см</label>
+                        {% endif %}
                     </div>
                 </div>
 

@@ -1,48 +1,49 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "deps/css/registration.css" %}">
-    <title>Page With Background Video | AsmrProg</title>
+    <link rel="stylesheet" href="{% static 'deps/css/registration.css' %}">
+    <title>Регистрация</title>
 </head>
-
 <body>
-
+    
+    {% block notifications %}
+        {% include "includes/notifications.html" %}
+    {% endblock %}
 
     <div class="container">
-        <video src="{% static "deps/videos/bg.mp4" %}" autoplay loop playsinline muted></video>
-
+        <video src="{% static 'deps/videos/bg.mp4' %}" autoplay loop playsinline muted></video>
 
         <div class="background">
             <div class="shape"></div>
             <div class="shape"></div>
         </div>
-        <form method="POST" enctype="multipart/form-data">
+
+        <form method="POST">
             {% csrf_token %}
             <h3>Зарегистрируйтесь</h3>
-    
+
             <label for="username">Имя пользователя</label>
-            <input type="text" id="username">
+            <input type="text" id="username" name="username">
 
             <label for="email">Почта</label>
-            <input type="email" id="email">
-    
-            <label for="password">Пароль</label>
-            <input type="password" id="password">
+            <input type="text" id="email" name="email">
 
-            <label for="password">Повторный пароль</label>
-            <input type="password" id="password2">
-    
-            <a href="{% url 'users:registration' %}" class="reg-button">Зарегистрироваться</a>                       
+            <label for="password1">Пароль</label>
+            <input type="password" id="password1" name="password1">
+
+            <label for="password2">Повторный пароль</label>
+            <input type="password" id="password2" name="password2">
+
+            <a href="{% url "users:login" %}">
+                <button type="submit" class="reg-button">Зарегистрироваться</button>
+            </a>                       
         </form>
-    
+
     </div>
 
-
 </body>
-
 </html>

@@ -1,39 +1,55 @@
 {% load static %}
 
-{% if form.non_field_errors %}
-    <div class="container mt-4">
-        <div class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="alert alert-danger alert-dismissible fade show custom-shadow" style="position: relative; z-index: 1050;" role="alert">
-                    {{ form.non_field_errors }}
-                    <button type="button" class="btn-close" style="position: absolute; top: 10px; right: 10px; z-index: 1051;" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            </div>
-        </div>
-    </div>
-{% endif %}
+<head>
+    <link rel="stylesheet" href="{% static 'deps/css/modal_card.css' %}">
+</head>
 
-<!-- Для оповещений -->
-<div class="container mt-4">
-    <div class="row justify-content-center">
-        <div class="col-md-6    ">
-            {% if messages %}
-                {% for message in messages %}
-                    {% if message.tags == 'success' %}
-                    <div id="notification" class="position-fixed start-50 translate-middle-x z-3 alert alert-success fade show custom-shadow" role="alert" style="z-index: 1060;">
-                        {{ message }}
-                    </div>
-                    {% endif %}
-                    {% if message.tags == 'warning' %}
-                    <div id="notification" class="position-fixed start-50 translate-middle-x z-3 alert alert-danger fade show custom-shadow" role="alert" style="z-index: 1060;">
-                        {{ message }}
-                    </div>
-                    {% endif %}
-                {% endfor %}
-            {% else %}
-            <div id="jq-notification" class="position-fixed start-50 translate-middle-x z-3 alert alert-success fade show custom-shadow" style="display: none; z-index: 1060;" role="alert">
-            </div>
-            {% endif %}
+<body>
+    <!-- Модальное окно для сообщений и ошибок -->
+    <div id="messageModal" class="modal">
+        <div class="modal-content" id="messageContent">
+            <p id="messageText"></p>
+            <ul id="errorList"></ul> <!-- Здесь будут ошибки формы -->
         </div>
     </div>
-</div>
+
+    {% if messages or form.errors %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                let messages = [
+                    {% for message in messages %}
+                        { text: "{{ message }}", level: "{{ message.tags }}" },
+                    {% endfor %}
+                ];
+
+                let errors = [
+                    {% for field, error_list in form.errors.items %}
+                        {% for error in error_list %}
+                            "{{ error }}",
+                        {% endfor %}
+                    {% endfor %}
+                ];
+
+                if (messages.length > 0 || errors.length > 0) {
+                    let modal = document.getElementById("messageModal");
+                    let messageText = document.getElementById("messageText");
+                    let errorList = document.getElementById("errorList");
+
+                    // Отображение сообщений
+                    messageText.textContent = messages.map(msg => msg.text).join("\n");
+
+                    // Добавляем ошибки формы в список
+                    errorList.innerHTML = errors.map(err => `<li>${err}</li>`).join("");
+
+                    // Показываем модалку
+                    modal.classList.add("show");
+
+                    // Автоматическое скрытие через 5 секунд
+                    setTimeout(() => {
+                        modal.classList.remove("show");
+                    }, 5000);
+                }
+            });
+        </script>
+    {% endif %}
+</body>
