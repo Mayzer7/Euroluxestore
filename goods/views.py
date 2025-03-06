@@ -34,6 +34,30 @@ class CatalogView(TemplateView):
             products_list = products_list.filter(category=category)
             context['selected_category'] = category_slug  # Для сохранения выбора в select
 
+        # Фильтр по цене
+        price_max = self.request.GET.get('price_max')
+        if price_max:
+            try:
+                price_max = int(price_max)
+                products_list = products_list.filter(price__lte=price_max)
+            except ValueError:
+                pass  # Игнорируем некорректные значения
+
+
+        # Фильтр по цвету
+        selected_color = self.request.GET.get('color')
+        if selected_color:
+            products_list = products_list.filter(color=selected_color)
+            context['selected_color'] = selected_color  # Для сохранения выбора цвета в фильтре
+
+        # Фильтр по размерам (если введены)
+        width = self.request.GET.get('width')
+        length = self.request.GET.get('length')
+        height = self.request.GET.get('height')
+
+        # Получаем все уникальные цвета из базы данных
+        colors = Products.objects.values('color').distinct().filter(color__isnull=False)
+
         # Определяем сортировку
         sort_order = self.request.GET.get('sort', '')
 
@@ -59,9 +83,11 @@ class CatalogView(TemplateView):
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
+        # Передаем все данные в контекст
         context['products'] = page_obj
         context['page_obj'] = page_obj
         context['paginator'] = paginator
+        context['colors'] = colors  # Передаем список уникальных цветов
         context['categories'] = Categories.objects.all()  # Передаем список категорий
         return context
 

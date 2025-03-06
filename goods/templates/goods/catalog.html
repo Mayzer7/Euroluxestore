@@ -28,52 +28,65 @@
                                 </option>
                             {% endfor %}
                         </select>
+                    
+                        {% for key, value in request.GET.items %}
+                            {% if key != "category" %}
+                                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                            {% endif %}
+                        {% endfor %}
                     </form>
                 </div>
 
                 <div class="filter-section fade-in">
                     <label>Цвет</label>
                     <div class="form-group fade-in">
-                        <select name="select-brand fade-in">
-                            <option selected>Любой</option>
-                            <option>Бежевый</option>
-                            <option>Белый</option>
-                            <option>Коричневый</option>
-                            <option>Серый</option>
-                        </select>
+                        <form method="GET" action="{% url 'goods:catalog' %}" class="form-group fade-in">
+                            <select name="color" onchange="this.form.submit()">
+                                <option value="" {% if not selected_color %}selected{% endif %}>Любой</option>
+                                {% for color in colors %}
+                                    <option value="{{ color.color }}" {% if selected_color == color.color %}selected{% endif %}>
+                                        {{ color.color }}
+                                    </option>
+                                {% endfor %}
+                            </select>
+                
+                            {% for key, value in request.GET.items %}
+                                {% if key != "color" %}
+                                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                                {% endif %}
+                            {% endfor %}
+                        </form>
                     </div>
                 </div>
+                
 
                 <div class="filter-section fade-in">
                     <label>Цена</label>
-                    <input type="range" min="200" max="8000" value="200" class="price-slider fade-in">
+                    <input type="range" min="3000" max="300000" value="300000" class="price-slider fade-in">
+                    
                     <div class="price-range fade-in">
-                        <div class="left-price fade-in">
-                            3000 ₽
-                        </div>
-
-                        <div class="right-price fade-in">
-                            300 000 ₽
-                        </div>
+                        <div class="left-price fade-in">3 000 ₽</div>
+                        <div class="right-price fade-in">300 000 ₽</div>
                     </div>
                 </div>
+                
 
                 <div class="filter-section fade-in">
                     <label>Размеры</label>
                     <form class="size-filter">
                         <div class="size-input">
-                        <label for="width">Ширина (см)</label>
-                        <input type="number" id="width" name="width" placeholder="до 300см">
+                            <label for="width">Ширина (см)</label>
+                            <input type="number" id="width" name="width" placeholder="до 300см">
                         </div>
-                    
+                
                         <div class="size-input">
-                        <label for="length">Длина (см)</label>
-                        <input type="number" id="length" name="length" placeholder="до 400см">
+                            <label for="length">Длина (см)</label>
+                            <input type="number" id="length" name="length" placeholder="до 400см">
                         </div>
-                    
+                
                         <div class="size-input">
-                        <label for="height">Высота (см)</label>
-                        <input type="number" id="height" name="height" placeholder="до 250см">
+                            <label for="height">Высота (см)</label>
+                            <input type="number" id="height" name="height" placeholder="до 250см">
                         </div>
                     </form>    
                 </div>
@@ -87,13 +100,18 @@
                     <div class="sort-bar fade-in">
                         Сортировать по: 
                         <form method="GET" action="">
+                            {% for key, value in request.GET.items %}
+                                {% if key != "sort" and key != "page" %} 
+                                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                                {% endif %}
+                            {% endfor %}
                             <select name="sort" onchange="this.form.submit()">
                                 <option value="popularity" {% if request.GET.sort == 'popularity' %}selected{% endif %}>По популярности</option>
                                 <option value="discount" {% if request.GET.sort == 'discount' %}selected{% endif %}>По скидке</option>
                                 <option value="price_asc" {% if request.GET.sort == 'price_asc' %}selected{% endif %}>По возрастанию цены</option>
                                 <option value="price_desc" {% if request.GET.sort == 'price_desc' %}selected{% endif %}>По убыванию цены</option>
                             </select>
-                        </form>                                            
+                        </form>                                          
                     </div>
                     
                     <h1 class="catalog-title fade-in">Каталог</h1>
@@ -167,31 +185,54 @@
 
             const priceSlider = document.querySelector('.price-slider');
             const leftPrice = document.querySelector('.left-price');
+            const applyButton = document.querySelector('.acceptButton');
 
-            // Устанавливаем диапазон для слайдера (от 0 до 100)
-            priceSlider.min = 0;
-            priceSlider.max = 100;
-            priceSlider.value = 0; // Начальное значение
-
-            // Функция для преобразования линейного значения в логарифмическое
+            // Функция для округления цены до 100 рублей
             function scalePrice(value) {
-                const minPrice = 3000;
-                const maxPrice = 300000;
-                const logMin = Math.log10(minPrice);
-                const logMax = Math.log10(maxPrice);
-                
-                // Переводим линейный диапазон в логарифмический
-                const scaledValue = Math.pow(10, logMin + (value / 100) * (logMax - logMin));
-
-                // Округляем до 100 рублей
-                return Math.round(scaledValue / 100) * 100;
+                return Math.round(value / 100) * 100;
             }
 
-            // Обработчик изменения ползунка
+            // Обновление отображения цены при движении слайдера
             priceSlider.addEventListener('input', (event) => {
                 let price = scalePrice(event.target.value);
-                leftPrice.textContent = `${price.toLocaleString()} ₽`; // Форматируем с пробелами
+                leftPrice.textContent = `${price.toLocaleString()} ₽`;
             });
+
+            // Фильтрация при нажатии кнопки "Применить"
+            applyButton.addEventListener('click', () => {
+                let url = new URL(window.location);
+                
+                // Фильтр по цене
+                let price = scalePrice(priceSlider.value);
+                url.searchParams.set('price_max', price);
+            
+                // Фильтр по размерам (если введены)
+                let width = document.getElementById('width').value;
+                let length = document.getElementById('length').value;
+                let height = document.getElementById('height').value;
+            
+                if (width) url.searchParams.set('width', width);
+                if (length) url.searchParams.set('length', length);
+                if (height) url.searchParams.set('height', height);
+            
+                // Перенос всех других параметров (сортировка и т.д.)
+                let params = new URLSearchParams(window.location.search);
+                params.forEach((value, key) => {
+                    if (!url.searchParams.has(key)) {
+                        url.searchParams.set(key, value);
+                    }
+                });
+            
+                // Обновляем страницу с новыми параметрами
+                window.location = url.toString();
+            });
+
+            // При загрузке страницы подставляем текущие параметры из URL
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('price_max')) {
+                priceSlider.value = urlParams.get('price_max');
+                leftPrice.textContent = `${parseInt(urlParams.get('price_max')).toLocaleString()} ₽`;
+            }
 
             // Анимации появления при скролле
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
