@@ -64,8 +64,6 @@ class ProductView(TemplateView):
 
     products_list = Products.objects.all()
 
-    print(products_list)
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)  
         context['title'] = 'EUROLUXE - Товар'

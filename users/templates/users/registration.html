@@ -1,101 +1,48 @@
-{% extends "base.html" %}
 {% load static %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-{% endblock  %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block modal_cart %}
-    {% include "includes/cart_button.html" %}
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "deps/css/registration.css" %}">
+    <title>Page With Background Video | AsmrProg</title>
+</head>
 
-{% block content %}
-<div class="row mt-mobile">
-    <div class="container mt-5 mb-4">
-        <div class="row justify-content-center">
-            <div class="col-md-9 bg-white p-4 mb-5 mx-2 rounded custom-shadow">
-                <h2 class="text-center mb-4">Регистрация</h2>
-                <form action = "{% url "user:registration" %}" method = "post">
-                    {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-6 mb-3">
-                            <label for="id_first_name" class="form-label">Имя*</label>
-                            <input type="text" class="form-control" id="id_first_name"
-                                value = "{% if form.first_name.value %}{{ form.first_name.value }}{% endif %}"
-                                name = "first_name"
-                                placeholder="Введите ваше имя" required>
-                                {% if form.first_name.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.first_name.errors }}</div>
-                                {% endif %}
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="id_last_name" class="form-label">Фамилия*</label>
-                            <input type="text" class="form-control" id="id_last_name"
-                                value = "{% if form.last_name.value %}{{ form.last_name.value }}{% endif %}"
-                                name = "last_name"
-                                placeholder="Введите вашу фамилию" required>
-                                {% if form.last_name.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.last_name.errors }}</div>
-                                {% endif %}
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="id_username" class="form-label">Имя пользователя*</label>
-                            <input type="text" class="form-control" id="id_username"
-                                value = "{% if form.username.value %}{{ form.username.value }}{% endif %}"
-                                name = "username"
-                                placeholder="Введите ваше имя пользователя" required>
-                                {% if form.username.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.username.errors }}</div>
-                                {% endif %}
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="id_email" class="form-label">Email*</label>
-                            <input type="email" class="form-control" id="id_email"
-                                value = "{% if form.email.value %}{{ form.email.value }}{% endif %}"
-                                name = "email"
-                                placeholder="Введите ваш email" required>
-                                {% if form.email.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.email.errors }}</div>
-                                {% endif %}
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="id_password1" class="form-label">Пароль*</label>
-                            <input type="password" class="form-control" id="id_password1"
-                                value = "{% if form.password1.value %}{{ form.password1.value }}{% endif %}"
-                                name = "password1"
-                                placeholder="Введите пароль" required>
-                                {% if form.password1.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.password1.errors }}</div>
-                                {% endif %}
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="id_password2" class="form-label">Подтверждение пароля*</label>
-                            <input type="password" class="form-control" id="id_password2"
-                                value = "{% if form.password2.value %}{{ form.password2.value }}{% endif %}"
-                                name = "password2"
-                                placeholder="Подтвердите пароль" required>
-                                {% if form.password2.errors %}
-                                <div class="alert alert-danger alert-dismissible fade show">{{ form.password2.errors }}</div>
-                                {% endif %}
-                        </div>
-                    </div>
-                    <button type="submit"
-                        class="btn btn-dark btn-block">Зарегистрироваться</button>
-                </form>
-            </div>
+<body>
+
+
+    <div class="container">
+        <video src="{% static "deps/videos/bg.mp4" %}" autoplay loop playsinline muted></video>
+
+
+        <div class="background">
+            <div class="shape"></div>
+            <div class="shape"></div>
         </div>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <h3>Зарегистрируйтесь</h3>
+    
+            <label for="username">Имя пользователя</label>
+            <input type="text" id="username">
+
+            <label for="email">Почта</label>
+            <input type="email" id="email">
+    
+            <label for="password">Пароль</label>
+            <input type="password" id="password">
+
+            <label for="password">Повторный пароль</label>
+            <input type="password" id="password2">
+    
+            <a href="{% url 'users:registration' %}" class="reg-button">Зарегистрироваться</a>                       
+        </form>
+    
     </div>
-</div>
-{% endblock  %}
 
-{% block footer %}
-    <footer class="py-3 bg-dark footr">
-        <div class="container">
-            <p class="m-0 text-center">
-                <a href="https://github.com/Mayzer7" class="author text-decoration-none">
-                    Copyright &copy; Корзунов А.E
-                </a>
-            </p>
-        </div>
-    </footer>
-{% endblock %} 
+
+</body>
+
+</html>

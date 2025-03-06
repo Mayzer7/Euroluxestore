@@ -181,7 +181,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 
-LOGIN_URL = '/user/login/'
+# LOGIN_URL = '/users/login'  # Куда перекидывать, если пользователь не авторизован
+# LOGIN_REDIRECT_URL = 'users:profile'  # Куда редиректить после входа
+# LOGOUT_REDIRECT_URL = 'main:index'  # Куда редиректить после выхода
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

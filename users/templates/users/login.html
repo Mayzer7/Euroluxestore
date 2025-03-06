@@ -1,89 +1,47 @@
-{% extends "base.html" %}
 {% load static %}
-{% load socialaccount %}
 
-{% block css %}
-    <link rel="stylesheet" href="{% static "deps/css/my_footer_css.css" %}">
-{% endblock  %}
+<!DOCTYPE html>
+<html lang="en">
 
-{% block modal_cart %}
-    {% include "includes/cart_button.html" %}
-{% endblock %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "deps/css/login.css" %}">
+    <title>Page With Background Video | AsmrProg</title>
+</head>
 
-{% block content %}
-<div class="row mt-mobile">
-    <div class="container mt-5 mx-auto mb-large">
-        <div class="row justify-content-center">
-            <div class="col-md-6 bg-white p-4 mb-0 mx-3 rounded custom-shadow">
-                <h2 class="text-center mb-4">Авторизация</h2>
-                <form action="{% url "user:login" %}" method = "post">
-                    {% csrf_token %}
-                    {% if request.GET.next %}
-                        <input type="hidden" name="next" value={{ request.GET.next }}>
-                    {% endif %}
-                    <div class="mb-3">
-                        <label for="id_username" class="form-label">Имя пользователя</label>
-                        <input type="text" class="form-control" 
-                        value="{% if form.username.value%}{{ form.username.value }}{% endif %}" 
-                        name="username" id="id_username" 
-                        placeholder="Введите ваше имя пользователя" 
-                        required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="id_password" class="form-label">Пароль</label>
-                        <input type="password" class="form-control" name="password" id="id_password" 
-                        placeholder="Введите ваш пароль"
-                        required>
-                    </div> 
+<body>
 
 
+    <div class="container">
+        <video src="{% static "deps/videos/bg.mp4" %}" autoplay loop playsinline muted></video>
 
-                    {% comment %} {% for item in form %}
-                        <div class="mb-3">
-                            <label for="{{ item.id_for_label }}" class="form-label">{{ item.label }}</label>
-                            {{ item }}
-                        </div>
-                    {% endfor %} {% endcomment %}
 
-                    {% comment %} <div class="mb-3">
-                        <label for="username" class="form-label">Имя пользователя</label>
-                        <input type="text" class="form-control" id="username" placeholder="Введите ваше имя пользователя" required>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Пароль</label>
-                        <input type="password" class="form-control" id="password" placeholder="Введите ваш пароль" required>
-                    </div> {% endcomment %}
-                    <button type="submit" class="btn btn-dark btn-block">Войти</button>
-                </form>
-                <div class="mt-3">
-                    <a class="text-black" href="{% url "user:password_reset" %}">Забыли пароль?</a> | <a class="text-black" href="{% url "user:registration" %}">Создать аккаунт</a>
-                </div>
-                <hr>
-                {% comment %} <div class="text-center">
-                    <p>Или авторизуйтесь через:</p>
-                    <a href="{% provider_login_url 'google' %}" class="btn btn-dark">
-                        <img class="mx-1" src="{% static "deps/icons/google.svg" %}" alt="Catalog Icon" width="16" height="16">
-                        Google
-                    </a>
-                    <a href="{% provider_login_url 'github' %}" class="btn btn-dark">
-                        <img class="mx-1" src="{% static "deps/icons/github.svg" %}" alt="Catalog Icon" width="16" height="16">
-                        GitHub
-                    </a>
-                </div> {% endcomment %}
+        <div class="background">
+            <div class="shape"></div>
+            <div class="shape"></div>
+        </div>
+        <form method="POST">
+            {% csrf_token %}
+            <h3>Войдите в аккаунт</h3>
+    
+            <label for="username">Имя пользователя</label>
+            <input type="text" id="username">
+    
+            <label for="password">Пароль</label>
+            <input type="password" id="password">
+    
+            <button class="login-button">Войти</button>
+            <div class="social">
+              <div class="go"><i class="fab fa-google"></i>  Google</div>
+              <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
             </div>
-        </div>
+            <a href="{% url 'users:registration' %}" class="reg-button">Зарегистрироваться</a>                       
+        </form>
+    
     </div>
-</div>
-{% endblock %}
 
-{% block footer %}
-    <footer class="py-3 bg-dark footr">
-        <div class="container">
-            <p class="m-0 text-center">
-                <a href="https://github.com/Mayzer7" class="author text-decoration-none">
-                    Copyright &copy; Корзунов А.E
-                </a>
-            </p>
-        </div>
-    </footer>
-{% endblock %} 
+
+</body>
+
+</html>
