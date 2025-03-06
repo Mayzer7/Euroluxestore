@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static "deps/css/login.css" %}">
-    <title>Page With Background Video | AsmrProg</title>
+    <title>Вход в аккаунт</title>
 </head>
 
 <body>
@@ -24,20 +24,21 @@
             <div class="shape"></div>
             <div class="shape"></div>
         </div>
+
         <form method="POST">
             {% csrf_token %}
             <h3>Войдите в аккаунт</h3>
-    
+
             <label for="username">Имя пользователя</label>
-            <input type="text" id="username">
-    
+            <input type="text" id="username" name="username">
+
             <label for="password">Пароль</label>
-            <input type="password" id="password">
-    
+            <input type="password" id="password" name="password">
+
             <button class="login-button">Войти</button>
             <div class="social">
-              <div class="go"><i class="fab fa-google"></i>  Google</div>
-              <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
+                <div class="go"><i class="fab fa-google"></i>  Google</div>
+                <div class="fb"><i class="fab fa-facebook"></i>  Facebook</div>
             </div>
             <a href="{% url 'users:registration' %}" class="reg-button">Зарегистрироваться</a>                       
         </form>

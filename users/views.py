@@ -18,15 +18,16 @@ def login_view(request):
             password = form.cleaned_data.get('password')
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
+                login(request, user)  # Входим в систему
                 messages.success(request, 'Вы успешно вошли!')
-                return redirect('users:profile')
+                return redirect('main:index')  # Редирект на главную страницу
             else:
                 messages.error(request, 'Неверные данные для входа.')
         else:
             messages.error(request, 'Неверные данные для входа.')
     else:
         form = AuthenticationForm()
+
     return render(request, 'users/login.html', {'form': form})
 
 def registration_view(request):
