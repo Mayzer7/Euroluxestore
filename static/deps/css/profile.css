@@ -1,24 +1,179 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: 'Gotham Pro', Arial, sans-serif;
+}
+
+/* ПЛАВНОЕ ПОЯВЛЕНИЕ ОБЪЕКТОВ НА САЙТЕ */
+.fade-in {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.fade-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.fade-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.fade-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* ШАПКА */
+.header {
+    background-color: #ffffff;
+    padding: 40px 40px;
+    border-bottom: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.logo {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000000;
+    margin-right: 20px;
+    text-decoration: none;
+}
+
+.nav {
+    display: flex;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #000000;
+    font-size: 16px;
+    padding: 5px;
+}
+
+.nav a:hover {
+    color: #666666;
+}
+
+.down-arrow {
+    color: #000000;
+    position: relative;
+    right: 0; 
+    margin-top: 4px;
+    width: 15px;           
+    height: 15px;          
+}
+
+.down-arrow img {
+    max-width: 100%;       
+    max-height: 100%; 
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    background: #eee;
+    border-radius: 30px;
+    padding: 8px 15px;
+    width: 500px;
+    height: 30px;
+    border: 2px solid transparent; 
+    margin-right: 10px;
+}
+
+.search-icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 10px;
+    opacity: 0.6;
+}
+
+.search-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    flex: 1;
+    font-size: 14px;
+    color: #555;
+}
+
+.search-input::placeholder {
+    color: #aaa;
+}
+  
+.search-container:focus-within {
+    border-color: black;
+}
+
+.icon-link {
+    display: inline-block; 
+}
+
+.icon-link svg {
+    width: 24px;
+    height: 24px;
+    margin-left: 10px;
+    margin-right: 5px;
+    transition: fill 0.3s ease; 
+}
+
+.icon-link:hover svg path {
+    fill: gray; 
+}
+
+
+
+
 .profile-container {
-    width: 80%;
-    margin: 20px auto;
-    font-family: Arial, sans-serif;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .profile-title {
     text-align: center;
     font-size: 24px;
-    font-weight: bold;
+    font-weight: 900;
     margin-bottom: 20px;
 }
 
 .profile-sections {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
     gap: 20px;
 }
 
+
+
+
+
 .profile-card {
-    background: #fff;
+    background: white; 
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -76,4 +231,85 @@
     height: 60px;
     border-radius: 5px;
     object-fit: cover;
+}
+
+
+.avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.avatar-container {
+    margin-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.error {
+    color: red;
+    font-size: 0.875em;
+}
+
+.submit-btn {
+    margin-top: 10px;
+    background-color: #000000; 
+    color: white; 
+    font-size: 14px; 
+    font-weight: 600; 
+    border: none; 
+    padding: 20px 60px; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    text-transform: uppercase; 
+    transition: background-color 0.3s ease; 
+}
+
+.submit-btn:hover {
+    background-color: #333333; 
+}
+
+
+
+
+
+
+
+.input-container {
+    display: flex;
+    align-items: center;
+    background: #eee;
+    border-radius: 30px;
+    padding: 8px 15px;
+    height: 30px;
+    border: 2px solid transparent; 
+    margin-right: 10px;
+    margin: 10px 0;
+}
+
+.profile-input {
+    border: none;
+    outline: none;
+    background: transparent;
+    flex: 1;
+    font-size: 14px;
+    color: #555;
+}
+
+.profile-input::placeholder {
+    color: #aaa;
+}
+  
+.input-container:focus-within {
+    border-color: black;
 }
