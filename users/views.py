@@ -6,9 +6,22 @@ from django.contrib import messages
 from .forms import UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 
+from django.contrib.auth.forms import UserChangeForm
+
 @login_required
 def profile_view(request):
-    return render(request, 'users/profile.html')
+    if request.method == 'POST':
+        form = UserChangeForm(request.POST, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Данные успешно сохранены!')
+            return redirect('users:profile')
+        else:
+            messages.error(request, 'Ошибка при сохранении данных.')
+    else:
+        form = UserChangeForm(instance=request.user)
+
+    return render(request, 'users/profile.html', {'form': form})
 
 def login_view(request):
     if request.method == 'POST':

@@ -31,29 +31,26 @@
                         <div class="input-container">
                             <input class="profile-input" type="text" name="username" value="{{ form.username.value }}" required>
                         </div>
-                        {% if form.first_name.errors %}
-                            <div class="error">{{ form.first_name.errors }}</div>
+                        {% if form.username.errors %}
+                            <div class="error">{{ form.username.errors }}</div>
                         {% endif %}
                     </div>
 
                     <div class="form-group">
                         <label for="id_email">Email</label>
                         <div class="input-container">
-                            <input class="profile-input" type="email" name="email" value="{{ form.email.value }}" required>
+                            <input class="profile-input" type="email" name="email" value="{{ form.email.value|default:'' }}" required>
                         </div>
                         {% if form.email.errors %}
-                        <div class="error">{{ form.email.errors }}</div>
+                            <div class="error">{{ form.email.errors }}</div>
                         {% endif %}
                     </div>
 
                     <div class="form-group">
                         <label for="password">Пароль</label>
                         <div class="input-container">
-                            <input class="profile-input" type="password" name="password" value="{{ form.password.value }}" required>
+                            <input autocomplete="new-password" class="profile-input" type="password" name="password" placeholder="Введите новый пароль" required>
                         </div>
-                        {% if form.password.errors %}
-                            <div class="error">{{ form.password.errors }}</div>
-                        {% endif %}
                     </div>
 
                     <button type="submit" class="submit-btn">
@@ -63,18 +60,27 @@
             </div>
 
             <!-- Блок заказов -->
-            <div class="profile-card">
+            <div class="order-card">
                 <h3>Мои заказы</h3>
-                <div class="orders">
-                    <div class="order">
-                        <p><strong>Заказ №1234</strong></p>
-                        <p>3 товара - 5 600₽</p>
-                        <p>Статус: Доставлен</p>
+                <div class="item-container">
+                    <div class="item-title">
+                        Кухонный стол с встройкой
                     </div>
-                    <div class="order">
-                        <p><strong>Заказ №1235</strong></p>
-                        <p>1 товар - 1 200₽</p>
-                        <p>Статус: В пути</p>
+
+                    <div class="item-configurate">
+                        <div class="quantity fade-in">
+                            <button class="quantity-btn fade-in">-</button>
+                            <span class="quantity-value fade-in">1</span>
+                            <button class="quantity-btn fade-in">+</button>
+                        </div>
+
+                        <div class="item-price">
+                            500$
+                        </div>
+
+                        <div class="item-delete">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 10v7m-4-7v7M6 6v11.8c0 1.12 0 1.68.218 2.108a2 2 0 0 0 .874.874c.427.218.987.218 2.105.218h5.606c1.118 0 1.677 0 2.104-.218c.377-.192.683-.498.875-.874c.218-.428.218-.987.218-2.105V6M6 6h2M6 6H4m4 0h8M8 6c0-.932 0-1.398.152-1.765a2 2 0 0 1 1.082-1.083C9.602 3 10.068 3 11 3h2c.932 0 1.398 0 1.765.152a2 2 0 0 1 1.083 1.083C16 4.602 16 5.068 16 6m0 0h2m0 0h2"/></svg>
+                        </div>
                     </div>
                 </div>
             </div>
