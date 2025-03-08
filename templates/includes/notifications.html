@@ -1,4 +1,4 @@
-{% comment %} {% load static %}
+{% load static %}
 
 <head>
     <link rel="stylesheet" href="{% static 'deps/css/modal_card.css' %}">
@@ -47,9 +47,15 @@
                     // Автоматическое скрытие через 5 секунд
                     setTimeout(() => {
                         modal.classList.remove("show");
+                        
+                        // Немного задержки перед удалением z-index и pointer-events
+                        setTimeout(() => {
+                            modal.style.zIndex = "-1";
+                            modal.style.pointerEvents = "none";
+                        }, 500);
                     }, 5000);
                 }
             });
         </script>
     {% endif %}
-</body> {% endcomment %}
+</body> 

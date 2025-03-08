@@ -121,7 +121,7 @@
                     <div class="product-grid fade-in">
                         {% for product in products %}
                             <div class="product-card fade-in">
-                                <a href="{% url 'goods:product_detail' product.id %}" class="product-image fade-in">
+                                <a href="{% url 'goods:product_detail' product.slug %}" class="product-image fade-in">
                                     <img src="{{ product.image.url }}" alt="{{ product.name }}">
                                 </a>
                                 <h3>{{ product.name }}</h3>

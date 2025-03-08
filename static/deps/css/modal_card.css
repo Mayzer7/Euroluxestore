@@ -8,7 +8,9 @@
     font-weight: bold;
 }
 
-.modal {
+
+
+#messageModal {
     display: flex;
     justify-content: center;
     position: fixed;
@@ -22,18 +24,20 @@
     padding: 15px;
     transition: top 0.5s ease-in-out, opacity 0.5s;
     opacity: 0;
-    z-index: 1000;
-}
-
-/* Контент сообщения */
-.modal-content {
-    color: white;
-    font-size: 16px;
-    text-align: center;
+    z-index: 900; /* Ставим ниже imageModal */
+    pointer-events: none;
 }
 
 /* Показываем модалку */
-.modal.show {
+#messageModal.show {
     top: 20px;
     opacity: 1;
+    pointer-events: auto;
+}
+
+/* Контент сообщения */
+#messageModal .modal-content {
+    color: white;
+    font-size: 16px;
+    text-align: center;
 }

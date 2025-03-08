@@ -103,9 +103,14 @@ class ProductView(TemplateView):
         return context
 
 class ProductDetailView(View):
-    def get(self, request, pk):
-        product = get_object_or_404(Products, id=pk)
-        return render(request, 'goods/product.html', {'product': product})
+    def get(self, request, product_slug):
+        product = get_object_or_404(Products, slug=product_slug)  # Ищем по slug
+        context = {
+            'product': product,
+            'title': f"{product.name}",  # Динамический title
+        }
+        return render(request, 'goods/product.html', context)
+
 
 
 # class CatalogView(ListView):

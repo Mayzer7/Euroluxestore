@@ -24,7 +24,7 @@
 
         <form method="POST">
             {% csrf_token %}
-            <h3>Зарегистрируйтесь</h3>
+            <h3>Регистрация</h3>
 
             <label for="username">Имя пользователя</label>
             <input type="text" id="username" name="username" value="{{ form.username.value|default_if_none:'' }}">
