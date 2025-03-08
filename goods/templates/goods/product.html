@@ -9,56 +9,68 @@
 {% block content %}
     <div class="breadcrumb-container">
         <nav class="breadcrumb">
-            <a href="#">Главная</a> > <a href="#">Кровать BOSS 160 велюр Monolit белый</a>
+            <a href="{% url "main:index" %}">Главная</a> > <a href="{% url "goods:catalog" %}">Каталог</a> > <a href="{% url 'goods:product_detail' product.id %}">{{ product.name }}</a>
         </nav>
     </div>
 
     <div class="product-container fade-in">
         <div class="product-images fade-in">
             <div class="dopImg fade-in">
-                <img src="{% static 'deps/images/goods/random/test1.jpg' %}" alt="Jacket Model 1" class="thumbnail">
-                <img src="{% static 'deps/images/goods/random/test2.jpg' %}" alt="Jacket Model 2" class="thumbnail">
-                <img src="{% static 'deps/images/goods/random/test3.jpg' %}" alt="Jacket Model 3" class="thumbnail">
+                {% if product.image_additional_1 %}
+                    <img src="{{ product.image_additional_1.url }}" alt="{{ product.name }}" class="thumbnail">
+                {% endif %}
+                
+                {% if product.image_additional_2 %}
+                    <img src="{{ product.image_additional_2.url }}" alt="{{ product.name }}" class="thumbnail">
+                {% endif %}
+
+                {% if product.image_additional_3 %}
+                    <img src="{{ product.image_additional_3.url }}" alt="{{ product.name }}" class="thumbnail">
+                {% endif %}
             </div>
 
             <div class="mainImg fade-in">
-                <img src="{% static 'deps/images/goods/bads/bad1.jpg' %}" alt="MainImg">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
             </div>
         </div>
 
         <div class="product-details fade-in">
-            <h1 class="fade-in">Кровать BOSS 160 велюр Monolit белый</h1>
+            <h1 class="fade-in">{{ product.name }}</h1>
             <div class="rating fade-in">
                 ★★★★★ <span class="ratingNumber">4.5/5</span> <span class="discount">10% скидка</span>
             </div>
             <div class="price fade-in">
-                <span class="current-price fade-in">40 950 ₽</span>
-                <span class="original-price fade-in">45 500 ₽</span>
+                <span class="current-price fade-in">{{ product.sell_price }} ₽</span>
+                <span class="original-price fade-in">{{ product.price }} ₽</span>
             </div>
-            <p class="description fade-in">
-                Кровать BOSS — это воплощение элегантности и минимализма. Её лаконичный дизайн, подчёркнутый мягким изголовьем с геометричным узором, делает эту кровать центральным элементом любой спальни. Комфортные обивки создают неповторимое ощущение уюта и способствуют полноценному отдыху.
-            </p>
+            <div class="price fade-in">
+                <label>{{ product.description }}</label>
+            </div>
 
             <div class="options fade-in">
                 <div class="color-selector fade-in">
-                    <label>Выберите цвет</label>
-                    <div class="colors fade-in">
-                        <button class="color red fade-in" data-color="red"></button>
-                        <button class="color purple fade-in" data-color="purple"></button>
-                        <button class="color blue fade-in" data-color="blue"></button>
-                    </div>
+                    {% if product.color %}
+                        <label>Цвет: {{ product.color }}</label>
+                    {% endif %}
                 </div>
 
                 <div class="size-selector fade-in">
-                    <label>Выберите размер</label>
                     <div class="sizes fade-in">
-                        <button class="size fade-in" data-size="small">140x200</button>
-                        <button class="size fade-in" data-size="middle">160x200</button>
-                        <button class="size fade-in" data-size="max">180x200</button>
+                        {% if product.length %}
+                            <label>Длина: {{ product.length }}см,</label>
+                        {% endif %}
+
+                        {% if product.width %}
+                            <label>Ширина: {{ product.width }}см,</label>
+                        {% endif %}
+                        
+                        {% if product.height %}
+                            <label>Размеры: {{ product.height }}см</label>
+                        {% endif %}
                     </div>
                 </div>
 
-                <div class="quantity fade-in">
+                <div class="quantity fade-in" data-product-id="{{ product.id }}">
                     <button class="quantity-btn fade-in">-</button>
                     <span class="quantity-value fade-in">1</span>
                     <button class="quantity-btn fade-in">+</button>
@@ -90,11 +102,72 @@
     </div>
     
 
-    <script>    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const quantityValue = document.querySelector('.quantity-value');
+            const minusBtn = document.querySelector('.quantity-btn:first-of-type');
+            const plusBtn = document.querySelector('.quantity-btn:last-of-type');
+            const addToCartBtn = document.querySelector('.add-to-cart');
+            const cartCount = document.querySelector('.cart-count');
+        
+            let quantity = 1;
+        
+            // Функция обновления количества товаров в корзине
+            function updateCartCount() {
+                fetch("{% url 'carts:cart_count' %}", {
+                    method: "GET",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    cartCount.textContent = data.cart_count;
+                })
+                .catch(error => console.error('Ошибка обновления корзины:', error));
+            }
+        
+            // Обновляем количество товаров в корзине при загрузке
+            updateCartCount();
+        
+            // Изменение количества товара перед добавлением в корзину
+            minusBtn.addEventListener('click', () => {
+                if (quantity > 1) {
+                    quantity--;
+                    quantityValue.textContent = quantity;
+                }
+            });
+        
+            plusBtn.addEventListener('click', () => {
+                quantity++;
+                quantityValue.textContent = quantity;
+            });
+        
+            // Добавление товара в корзину с выбранным количеством
+            addToCartBtn.addEventListener('click', () => {
+                // Получаем количество товара из элемента на странице
+                const quantity = parseInt(quantityValue.textContent, 10);
+            
+                // Отправляем запрос с параметром quantity
+                fetch("{% url 'carts:add_to_cart' product.id %}?quantity=" + quantity, {
+                    method: "GET",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Обновляем количество товаров в корзине
+                    cartCount.textContent = data.cart_count;
+                })
+                .catch(error => console.error('Ошибка добавления в корзину:', error));
+            });            
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             // Анимации появления при скролле
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
-            
+        
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -110,51 +183,7 @@
             elements.forEach(element => {
                 observer.observe(element);
             });
-
-            // Color selection
-            const colors = document.querySelectorAll('.color');
-            colors.forEach(color => {
-                color.addEventListener('click', () => {
-                    colors.forEach(c => c.classList.remove('active'));
-                    color.classList.add('active');
-                });
-            });
-
-            // Size selection
-            const sizes = document.querySelectorAll('.size');
-            sizes.forEach(size => {
-                size.addEventListener('click', () => {
-                    sizes.forEach(s => s.classList.remove('active'));
-                    size.classList.add('active');
-                });
-            });
-
-            // Quantity control
-            const quantityValue = document.querySelector('.quantity-value');
-            const decrementBtn = document.querySelector('.quantity-btn:nth-child(1)');
-            const incrementBtn = document.querySelector('.quantity-btn:nth-child(3)');
-
-            decrementBtn.addEventListener('click', () => {
-                let value = parseInt(quantityValue.textContent);
-                if (value > 1) {
-                    quantityValue.textContent = value - 1;
-                }
-            });
-
-            incrementBtn.addEventListener('click', () => {
-                let value = parseInt(quantityValue.textContent);
-                quantityValue.textContent = value + 1;
-            });
-
-            // Add to Cart (simple alert for demo)
-            const addToCartBtn = document.querySelector('.add-to-cart');
-            addToCartBtn.addEventListener('click', () => {
-                alert('Product added to cart!');
-            });
-
-
-
-
+        
             // Логика для изображений
             const thumbnails = document.querySelectorAll('.thumbnail');
             const mainImg = document.querySelector('.mainImg img');
@@ -163,19 +192,19 @@
             const closeModal = document.querySelector('.close-modal');
             const prevBtn = document.querySelector('.prev-btn');
             const nextBtn = document.querySelector('.next-btn');
-
+        
             // Массив всех изображений (основное + миниатюры)
             const images = [
                 mainImg.src, // Основное изображение идет первым
                 ...Array.from(thumbnails).map(thumbnail => thumbnail.src) // Миниатюры
             ];
             let currentIndex = 0;
-
+        
             // Функция для обновления главного изображения
             function updateMainImage(index) {
                 mainImg.src = images[index];
             }
-
+        
             // Клик по миниатюре для изменения главного изображения
             thumbnails.forEach((thumbnail, index) => {
                 thumbnail.addEventListener('click', () => {
@@ -183,41 +212,38 @@
                     updateMainImage(currentIndex);
                 });
             });
-
+        
             // Открытие модального окна при клике на главное изображение
             mainImg.addEventListener('click', () => {
+                console.log("Клик по главному изображению"); // Проверка
                 modal.style.display = 'flex';
                 modalImg.src = images[currentIndex];
             });
-
+        
             // Закрытие модального окна
             closeModal.addEventListener('click', () => {
                 modal.style.display = 'none';
-                updateMainImage(currentIndex); // Синхронизация главного изображения при закрытии
             });
-
+        
             // Закрытие модального окна при клике вне изображения
             modal.addEventListener('click', (e) => {
                 if (e.target === modal) {
                     modal.style.display = 'none';
-                    updateMainImage(currentIndex); // Синхронизация главного изображения
                 }
             });
-
+        
             // Переключение на предыдущее изображение
             prevBtn.addEventListener('click', () => {
                 currentIndex = (currentIndex - 1 + images.length) % images.length;
                 modalImg.src = images[currentIndex];
-                updateMainImage(currentIndex); // Обновляем главное изображение
             });
-
+        
             // Переключение на следующее изображение
             nextBtn.addEventListener('click', () => {
                 currentIndex = (currentIndex + 1) % images.length;
                 modalImg.src = images[currentIndex];
-                updateMainImage(currentIndex); // Обновляем главное изображение
             });
-
+        
             // Переключение с клавиатуры
             document.addEventListener('keydown', (e) => {
                 if (modal.style.display === 'flex') {
@@ -227,11 +253,9 @@
                         nextBtn.click();
                     } else if (e.key === 'Escape') {
                         modal.style.display = 'none';
-                        updateMainImage(currentIndex); // Синхронизация при закрытии
                     }
                 }
             });
         });        
     </script>
 {% endblock content %}
-

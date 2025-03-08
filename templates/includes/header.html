@@ -20,15 +20,14 @@
     </div>
 
     {% comment %} КОРЗИНА {% endcomment %}
-    <a href="https://example.com" class="icon-link">
+    <a href="{% url 'carts:cart_view' %}" class="icon-link">
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none">
             <path fill="#000" d="M9.375 20.25a1.875 1.875 0 1 1-3.75 0 1.875 1.875 0 0 1 3.75 0m7.875-1.875a1.875 1.875 0 1 0 0 3.75 1.875 1.875 0 0 0 0-3.75m4.825-11.294-2.558 8.316a2.61 2.61 0 0 1-2.51 1.853H7.775a2.64 2.64 0 0 1-2.525-1.904L2.045 4.125h-.92a1.125 1.125 0 0 1 0-2.25h1.202a1.88 1.88 0 0 1 1.803 1.36l.683 2.39H21a1.125 1.125 0 0 1 1.075 1.456m-2.598.794H5.455l1.959 6.853a.375.375 0 0 0 .36.272h9.233a.375.375 0 0 0 .36-.264z"></path>
         </svg>
     </a>
-
-    <h3 class="cart-count">
-        0
-    </h3>
+    
+    <h3 class="cart-count">{{ cart_count }}</h3>
+    
 
     {% comment %} ПРОФИЛЬ {% endcomment %}
     {% if user.is_authenticated %}
