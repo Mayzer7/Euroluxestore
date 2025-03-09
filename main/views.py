@@ -1,18 +1,81 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import TemplateView
+from django.contrib import messages
+
+import os
+from django.conf import settings
 
 from goods.models import Categories
 
 
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.header import Header
+
+from dotenv import load_dotenv
+
+# Загружаем переменные из .env файла
+load_dotenv()
+
 class IndexView(TemplateView):
     template_name = 'main/index.html'
 
+    def post(self, request, *args, **kwargs):
+
+        template_path = os.path.join(settings.BASE_DIR, 'users', 'templates', 'users', 'welcome_email.html')
+        email = request.POST.get("email")
+        print("Пользователь ввел email:", email)  # Вывод в консоль
+        
+        try:
+            with open(template_path, 'r', encoding='utf-8') as file:
+                html_content = file.read()
+        except FileNotFoundError:
+            messages.error(request, "Шаблон письма не найден.")
+            return self.get(request, *args, **kwargs)
+        except Exception as ex:
+            messages.error(request, f"Ошибка при чтении шаблона: {ex}")
+            return self.get(request, *args, **kwargs)
+
+        # Отправка письма
+        if send_html_email([email], "Спасибо, что подписались на рассылку EUROLUXE", html_content):
+            messages.success(request, 'Вам придёт письмо на почту')
+        else:
+            messages.error(request, "Ошибка при отправке письма.")
+
+        return self.get(request, *args, **kwargs)
+    
+
+
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)  
+        context = super().get_context_data(**kwargs)
         context['title'] = 'EUROLUXE - Главная'
         context['content'] = 'Магазин мебели EUROLUXE'
         return context
+    
+
+def send_html_email(recipients_emails: list, subject: str, html_content: str) -> bool:
+    login = os.getenv('YANDEX_EMAIL_LOGIN')
+    password = os.getenv('YANDEX_EMAIL_PASSWORD')
+
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = Header(subject, 'utf-8')
+    msg['From'] = login
+    msg['To'] = ', '.join(recipients_emails)
+
+    msg.attach(MIMEText(html_content, 'html', 'utf-8'))
+
+    try:
+        with smtplib.SMTP_SSL('smtp.yandex.ru', 465, timeout=10) as s:
+            s.login(login, password)
+            s.sendmail(msg['From'], recipients_emails, msg.as_string())
+            print("Email sent successfully!")
+        return True
+    except Exception as ex:
+        print(f"An error occurred: {ex}")
+        return False
+
 
 class CatalogView(TemplateView):
     template_name = 'main/index.html'
@@ -22,16 +85,6 @@ class CatalogView(TemplateView):
         context['title'] = 'EUROLUXE - Главная'
         context['content'] = 'Магазин мебели EUROLUXE'
         return context
-
-# def index(request):
-
-#     context = {
-#         'title': 'Home - Главная',
-#         'content': "Магазин мебели HOME",
-#     }
-
-#     return render(request, 'main/index.html', context)
-
 
 class AboutView(TemplateView):
     template_name = 'main/about.html'
