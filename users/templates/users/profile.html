@@ -57,6 +57,14 @@
                         Сохранить
                     </button>
                 </form>
+
+                <!-- Форма выхода -->
+                <form action="{% url 'users:logout' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="logout-btn">
+                        Выйти
+                    </button>
+                </form>
             </div>
 
             <!-- Блок заказов -->

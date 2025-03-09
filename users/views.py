@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, logout ,authenticate
 from django.contrib import messages
 
 from .forms import UserRegistrationForm
@@ -57,3 +57,10 @@ def registration_view(request):
     else:
         form = UserRegistrationForm()
     return render(request, 'users/registration.html', {'form': form})
+
+
+def logout_view(request):
+    """Выход из аккаунта"""
+    logout(request)
+    messages.success(request, 'Вы успешно вышли из аккаунта!')
+    return redirect('main:index')  # Перенаправляем на страницу логина (или другую страницу)

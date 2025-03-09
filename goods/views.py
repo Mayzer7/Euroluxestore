@@ -111,8 +111,6 @@ class ProductDetailView(View):
         }
         return render(request, 'goods/product.html', context)
 
-
-
 # class CatalogView(ListView):
 #     model = Products
 #     template_name = "goods/catalog.html"

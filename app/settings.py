@@ -1,5 +1,7 @@
 from pathlib import Path
 from decouple import config
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -93,7 +95,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
 
+                # Наши контекстные процессы 
                 'carts.context_processors.cart_count',
+                'goods.context_processors.categories_processor',
             ],
         },
     },
@@ -184,9 +188,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.User'
 
-# LOGIN_URL = '/users/login'  # Куда перекидывать, если пользователь не авторизован
-# LOGIN_REDIRECT_URL = 'users:profile'  # Куда редиректить после входа
-# LOGOUT_REDIRECT_URL = 'main:index'  # Куда редиректить после выхода
+LOGIN_URL = reverse_lazy('users:login')  # Куда перекидывать, если пользователь не авторизован
+LOGIN_REDIRECT_URL = reverse_lazy('users:profile')  # Куда редиректить после входа
+LOGOUT_REDIRECT_URL = reverse_lazy('main:index')  # Куда редиректить после выхода
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",

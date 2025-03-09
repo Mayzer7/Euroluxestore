@@ -1,14 +1,25 @@
 {% load static %}
 
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/header.css" %}">
+{% endblock css %}
+
 {% block header %}
 <header class="header fade-in">
     <a href="{% url "main:index" %}" class="logo">EUROLUXE</a>
     
     <nav class="nav">
         <a href="{% url "goods:catalog" %}">Каталог</a>
-        <a href="https://example.com" class="down-arrow">
-            <img src="{% static 'deps/icons/down-arrow.svg' %}">
-        </a>
+        <div class="dropdown">
+            <a href="#" class="down-arrow">
+                <img src="{% static 'deps/icons/down-arrow.svg' %}" alt="▼">
+            </a>
+            <ul class="dropdown-menu">
+                {% for category in categories %}
+                    <li><a href="{% url "goods:catalog" %}?category={{ category.slug }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
         <a href="#">По скидке</a>
         <a href="#">Новая коллекция</a>
         <a href="#">Бренды</a>

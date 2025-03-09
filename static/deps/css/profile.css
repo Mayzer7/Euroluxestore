@@ -279,6 +279,24 @@ body, html {
     background-color: #333333; 
 }
 
+.logout-btn {
+    margin-top: 10px;
+    background-color: rgba(255, 0, 0); 
+    color: white;   
+    font-size: 14px; 
+    font-weight: 600; 
+    border: none; 
+    padding: 20px 125px; 
+    border-radius: 30px; 
+    cursor: pointer; 
+    text-transform: uppercase; 
+    transition: background-color 0.3s ease; 
+}
+
+.logout-btn:hover {
+    background-color: #333333; 
+}
+
 .input-container {
     display: flex;
     align-items: center;
