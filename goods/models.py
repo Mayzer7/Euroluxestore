@@ -4,6 +4,8 @@ from django.db import models
 from django.urls import reverse
 from users.models import User
 
+from django.db.models import Avg
+
 # Create your models here.
 
 class Categories(models.Model):
@@ -62,29 +64,27 @@ class Products(models.Model):
             return int(self.price * ((100 - self.discount) / 100))
         return int(self.price)
     
+    def average_rating(self):
+        avg_rating = self.reviews.aggregate(Avg('rating'))['rating__avg']
+        return round(avg_rating, 1) if avg_rating else 0
+    
+
+
+
 
 
 class Review(models.Model):
-    product = models.ForeignKey(Products, on_delete=models.CASCADE, related_name='reviews')
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    text = models.TextField(verbose_name='Текст отзыва')
-    created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='review_images/', blank=True, null=True, verbose_name='Фото отзыва')
+    product = models.ForeignKey('Products', on_delete=models.CASCADE, related_name='reviews', verbose_name="Продукт")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="Пользователь")
+    rating = models.PositiveIntegerField(default=5, verbose_name="Оценка")
+    comment = models.TextField(blank=True, null=True, verbose_name="Комментарий")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
     class Meta:
-        db_table = 'Review'
-        ordering = ['-created_at']
-        verbose_name = 'Отзыв'
-        verbose_name_plural = 'Отзывы'
-
-    def delete(self, *args, **kwargs):
-        # Удаляем изображение из файловой системы, если оно существует
-        if self.image:
-            image_path = os.path.join(settings.MEDIA_ROOT, self.image.name)
-            if os.path.isfile(image_path):
-                os.remove(image_path)
-        # Вызываем стандартный метод delete для удаления записи из БД
-        super().delete(*args, **kwargs)
+        db_table = 'review'
+        verbose_name = "Отзыв"
+        verbose_name_plural = "Отзывы"
+        ordering = ["-created_at"]
 
     def __str__(self):
-        return f'Отзыв от {self.user.username} к {self.product.name}'
+        return f"Отзыв от {self.user.username} на {self.product.name} ({self.rating}/5)"

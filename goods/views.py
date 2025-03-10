@@ -10,7 +10,9 @@ from django.contrib import messages
 
 from django.views.generic import TemplateView
 
-from .models import Products, Categories
+from .models import Products, Categories, Review
+from .forms import ReviewForm
+from django.db.models import Avg
 
 
 from django.db.models import F, ExpressionWrapper, DecimalField
@@ -91,25 +93,58 @@ class CatalogView(TemplateView):
         context['categories'] = Categories.objects.all()  # Передаем список категорий
         return context
 
-class ProductView(TemplateView):
-    template_name = 'goods/product.html'
-
-    products_list = Products.objects.all()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)  
-        context['title'] = 'EUROLUXE - Товар'
-        context['content'] = 'Магазин мебели EUROLUXE'
-        return context
 
 class ProductDetailView(View):
     def get(self, request, product_slug):
-        product = get_object_or_404(Products, slug=product_slug)  # Ищем по slug
+        product = get_object_or_404(Products, slug=product_slug)
+        reviews = Review.objects.filter(product=product).order_by('-created_at')
+        avg_rating = reviews.aggregate(Avg('rating'))['rating__avg'] or 0  # Средний рейтинг
+
         context = {
             'product': product,
-            'title': f"{product.name}",  # Динамический title
+            'title': f"{product.name}",
+            'reviews': reviews,
+            'avg_rating': round(avg_rating, 1),
+            'review_form': ReviewForm(),
         }
         return render(request, 'goods/product.html', context)
+
+    @method_decorator(login_required)
+    def post(self, request, product_slug):
+        product = get_object_or_404(Products, slug=product_slug)
+        form = ReviewForm(request.POST)
+
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = product
+            review.user = request.user
+            review.save()
+            messages.success(request, "Ваш отзыв был добавлен!")
+            return redirect('goods:product_detail', product_slug=product.slug)
+
+        reviews = Review.objects.filter(product=product).order_by('-created_at')
+        avg_rating = reviews.aggregate(Avg('rating'))['rating__avg'] or 0
+
+        context = {
+            'product': product,
+            'reviews': reviews,
+            'avg_rating': round(avg_rating, 1),
+            'review_form': form,
+        }
+        return render(request, 'goods/product.html', context)
+
+
+
+# class ProductView(TemplateView):
+#     template_name = 'goods/product.html'
+
+#     products_list = Products.objects.all()
+
+#     def get_context_data(self, **kwargs):
+#         context = super().get_context_data(**kwargs)  
+#         context['title'] = 'EUROLUXE - Товар'
+#         context['content'] = 'Магазин мебели EUROLUXE'
+#         return context
 
 # class CatalogView(ListView):
 #     model = Products

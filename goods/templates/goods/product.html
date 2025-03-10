@@ -13,93 +13,147 @@
         </nav>
     </div>
 
-    <div class="product-container fade-in">
-        <div class="product-images fade-in">
-            <div class="dopImg fade-in">
-                {% if product.image_additional_1 %}
-                    <img src="{{ product.image_additional_1.url }}" alt="{{ product.name }}" class="thumbnail">
-                {% endif %}
-                
-                {% if product.image_additional_2 %}
-                    <img src="{{ product.image_additional_2.url }}" alt="{{ product.name }}" class="thumbnail">
-                {% endif %}
-
-                {% if product.image_additional_3 %}
-                    <img src="{{ product.image_additional_3.url }}" alt="{{ product.name }}" class="thumbnail">
-                {% endif %}
-            </div>
-
-            <div class="mainImg fade-in">
-                <img src="{{ product.image.url }}" alt="{{ product.name }}">
-            </div>
-        </div>
-
-        <div class="product-details fade-in">
-            <h1 class="fade-in">{{ product.name }}</h1>
-            <div class="rating fade-in">
-                ★★★★★ <span class="ratingNumber">4.5/5</span> <span class="discount">10% скидка</span>
-            </div>
-            <div class="price fade-in">
-                <span class="current-price fade-in">{{ product.sell_price }} ₽</span>
-                <span class="original-price fade-in">{{ product.price }} ₽</span>
-            </div>
-            <div class="price fade-in">
-                <label>{{ product.description }}</label>
-            </div>
-
-            <div class="options fade-in">
-                <div class="color-selector fade-in">
-                    {% if product.color %}
-                        <label>Цвет: {{ product.color }}</label>
+    <div class="product-and-reviews">
+        <div class="product-container fade-in">
+            <div class="product-images fade-in">
+                <div class="dopImg fade-in">
+                    {% if product.image_additional_1 %}
+                        <img src="{{ product.image_additional_1.url }}" alt="{{ product.name }}" class="thumbnail">
+                    {% endif %}
+                    
+                    {% if product.image_additional_2 %}
+                        <img src="{{ product.image_additional_2.url }}" alt="{{ product.name }}" class="thumbnail">
+                    {% endif %}
+    
+                    {% if product.image_additional_3 %}
+                        <img src="{{ product.image_additional_3.url }}" alt="{{ product.name }}" class="thumbnail">
                     {% endif %}
                 </div>
-
-                <div class="size-selector fade-in">
-                    <div class="sizes fade-in">
-                        {% if product.length %}
-                            <label>Длина: {{ product.length }}см,</label>
-                        {% endif %}
-
-                        {% if product.width %}
-                            <label>Ширина: {{ product.width }}см,</label>
-                        {% endif %}
-                        
-                        {% if product.height %}
-                            <label>Размеры: {{ product.height }}см</label>
-                        {% endif %}
-                    </div>
+    
+                <div class="mainImg fade-in">
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}">
                 </div>
-
-                <div class="quantity fade-in" data-product-id="{{ product.id }}">
-                    <button class="quantity-btn fade-in">-</button>
-                    <span class="quantity-value fade-in">1</span>
-                    <button class="quantity-btn fade-in">+</button>
+            </div>
+    
+            <div class="product-details fade-in">
+                <h1 class="fade-in">{{ product.name }}</h1>
+                <div class="rating">
+                    <span class="stars">
+                        {% with avg_rating_int=avg_rating|floatformat:0 %}
+                            {% for _ in "12345"|slice:avg_rating_int %}
+                                ★
+                            {% endfor %}
+                        {% endwith %}
+                    </span>
+                    <span class="ratingNumber">({{ avg_rating }}/5)</span>
                 </div>
                 
-                <button class="add-to-cart fade-in">Добавить в корзину</button>
+                
+                
+                <div class="price fade-in">
+                    <span class="current-price fade-in">{{ product.sell_price }} ₽</span>
+                    <span class="original-price fade-in">{{ product.price }} ₽</span>
+                </div>
+                <div class="price fade-in">
+                    <label>{{ product.description }}</label>
+                </div>
+    
+                <div class="options fade-in">
+                    <div class="color-selector fade-in">
+                        {% if product.color %}
+                            <label>Цвет: {{ product.color }}</label>
+                        {% endif %}
+                    </div>
+    
+                    <div class="size-selector fade-in">
+                        <div class="sizes fade-in">
+                            {% if product.length %}
+                                <label>Длина: {{ product.length }}см,</label>
+                            {% endif %}
+    
+                            {% if product.width %}
+                                <label>Ширина: {{ product.width }}см,</label>
+                            {% endif %}
+                            
+                            {% if product.height %}
+                                <label>Размеры: {{ product.height }}см</label>
+                            {% endif %}
+                        </div>
+                    </div>
+    
+                    <div class="quantity fade-in" data-product-id="{{ product.id }}">
+                        <button class="quantity-btn fade-in">-</button>
+                        <span class="quantity-value fade-in">1</span>
+                        <button class="quantity-btn fade-in">+</button>
+                    </div>
+                    
+                    <button class="add-to-cart fade-in">Добавить в корзину</button>
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- Модальное окно -->
-    <div class="modal" id="imageModal">
-        <span class="close-modal">×</span>
-        <img class="modal-content" id="modalImage">
         
-        <!-- Кнопка "Назад" -->
-        <button class="prev-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="black" d="M15.53 19.53a.75.75 0 0 0 0-1.06L9.06 12l6.47-6.47a.75.75 0 1 0-1.06-1.06l-7 7a.75.75 0 0 0 0 1.06l7 7a.75.75 0 0 0 1.06 0Z"/>
-            </svg>
-        </button>
-
-        <!-- Кнопка "Вперёд" -->
-        <button class="next-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
-                <path fill="black" d="M8.47 19.53a.75.75 0 0 1 0-1.06L14.94 12 8.47 5.53a.75.75 0 1 1 1.06-1.06l7 7a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0Z"/>
-            </svg>
-        </button>
+        <div class="reviews-container">
+            <h2 class="reviews-title">Отзывы о товаре</h2>
+            <p class="reviews-rating">Средний рейтинг: <strong>{{ avg_rating }}/5</strong></p>
+        
+            {% for review in reviews %}
+                <div class="review">
+                    <strong>{{ review.user.username }}</strong> 
+                    <span class="review-date">- {{ review.created_at|date:"d M Y" }}</span>
+                    <p class="review-rating">
+                        Рейтинг:
+                        {% for _ in "12345"|slice:review.rating %}
+                            ⭐
+                        {% endfor %}
+                        ({{ review.rating }}/5)
+                    </p>
+                    
+                    <p class="review-comment">{{ review.comment }}</p>
+                </div>
+            {% empty %}
+                <p>Отзывов пока нет. Будьте первым!</p>
+            {% endfor %}
+        </div>
+        
+        {% if user.is_authenticated %}
+            <div class="review-form">
+                <h3>Оставить отзыв</h3>
+                <form method="post">
+                    {% csrf_token %}
+                    {{ review_form.as_p }}
+                    <button type="submit">Отправить</button>
+                </form>
+            </div>
+        {% else %}
+            <p class="login-message">
+                <a href="{% url 'users:login' %}">Войдите</a>, чтобы оставить отзыв.
+            </p>
+        {% endif %}
+        
+    
+    
+        <!-- Модальное окно -->
+        <div class="modal" id="imageModal">
+            <span class="close-modal">×</span>
+            <img class="modal-content" id="modalImage">
+            
+            <!-- Кнопка "Назад" -->
+            <button class="prev-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="black" d="M15.53 19.53a.75.75 0 0 0 0-1.06L9.06 12l6.47-6.47a.75.75 0 1 0-1.06-1.06l-7 7a.75.75 0 0 0 0 1.06l7 7a.75.75 0 0 0 1.06 0Z"/>
+                </svg>
+            </button>
+    
+            <!-- Кнопка "Вперёд" -->
+            <button class="next-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="icon" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="black" d="M8.47 19.53a.75.75 0 0 1 0-1.06L14.94 12 8.47 5.53a.75.75 0 1 1 1.06-1.06l7 7a.75.75 0 0 1 0 1.06l-7 7a.75.75 0 0 1-1.06 0Z"/>
+                </svg>
+            </button>
+        </div>
     </div>
+    
     
 
     <script>
