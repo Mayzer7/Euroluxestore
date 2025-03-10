@@ -553,3 +553,22 @@ h1 {
     font-weight: bold;
     margin-left: 5px;
 }
+
+
+
+
+
+
+.review-images {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.review-image {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover; /* Сохранение пропорций изображения, обрезка, если оно слишком большое */
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}

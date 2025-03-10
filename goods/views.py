@@ -112,7 +112,7 @@ class ProductDetailView(View):
     @method_decorator(login_required)
     def post(self, request, product_slug):
         product = get_object_or_404(Products, slug=product_slug)
-        form = ReviewForm(request.POST)
+        form = ReviewForm(request.POST, request.FILES)  # Не забываем про request.FILES
 
         if form.is_valid():
             review = form.save(commit=False)
@@ -132,6 +132,7 @@ class ProductDetailView(View):
             'review_form': form,
         }
         return render(request, 'goods/product.html', context)
+
 
 
 

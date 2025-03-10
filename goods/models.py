@@ -80,6 +80,11 @@ class Review(models.Model):
     comment = models.TextField(blank=True, null=True, verbose_name="Комментарий")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
+    # Добавляем изображения
+    image_1 = models.ImageField(upload_to='reviews/', blank=True, null=True, verbose_name='Фотография 1')
+    image_2 = models.ImageField(upload_to='reviews/', blank=True, null=True, verbose_name='Фотография 2')
+    image_3 = models.ImageField(upload_to='reviews/', blank=True, null=True, verbose_name='Фотография 3')
+
     class Meta:
         db_table = 'review'
         verbose_name = "Отзыв"
