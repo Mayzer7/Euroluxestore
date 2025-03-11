@@ -99,8 +99,17 @@
         
             {% for review in reviews %}
                 <div class="review">
-                    <strong>{{ review.user.username }}</strong> 
-                    <span class="review-date">- {{ review.created_at|date:"d M Y" }}</span>
+                    <div class="review-header">
+                        <div class="review-avatar">
+                            {% if review.user.image %}
+                                <img src="{{ review.user.image.url }}" alt="Аватар пользователя" class="avatar">
+                            {% else %}
+                                <img src="{% static 'deps/images/baseavatar.jpg' %}" alt="Аватар пользователя" class="avatar">
+                            {% endif %}
+                        </div>
+                        <strong>{{ review.user.username }}</strong>
+                        <span class="review-date">- {{ review.created_at|date:"d M Y" }}</span>
+                    </div>
                     <p class="review-rating">
                         Рейтинг:
                         {% for _ in "12345"|slice:review.rating %}
@@ -108,9 +117,8 @@
                         {% endfor %}
                         ({{ review.rating }}/5)
                     </p>
-                    
                     <p class="review-comment">{{ review.comment }}</p>
-
+        
                     <!-- Показываем прикрепленные фотографии -->
                     <div class="review-images">
                         {% if review.image_1 %}
@@ -129,13 +137,27 @@
             {% endfor %}
         </div>
         
-        <!-- Форма отзыва -->
         {% if user.is_authenticated %}
             <div class="review-form">
                 <h3>Оставить отзыв</h3>
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
-                    {{ review_form.as_p }}
+                    
+                    {{ review_form.rating }}
+                    {{ review_form.comment }}
+                    
+                    <div class="image-upload">
+                        <label>Загрузите фото:</label>
+                        
+                        <div id="image-container">
+                            <input type="file" name="image_1" id="image_1" class="form-control">
+                            <input type="file" name="image_2" id="image_2" class="form-control hidden">
+                            <input type="file" name="image_3" id="image_3" class="form-control hidden">
+                        </div>
+
+                        <button type="button" id="add-image-btn" class="add-image">+</button>
+                    </div>
+
                     <button type="submit">Отправить</button>
                 </form>
             </div>
@@ -171,6 +193,27 @@
     
 
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Скрываем дополнительные поля при загрузке страницы
+            document.getElementById("image_2").style.display = "none";
+            document.getElementById("image_3").style.display = "none";
+    
+            let imageIndex = 1; // Счетчик загруженных изображений
+            const maxImages = 3;
+            const addButton = document.getElementById("add-image-btn");
+            const imageInputs = ["image_2", "image_3"];
+    
+            addButton.addEventListener("click", function () {
+                if (imageIndex < maxImages) {
+                    document.getElementById(imageInputs[imageIndex - 1]).style.display = "block";
+                    imageIndex++;
+                }
+                if (imageIndex === maxImages) {
+                    addButton.style.display = "none";
+                }
+            });
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             // Функции для обновления корзины и количества товаров
             const quantityValue = document.querySelector('.quantity-value');

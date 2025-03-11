@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, logout ,authenticate
 from django.contrib import messages
 
-from .forms import UserRegistrationForm
+from .forms import UserRegistrationForm, CustomUserChangeForm
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.forms import UserChangeForm
@@ -11,15 +11,19 @@ from django.contrib.auth.forms import UserChangeForm
 @login_required
 def profile_view(request):
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=request.user)
+        # Создаем форму с данными из запроса и экземпляром текущего пользователя
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+        
         if form.is_valid():
+            # Сохраняем обновленные данные
             form.save()
             messages.success(request, 'Данные успешно сохранены!')
             return redirect('users:profile')
         else:
             messages.error(request, 'Ошибка при сохранении данных.')
     else:
-        form = UserChangeForm(instance=request.user)
+        # Если запрос GET, просто выводим текущие данные пользователя
+        form = CustomUserChangeForm(instance=request.user)
 
     return render(request, 'users/profile.html', {'form': form})
 

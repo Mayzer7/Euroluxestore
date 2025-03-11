@@ -572,3 +572,36 @@ h1 {
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+
+
+
+.hidden { display: none; }
+
+    .add-image { 
+        margin-top: 10px; 
+        cursor: pointer; 
+        padding: 5px 10px; 
+        background-color: #007bff; 
+        color: white; 
+        border: none; 
+        border-radius: 5px; 
+        font-size: 16px;
+    }
+    .add-image:hover { background-color: #0056b3; }
+
+
+
+
+    .review-avatar img.avatar {
+        width: 40px; /* Устанавливаем размер аватарки */
+        height: 40px; /* Устанавливаем размер аватарки */
+        border-radius: 50%; /* Это сделает аватарку круглой */
+        object-fit: cover; /* Обеспечивает, чтобы изображение не деформировалось */
+        margin-right: 10px; /* Отступ между аватаркой и именем пользователя */
+    }
+    .review-header {
+        display: flex;
+        align-items: center;
+    }
+    

@@ -114,6 +114,10 @@ class ProductDetailView(View):
         product = get_object_or_404(Products, slug=product_slug)
         form = ReviewForm(request.POST, request.FILES)  # Не забываем про request.FILES
 
+        # Если комментарий пустой или есть другая ошибка
+        if 'comment' in form.errors:
+            messages.error(request, "Поле с комментарием пустое")
+
         if form.is_valid():
             review = form.save(commit=False)
             review.product = product
