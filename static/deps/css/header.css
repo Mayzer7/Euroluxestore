@@ -72,6 +72,7 @@ body, html {
     top: 100%;
     left: 0;
     margin-left: -100px; /* Подберите значение по необходимости */
+    margin-top: 0px;
     background: white;
     border: 1px solid #ddd;
     border-radius: 5px;

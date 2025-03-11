@@ -18,7 +18,7 @@ class ProductsAdmin(admin.ModelAdmin):
     list_display = ['name', 'quantity', 'price', 'discount']
     list_editable = ['discount',]
     search_fields = ['name', 'description']
-    list_filter = ['discount', 'quantity', 'category']
+    list_filter = ['discount', 'quantity', 'category', 'new_collection', 'top_sales']
     fields = [
         "name",
         "category",
@@ -29,4 +29,6 @@ class ProductsAdmin(admin.ModelAdmin):
         "color",
         ("width", "length", "height"),
         "quantity",
+        "new_collection",
+        "top_sales",
     ]

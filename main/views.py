@@ -6,7 +6,7 @@ from django.contrib import messages
 import os
 from django.conf import settings
 
-from goods.models import Categories
+from goods.models import Categories, Products
 
 
 import smtplib
@@ -49,9 +49,14 @@ class IndexView(TemplateView):
 
 
     def get_context_data(self, **kwargs):
+        new_collection_products = Products.objects.filter(new_collection=True)
+        top_sales_products = Products.objects.filter(top_sales=True)
+
         context = super().get_context_data(**kwargs)
         context['title'] = 'EUROLUXE - Главная'
         context['content'] = 'Магазин мебели EUROLUXE'
+        context['new_collection_products'] = new_collection_products
+        context['top_sales_products'] = top_sales_products
         return context
     
 
@@ -77,14 +82,6 @@ def send_html_email(recipients_emails: list, subject: str, html_content: str) ->
         return False
 
 
-class CatalogView(TemplateView):
-    template_name = 'main/index.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)  
-        context['title'] = 'EUROLUXE - Главная'
-        context['content'] = 'Магазин мебели EUROLUXE'
-        return context
 
 class AboutView(TemplateView):
     template_name = 'main/about.html'
