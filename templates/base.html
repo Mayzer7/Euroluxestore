@@ -9,24 +9,14 @@
         <link rel="stylesheet" href="{% static "deps/css/test.css" %}">
     {% endblock css %}
 
-    <title>{{ title }}</title>
-    <style>
-        @font-face {
-            font-family: 'Gotham Pro';
-            src: url('{% static "fonts/GothamPro-Regular.woff2" %}') format('woff2'),
-                 url('{% static "fonts/GothamPro-Regular.woff" %}') format('woff');
-            font-weight: normal;
-            font-style: normal;
-        }
+    <!-- Favicons для разных платформ -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "deps/favicon/apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "deps/favicon/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "deps/favicon/favicon-16x16.png" %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static "deps/favicon/android-chrome-192x192.png" %}">
+    <link rel="icon" type="image/x-icon" sizes="48x48" href="{% static 'deps/favicon/favicon.ico' %}">
 
-        @font-face {
-            font-family: 'Gotham Pro';
-            src: url('{% static "fonts/GothamPro-Bold.woff2" %}') format('woff2'),
-                 url('{% static "fonts/GothamPro-Bold.woff" %}') format('woff');
-            font-weight: bold;
-            font-style: normal;
-        }
-    </style>
+    <title>{{ title }}</title>
 </head>
 <body>
     {% block header %}
@@ -40,5 +30,6 @@
     {% block content %}
 
     {% endblock %}
+
 </body>
 </html>

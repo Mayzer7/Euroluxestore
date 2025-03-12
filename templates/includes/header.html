@@ -20,9 +20,9 @@
                 {% endfor %}
             </ul>
         </div>
-        <a href="#">По скидке</a>
-        <a href="#">Новая коллекция</a>
-        <a href="#">Бренды</a>
+        <a href="{% url "goods:catalog" %}?sort=discount">По скидке</a>
+        <a href="{% url "main:index" %}#new-collection">Новая коллекция</a>
+        <a href="{% url "main:index" %}#reviews">Отзывы</a>
     </nav>
     
     <div class="search-container">

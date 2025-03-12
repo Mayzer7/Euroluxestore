@@ -71,7 +71,7 @@
         </a>
     </div>
 
-    <div class="browse-container fade-in">
+    <div class="browse-container fade-in" id="new-collection">
         <section class="reviews-section">
             <div class="header-controls">
                 <h2>НОВАЯ КОЛЛЕКЦИЯ</h2>
@@ -226,7 +226,7 @@
         </div>
     </div>
 
-    <div class="browse-container fade-in">
+    <div class="browse-container fade-in" id="reviews">
         <section class="reviews-section">
             <div class="header-controls">
                 <h2>НАШИ ДОВОЛЬНЫЕ КЛИЕНТЫ</h2>
@@ -360,6 +360,7 @@
     </div>
     
     <script>
+
         document.addEventListener('DOMContentLoaded', () => {
             // === АНИМАЦИИ ПОЯВЛЕНИЯ ===
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
