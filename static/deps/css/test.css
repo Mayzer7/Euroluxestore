@@ -306,6 +306,7 @@ body, html {
 .product-card {
     user-select: none; /* Запрещает выделение текста */
     width: 350px;
+    height: 500px;
     margin: 0 20px;
     background: #fff;
     border-radius: 15px;
@@ -317,6 +318,24 @@ body, html {
 }
 
 .product-card:hover {
+    transform: translateY(-5px);
+}
+
+.product-card-top {
+    user-select: none; /* Запрещает выделение текста */
+    width: 350px;
+    height: 500px;
+    margin: 0 20px;
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+}
+
+.product-card-top:hover {
     transform: translateY(-5px);
 }
 
@@ -631,13 +650,24 @@ hr {
 }
 
 /* Карусель отзывов */
-.review-carousel {
+.new-collection-carousel {
     display: flex;
     justify-content: center;
     padding: 30px;
 }
 
-.review-slider {
+.new-collection-slider {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+}
+
+.top-carousel {
+    display: flex;
+    justify-content: center;
+    padding: 30px;
+}
+
+.top-slider {
     display: flex;
     transition: transform 0.4s ease-in-out;
 }
@@ -680,9 +710,14 @@ hr {
     margin: 5px 0;
 }
 
+.review-slider {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+}
+
 /* Адаптивность */
 @media (max-width: 1024px) {
-    .review-carousel {
+    .new-collection-carousel {
         max-width: 90%;
         padding: 20px;
     }
@@ -710,7 +745,7 @@ hr {
         gap: 10px;
     }
 
-    .review-carousel {
+    .new-collection-carousel {
         max-width: 95%;
     }
 

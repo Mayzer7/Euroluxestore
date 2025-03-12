@@ -48,11 +48,11 @@
                     <span class="ratingNumber">({{ avg_rating }}/5)</span>
                 </div>
                 
-                
-                
                 <div class="price fade-in">
                     <span class="current-price fade-in">{{ product.sell_price }} ₽</span>
-                    <span class="original-price fade-in">{{ product.price }} ₽</span>
+                    {% if product.discount %}
+                        <span class="original-price fade-in">{{ product.price }} ₽</span>
+                    {% endif %}
                 </div>
                 <div class="price fade-in">
                     <label>{{ product.description }}</label>
