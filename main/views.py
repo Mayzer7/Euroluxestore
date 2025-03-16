@@ -54,10 +54,13 @@ class IndexView(TemplateView):
         new_collection_products = Products.objects.filter(new_collection=True).annotate(avg_rating=Avg('reviews__rating'))
         top_sales_products = Products.objects.filter(top_sales=True).annotate(avg_rating=Avg('reviews__rating'))
 
+        reviews = Review.objects.select_related('product', 'user').order_by('-created_at')[:10]  # Берем 10 свежих
+
         context['title'] = 'EUROLUXE - Главная'
         context['content'] = 'Магазин мебели EUROLUXE'
         context['new_collection_products'] = new_collection_products
         context['top_sales_products'] = top_sales_products
+        context['reviews'] = reviews
         return context
     
 

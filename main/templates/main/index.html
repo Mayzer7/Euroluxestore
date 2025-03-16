@@ -181,6 +181,7 @@
                                     {% endfor %}
                                 {% endwith %}
                             </div>
+                            
                             <div class="rating-numbers">
                                 {% if product.avg_rating is None %}
                                     {{ product.avg_rating|default:"0,0" }}
@@ -257,40 +258,43 @@
             </div>
             <div class="review-carousel">
                 <div class="review-slider">
-                    <div class="review-card">
-                        <div class="stars">★★★★★</div>
-                        <h3>Отличное качество!</h3>
-                        <p>Очень довольна покупкой, качество на высоте.</p>
-                        <p><strong>Анна Смирнова</strong></p>
-                    </div>
-                    <div class="review-card">
-                        <div class="stars">★★★★☆</div>
-                        <h3>Хороший сервис</h3>
-                        <p>Доставка быстрая, товар соответствует описанию.</p>
-                        <p><strong>Максим Орлов</strong></p>
-                    </div>
-                    <div class="review-card">
-                        <div class="stars">★★★★★</div>
-                        <h3>Лучший магазин!</h3>
-                        <p>Не первый раз заказываю здесь, всегда доволен!</p>
-                        <p><strong>Екатерина Лебедева</strong></p>
-                    </div>
-                    <div class="review-card">
-                        <div class="stars">★★★☆☆</div>
-                        <h3>Ожидал лучшего</h3>
-                        <p>В целом неплохо, но упаковка была повреждена.</p>
-                        <p><strong>Алексей Иванов</strong></p>
-                    </div>
-                    <div class="review-card">
-                        <div class="stars">★★★★★</div>
-                        <h3>Рекомендую!</h3>
-                        <p>Прекрасный магазин, вежливые консультанты.</p>
-                        <p><strong>Ольга Петрова</strong></p>
-                    </div>
+                    {% for review in reviews %}
+                        <a href="{% url 'goods:product_detail' review.product.slug %}" class="review-card">
+                            <div class="review-header">
+                                {% if review.user.image %}
+                                    <img src="{{ review.user.image.url }}" alt="Аватар пользователя" class="avatar">
+                                {% else %}
+                                    <img src="{% static 'deps/images/baseavatar.jpg' %}" alt="Аватар пользователя" class="avatar">
+                                {% endif %}
+                                <strong>{{ review.user.username }}</strong>
+                                <span class="review-date">- {{ review.created_at|date:"d M Y" }}</span>
+                            </div>
+                            <div class="stars">
+                                {% for _ in "12345"|slice:review.rating %} ⭐ {% endfor %}
+                            </div>
+                            <h3>{{ review.comment|truncatewords:10 }}</h3>
+    
+                            <!-- Показываем прикрепленные фотографии -->
+                            <div class="review-images">
+                                {% if review.image_1 %}
+                                    <img src="{{ review.image_1.url }}" alt="Фото 1" class="review-image">
+                                {% endif %}
+                                {% if review.image_2 %}
+                                    <img src="{{ review.image_2.url }}" alt="Фото 2" class="review-image">
+                                {% endif %}
+                                {% if review.image_3 %}
+                                    <img src="{{ review.image_3.url }}" alt="Фото 3" class="review-image">
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% empty %}
+                        <p>Пока нет отзывов</p>
+                    {% endfor %}
                 </div>
             </div>
         </section>
     </div>
+    
 
     <div class="about-container fade-in">
         <footer>

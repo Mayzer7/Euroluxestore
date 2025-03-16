@@ -402,7 +402,7 @@ body, html {
 
 .rating-numbers {
     font-size: 16px;
-    font-weight: 500;
+    font-weight: 600;
     color: black;
 }
 
@@ -716,60 +716,134 @@ hr {
     transition: transform 0.4s ease-in-out;
 }
 
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    border: 2px solid #ddd; /* Небольшая рамка */
+}
+
+/* Фотографии в отзывах */
+/* Основной контейнер отзывов */
+.review-carousel {
+    overflow: hidden;
+    padding: 20px 0;
+}
+
+/* Слайдер с отзывами */
+.review-slider {
+    display: flex;
+    gap: 15px;
+    transition: transform 0.4s ease-in-out;
+}
+
+/* Карточка отзыва */
+.review-card {
+    width: 220px;
+    min-height: 220px; /* Минимальная высота */
+    background: #fff;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease;
+}
+
+/* Ховер эффект */
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Заголовок отзыва (аватар + имя + дата) */
+.review-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #444;
+}
+
+/* Аватар пользователя */
+.avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+/* Рейтинг (звёзды) */
+.stars {
+    color: #e6b800;
+    font-size: 18px;
+    margin: 5px 0;
+}
+
+/* Текст комментария */
+.review-text {
+    font-size: 15px;
+    margin: 5px 0;
+    color: #333;
+    font-weight: normal;
+    min-height: 20px; /* Чтобы не было скачков высоты */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Контейнер фото (скрывается, если нет фото) */
+.review-images {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+/* Если нет фото, скрываем блок */
+.review-images:empty {
+    display: none;
+}
+
+/* Изображения в отзывах */
+.review-image {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.review-image:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
 /* Адаптивность */
 @media (max-width: 1024px) {
-    .new-collection-carousel {
-        max-width: 90%;
-        padding: 20px;
+    .review-card {
+        width: 200px;
     }
+}
 
-    .header-controls h2 {
-        font-size: 28px;
-    }
-
+@media (max-width: 768px) {
     .review-card {
         width: 180px;
     }
 }
 
-@media (max-width: 768px) {
-    .header-controls {
-        flex-direction: column;
-    }
-
-    .header-controls h2 {
-        font-size: 24px;
-        margin-bottom: 10px;
-    }
-
-    .arrow-container {
-        gap: 10px;
-    }
-
-    .new-collection-carousel {
-        max-width: 95%;
-    }
-
+@media (max-width: 480px) {
     .review-card {
         width: 160px;
     }
 }
-
-@media (max-width: 480px) {
-    .review-card {
-        width: 140px;
-    }
-
-    .header-controls h2 {
-        font-size: 22px;
-    }
-
-    .arrow img {
-        width: 24px;
-        height: 24px;
-    }
-}
-
 
 
 
@@ -930,5 +1004,4 @@ footer {
 .social-icons a svg {
     margin-right: 5px;
 }
-
 
