@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Cart
 from goods.models import Products
@@ -26,6 +26,17 @@ def add_to_cart(request, product_id):
 
     return JsonResponse({"cart_count": cart_count})
 
+@login_required
+def remove_from_cart(request, item_id):
+    cart_item = Cart.objects.filter(id=item_id, user=request.user).first()
+    
+    if cart_item:
+        cart_item.delete()
+        messages.success(request, "Товар удалён из корзины.")
+    else:
+        messages.error(request, "Товар не найден в вашей корзине.")
+
+    return redirect("carts:cart_view")
 
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
