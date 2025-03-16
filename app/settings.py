@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'goods',
     'users',
     'carts',
+    'orders',
 
     'django.contrib.sites',
     'allauth',
@@ -169,7 +170,7 @@ STATICFILES_DIRS = [
     BASE_DIR / "static"
 ]
 
-MEDIA_URL = "media/"
+MEDIA_URL = 'media/'
 
 SHELL_PLUS = "ipython"
 

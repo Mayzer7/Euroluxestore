@@ -8,11 +8,16 @@ from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.forms import UserChangeForm
 from carts.models import Cart
+from orders.models import Order
+
 
 @login_required
 def profile_view(request):
     cart_items = Cart.objects.filter(user=request.user)
     total_price = sum(item.total_price() for item in cart_items)
+
+    # Получаем заказы пользователя и загружаем связанные товары
+    user_orders = Order.objects.filter(user=request.user).prefetch_related('items__product')
 
     if request.method == 'POST':
         form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
@@ -29,8 +34,12 @@ def profile_view(request):
     return render(request, 'users/profile.html', {
         'form': form,
         'cart_items': cart_items,
-        'total_price': total_price
+        'total_price': total_price,
+        'orders': user_orders,  # Передаём заказы пользователя
     })
+
+
+
 
 def login_view(request):
     if request.method == 'POST':
