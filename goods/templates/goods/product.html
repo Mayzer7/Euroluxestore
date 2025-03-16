@@ -276,6 +276,12 @@
                 .then(data => {
                     // Обновляем количество товаров в корзине
                     cartCount.textContent = data.cart_count;
+
+                    if (data.success) {
+                        location.reload(); // Перезагружаем страницу после успешного добавления
+                    } else {
+                        location.reload();
+                    }
                 })
                 .catch(error => console.error('Ошибка добавления в корзину:', error));
             });

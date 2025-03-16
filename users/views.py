@@ -7,25 +7,30 @@ from .forms import UserRegistrationForm, CustomUserChangeForm
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.forms import UserChangeForm
+from carts.models import Cart
 
 @login_required
 def profile_view(request):
+    cart_items = Cart.objects.filter(user=request.user)
+    total_price = sum(item.total_price() for item in cart_items)
+
     if request.method == 'POST':
-        # Создаем форму с данными из запроса и экземпляром текущего пользователя
         form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
-        
+
         if form.is_valid():
-            # Сохраняем обновленные данные
             form.save()
             messages.success(request, 'Данные успешно сохранены!')
             return redirect('users:profile')
         else:
             messages.error(request, 'Ошибка при сохранении данных.')
     else:
-        # Если запрос GET, просто выводим текущие данные пользователя
         form = CustomUserChangeForm(instance=request.user)
 
-    return render(request, 'users/profile.html', {'form': form})
+    return render(request, 'users/profile.html', {
+        'form': form,
+        'cart_items': cart_items,
+        'total_price': total_price
+    })
 
 def login_view(request):
     if request.method == 'POST':

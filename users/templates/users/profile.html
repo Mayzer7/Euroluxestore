@@ -112,28 +112,42 @@
         </div>
 
         <!-- Блок корзины -->
-        <div class="profile-card">
+        <div class="cart-card">
             <h3>Корзина</h3>
-            <div class="cart">
-                <div class="cart-item">
-                    <img src="product1.jpg" alt="Товар" class="cart-img">
-                    <div class="cart-details">
-                        <p><strong>Футболка черная</strong></p>
-                        <p>Размер: M</p>
-                        <p>Цена: 2 000₽</p>
-                    </div>
+            {% if cart_items %}
+                <div class="cart">
+                    {% for item in cart_items %}
+                        <div class="cart-item">
+                            <a href="{% url 'goods:product_detail' item.product.slug %}">
+                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-img">
+                            </a>
+                            <div class="cart-details">
+                                <p>
+                                    <a href="{% url 'goods:product_detail' item.product.slug %}">
+                                        <strong>{{ item.product.name }}</strong>
+                                    </a>
+                                </p>
+                                <p>Количество: {{ item.quantity }} шт.</p>
+                                <p>Цена: {{ item.total_price }} ₽</p>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-                <div class="cart-item">
-                    <img src="product2.jpg" alt="Товар" class="cart-img">
-                    <div class="cart-details">
-                        <p><strong>Джинсы</strong></p>
-                        <p>Размер: 32</p>
-                        <p>Цена: 4 500₽</p>
-                    </div>
+                <div class="result">
+                    <p><strong>Итого: {{ total_price }} ₽</strong></p>
+                    
+                    <a href="#">
+                        <button class="shop-now-button">
+                            Оформить заказ 
+                        </button>
+                    </a>
                 </div>
-            </div>
+            {% else %}
+                <p>Корзина пуста.</p>
+            {% endif %}
         </div>
-    </div>
+
+
 
     <script>    
         document.addEventListener('DOMContentLoaded', () => {
