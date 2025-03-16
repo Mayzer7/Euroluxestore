@@ -98,14 +98,22 @@
                         
                         <div class="rating">
                             <div class="stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">☆</span>
+                                {% with avg_rating_rounded=product.avg_rating|floatformat:0 %}
+                                    {% for i in "12345"|make_list %}
+                                        {% if i <= avg_rating_rounded %}
+                                            <span class="star">★</span>
+                                        {% else %}
+                                            <span class="star">☆</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
                             </div>
                             <div class="rating-numbers">
-                                4.0/5
+                                {% if product.avg_rating is None %}
+                                    {{ product.avg_rating|default:"0,0" }}
+                                {% else %}
+                                    {{ product.avg_rating|floatformat:1 }}    
+                                {% endif %}
                             </div>
                         </div>
                         
@@ -163,14 +171,22 @@
                         
                         <div class="rating">
                             <div class="stars">
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">★</span>
-                                <span class="star">☆</span>
+                                {% with avg_rating_rounded=product.avg_rating|floatformat:0 %}
+                                    {% for i in "12345"|make_list %}
+                                        {% if i <= avg_rating_rounded %}
+                                            <span class="star">★</span>
+                                        {% else %}
+                                            <span class="star">☆</span>
+                                        {% endif %}
+                                    {% endfor %}
+                                {% endwith %}
                             </div>
                             <div class="rating-numbers">
-                                4.0/5
+                                {% if product.avg_rating is None %}
+                                    {{ product.avg_rating|default:"0,0" }}
+                                {% else %}
+                                    {{ product.avg_rating|floatformat:1 }}    
+                                {% endif %}
                             </div>
                         </div>
                         

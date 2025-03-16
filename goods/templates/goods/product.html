@@ -39,13 +39,18 @@
                 <h1 class="fade-in">{{ product.name }}</h1>
                 <div class="rating">
                     <span class="stars">
-                        {% with avg_rating_int=avg_rating|floatformat:0 %}
-                            {% for _ in "12345"|slice:avg_rating_int %}
-                                ★
+                        {% with avg_rating_rounded=avg_rating|floatformat:0 %}
+                            {% for i in "12345"|make_list %}
+                                {% if i <= avg_rating_rounded %}
+                                    <span class="filled">★</span>
+                                {% else %}
+                                    <span class="empty">☆</span>
+                                {% endif %}
                             {% endfor %}
                         {% endwith %}
                     </span>
-                    <span class="ratingNumber">({{ avg_rating }}/5)</span>
+                    
+                    <span class="ratingNumber">{{ avg_rating|floatformat:1 }}</span>
                 </div>
                 
                 <div class="price fade-in">
