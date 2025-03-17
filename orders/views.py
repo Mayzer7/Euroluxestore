@@ -41,9 +41,9 @@ def create_order(request):
             return redirect('main:index')
     else:
         form = OrderForm(initial={
-            'full_name': request.user.get_full_name(),
+            'full_name': request.user.username,
             'email': request.user.email,
-            'phone': request.user.profile.phone if hasattr(request.user, 'profile') else '',
+            'phone': request.user.phone_number,
         })
 
     return render(request, "orders/order_form.html", {
