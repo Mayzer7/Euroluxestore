@@ -59,7 +59,7 @@
                     <div class="form-group">
                         <label for="password">Пароль</label>
                         <div class="input-container">
-                            <input autocomplete="new-password" class="profile-input" type="password" name="password1" placeholder="Введите новый пароль" required>
+                            <input autocomplete="new-password" class="profile-input" type="password" name="password1" placeholder="Введите новый пароль">
                         </div>
                     </div>
 
@@ -134,7 +134,7 @@
                                         <strong>{{ item.product.name }}</strong>
                                     </a>
                                 </p>
-                                <p>Цена за 1шт: {{ item.product.price }} ₽</p>
+                                <p>Цена за 1шт: {{ item.product.sell_price }} ₽</p>
                                 <p>Количество: {{ item.quantity }} шт.</p>
                                 <p>Цена: {{ item.total_price }} ₽</p>
 

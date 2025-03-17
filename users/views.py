@@ -9,34 +9,49 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserChangeForm
 from carts.models import Cart
 from orders.models import Order
+from users.models import User
 
+from django.urls import reverse_lazy
 
-@login_required
-def profile_view(request):
-    cart_items = Cart.objects.filter(user=request.user)
-    total_price = sum(item.total_price() for item in cart_items)
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import UpdateView
+from django.contrib.auth import update_session_auth_hash
 
-    # Получаем заказы пользователя и загружаем связанные товары
-    user_orders = Order.objects.filter(user=request.user).prefetch_related('items__product')
+class ProfileView(LoginRequiredMixin, UpdateView):
+    model = User
+    form_class = CustomUserChangeForm
+    template_name = 'users/profile.html'
+    success_url = reverse_lazy('users:profile')
 
-    if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, request.FILES, instance=request.user)
+    def get_object(self, queryset=None):
+        return self.request.user
 
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Данные успешно сохранены!')
-            return redirect('users:profile')
-        else:
-            messages.error(request, 'Ошибка при сохранении данных.')
-    else:
-        form = CustomUserChangeForm(instance=request.user)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        cart_items = Cart.objects.filter(user=self.request.user)
+        context['cart_items'] = cart_items
+        context['total_price'] = sum(item.total_price() for item in cart_items)
+        context['orders'] = Order.objects.filter(user=self.request.user).prefetch_related('items__product')
+        return context
 
-    return render(request, 'users/profile.html', {
-        'form': form,
-        'cart_items': cart_items,
-        'total_price': total_price,
-        'orders': user_orders,  # Передаём заказы пользователя
-    })
+    def form_valid(self, form):
+        password1 = form.cleaned_data.get("password1")
+        password2 = form.cleaned_data.get("password2")
+
+        if password1 and password2:
+            if password1 != password2:
+                messages.error(self.request, "Пароли не совпадают!")
+                return self.form_invalid(form)
+            else:
+                self.object.set_password(password1)
+                update_session_auth_hash(self.request, self.object)  # Чтобы не разлогинивало
+
+        messages.success(self.request, "Данные успешно сохранены!")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Ошибка при сохранении данных.")
+        return super().form_invalid(form)
 
 
 
