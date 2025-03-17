@@ -18,6 +18,16 @@ def create_order(request):
     if request.method == "POST":
         form = OrderForm(request.POST)
         if form.is_valid():
+            # Проверяем наличие всех товаров на складе
+            for cart_item in cart_items:
+                if cart_item.product.quantity < cart_item.quantity:
+                    messages.error(
+                        request,
+                        f"Недостаточно товара: {cart_item.product.name}, всего товара на складе {cart_item.product.quantity}"
+                    )
+                    return redirect("carts:cart_view")
+
+            # Если проверки пройдены, создаём заказ
             order = form.save(commit=False)
             order.user = request.user
             order.total_price = total_price
@@ -25,20 +35,24 @@ def create_order(request):
                 order.address = ''  # Убираем адрес, если самовывоз
             order.save()
 
-            # Перенос товаров из корзины в OrderItem
+            # Переносим товары из корзины в OrderItem и уменьшаем количество в Products
             for cart_item in cart_items:
+                product = cart_item.product
                 OrderItem.objects.create(
                     order=order,
-                    product=cart_item.product,
+                    product=product,
                     quantity=cart_item.quantity,
-                    price=cart_item.product.sell_price(),  # Фиксируем цену товара
+                    price=product.sell_price(),
                 )
+                product.quantity -= cart_item.quantity
+                product.save()
 
-            # Очищаем корзину пользователя
+            # Очищаем корзину
             cart_items.delete()
 
             messages.success(request, "Вы оформили заказ, дальнейшие указания придут на почту")
             return redirect('main:index')
+
     else:
         form = OrderForm(initial={
             'full_name': request.user.username,

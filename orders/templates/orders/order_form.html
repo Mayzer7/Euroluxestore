@@ -8,7 +8,7 @@
             {% for item in cart_items %}
                 <li>
                     <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 50px; height: 50px;">
-                    <strong>{{ item.product.name }}</strong> - {{ item.quantity }} шт. - {{ item.total_price }} ₽
+                    <strong>{{ item.product.name }} цена за 1шт = {{ item.product.price }}</strong>, а ты хочешь купить {{ item.quantity }} шт., тогда цена = {{ item.total_price }} ₽
                 </li>
             {% endfor %}
         </ul>
