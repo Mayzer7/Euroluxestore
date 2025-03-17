@@ -409,9 +409,23 @@ body, html {
 }
 
 .rating {
-    font-size: 0.85em;
-    color: #ff9500;
-    margin: 0 0 10px 0;
+    color: #e6b800;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+
+.stars {
+    display: inline-block;
+    font-size: 20px;
+    color: gold;
+}
+
+.ratingNumber {
+    font-size: 18px;
+    font-weight: bold;
+    margin-left: 5px;
+    color: #000;
 }
 
 .price {

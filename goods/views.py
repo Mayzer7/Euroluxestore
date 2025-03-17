@@ -26,15 +26,18 @@ class CatalogView(TemplateView):
         context['title'] = 'EUROLUXE - Каталог'
         context['content'] = 'Магазин мебели EUROLUXE'
 
-        # Получаем все товары
-        products_list = Products.objects.all()
-        
+        # Получаем все товары с их средним рейтингом
+        products_list = Products.objects.annotate(avg_rating=Avg('reviews__rating'))
+
+        for product in products_list:
+            product.avg_rating = round(product.avg_rating or 0)  # Округляем до целого числа
+
         # Фильтрация по категории
         category_slug = self.kwargs.get('category_slug') or self.request.GET.get('category')
         if category_slug and category_slug != 'all':
             category = get_object_or_404(Categories, slug=category_slug)
             products_list = products_list.filter(category=category)
-            context['selected_category'] = category_slug  # Для сохранения выбора в select
+            context['selected_category'] = category_slug
 
         # Фильтр по цене
         price_max = self.request.GET.get('price_max')
@@ -43,21 +46,20 @@ class CatalogView(TemplateView):
                 price_max = int(price_max)
                 products_list = products_list.filter(price__lte=price_max)
             except ValueError:
-                pass  # Игнорируем некорректные значения
-
+                pass  
 
         # Фильтр по цвету
         selected_color = self.request.GET.get('color')
         if selected_color:
             products_list = products_list.filter(color=selected_color)
-            context['selected_color'] = selected_color  # Для сохранения выбора цвета в фильтре
+            context['selected_color'] = selected_color  
 
-        # Фильтр по размерам (если введены)
+        # Фильтр по размерам
         width = self.request.GET.get('width')
         length = self.request.GET.get('length')
         height = self.request.GET.get('height')
 
-        # Получаем все уникальные цвета из базы данных
+        # Получаем все уникальные цвета
         colors = Products.objects.values('color').distinct().filter(color__isnull=False)
 
         # Определяем сортировку
@@ -79,18 +81,22 @@ class CatalogView(TemplateView):
                     output_field=DecimalField()
                 )
             ).order_by('-final_price')
+        elif sort_order == 'rating_desc':
+            products_list = products_list.order_by('-avg_rating')  # Сортировка по среднему рейтингу
 
         # Пагинация
         paginator = Paginator(products_list, 9)
         page_number = self.request.GET.get('page')
         page_obj = paginator.get_page(page_number)
 
-        # Передаем все данные в контекст
+        # Передаем данные в контекст
         context['products'] = page_obj
         context['page_obj'] = page_obj
         context['paginator'] = paginator
-        context['colors'] = colors  # Передаем список уникальных цветов
-        context['categories'] = Categories.objects.all()  # Передаем список категорий
+        context['colors'] = colors  
+        context['categories'] = Categories.objects.all()
+        context['products'] = products_list
+
         return context
 
 

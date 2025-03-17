@@ -125,7 +125,23 @@
                                     <img src="{{ product.image.url }}" alt="{{ product.name }}">
                                 </a>
                                 <h3>{{ product.name }}</h3>
-                                <div class="rating fade-in">★★★★★ (5/5)</div>
+                                
+                                
+                                <div class="rating fade-in">
+                                    <span class="stars">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= product.avg_rating %}
+                                                ★
+                                            {% else %}
+                                                ☆
+                                            {% endif %}
+                                        {% endfor %}
+                                    </span>
+
+                                    <span class="ratingNumber">{{ product.avg_rating|floatformat:1 }}</span>
+                                </div>
+                                
+                                
                                 <div class="price fade-in">
                                     {{ product.sell_price }} ₽
                                     {% if product.discount > 0 %}

@@ -137,6 +137,14 @@
                                 <p>Цена за 1шт: {{ item.product.price }} ₽</p>
                                 <p>Количество: {{ item.quantity }} шт.</p>
                                 <p>Цена: {{ item.total_price }} ₽</p>
+
+                                <!-- Кнопка удаления -->
+                                <form action="{% url 'carts:remove_from_cart' item.id %}" method="post" style="display:inline;">
+                                    {% csrf_token %}
+                                    <button type="submit" style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">
+                                        Удалить
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     {% endfor %}
