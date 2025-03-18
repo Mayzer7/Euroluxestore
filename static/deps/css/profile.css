@@ -361,13 +361,15 @@ body, html {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #eee;
-    padding-bottom: 10px;
-    margin-bottom: 10px;
 }
 
 .order-date {
-    color: #777;
+    background: linear-gradient(90deg, #4CAF50, #2196F3);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
     font-size: 14px;
+    text-transform: uppercase;
 }
 
 /* Общая сумма */
@@ -375,7 +377,6 @@ body, html {
     font-size: 18px;
     font-weight: bold;
     text-align: right;
-    margin-top: 10px;
 }
 
 /* Блок товаров */
@@ -388,13 +389,14 @@ body, html {
 
 .order-item {
     display: flex;
+    justify-content: space-between;
     align-items: center;
     gap: 10px;
     background: #fff;
     border-radius: 8px;
     padding: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: calc(50% - 10px);
+    width: 100%;
 }
 
 .order-item img {
@@ -416,6 +418,10 @@ body, html {
 .item-quantity {
     color: #555;
     font-size: 14px;
+}
+
+.item-total-price {
+    font-size: 18px;
 }
 
 /* Если заказов нет */

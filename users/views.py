@@ -10,6 +10,7 @@ from django.contrib.auth.forms import UserChangeForm
 from carts.models import Cart, CartItem
 from orders.models import Order
 from users.models import User
+from goods.models import Products
 
 from django.urls import reverse_lazy
 

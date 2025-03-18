@@ -93,11 +93,12 @@
                                     <div class="order-item">
                                         <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
                                         <div class="order-item-info">
-                                            <p class="item-name">{{ item.product.name }}</p>
+                                            <a class="item-name">{{ item.product.name }}</a>
                                             <p class="item-price">Цена: {{ item.product.sell_price }} ₽</p>
                                             <p class="item-quantity">Количество: {{ item.quantity }} шт.</p>
-                                            <p class="item-total-price"><strong>Всего: {% widthratio item.product.sell_price 1 item.quantity %} ₽</strong></p>
                                         </div>
+
+                                        <p class="item-total-price"><strong>Всего: {% widthratio item.product.sell_price 1 item.quantity %} ₽</strong></p>
                                     </div>
                                 {% endfor %}
                             </div>
