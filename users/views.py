@@ -17,6 +17,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import UpdateView
 from django.contrib.auth import update_session_auth_hash
 
+
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
+
 class ProfileView(LoginRequiredMixin, UpdateView):
     model = User
     form_class = CustomUserChangeForm
@@ -33,6 +37,8 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         cart_items = cart.items.all()  # Все товары из корзины пользователя
         total_price = sum(item.total_price() for item in cart_items)  
 
+        context['title'] = 'EUROLUXE - Личный кабинет'
+        context['content'] = 'Магазин мебели EUROLUXE'
         context['cart_items'] = cart_items
         context['total_price'] = total_price
         context['orders'] = Order.objects.filter(user=self.request.user).prefetch_related('items__product')
@@ -46,10 +52,17 @@ class ProfileView(LoginRequiredMixin, UpdateView):
         if password1 and password2:
             if password1 != password2:
                 messages.error(self.request, "Пароли не совпадают!")
-                return self.form_invalid(form)
-            else:
-                self.object.set_password(password1)
-                update_session_auth_hash(self.request, self.object)  # Чтобы не разлогинивало
+                return self.form_invalid(form)  # Не сохраняем изменения
+
+            try:
+                validate_password(password1)
+            except ValidationError as e:
+                for error in e.messages:
+                    form.add_error("password1", error)
+                return self.form_invalid(form)  # Не сохраняем
+
+            self.object.set_password(password1)
+            update_session_auth_hash(self.request, self.object)
 
         messages.success(self.request, "Данные успешно сохранены!")
         return super().form_valid(form)

@@ -6,30 +6,27 @@ from goods.models import Products
 from django.contrib import messages
 
 
-@login_required
 def add_to_cart(request, product_id):
+    if not request.user.is_authenticated:
+        messages.error(request, "Чтобы добавить товар в корзину, войдите в аккаунт.")
+        return JsonResponse({"success": False, "redirect": "/user/login/"})  # Вернем JSON с редиректом
+
     product = get_object_or_404(Products, id=product_id)
     quantity = int(request.GET.get('quantity', 1))
 
-    # Получаем или создаем корзину пользователя
     cart, created = Cart.objects.get_or_create(user=request.user)
-
-    # Получаем или создаем товар в корзине
     cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
 
     if created:
-        cart_item.quantity = quantity  # Если новый объект — задаём количество
+        cart_item.quantity = quantity
     else:
-        cart_item.quantity += quantity  # Если уже есть — увеличиваем количество
+        cart_item.quantity += quantity
 
     cart_item.save()
+    messages.success(request, "Вы успешно добавили товар в корзину.")
 
-    # Подсчитываем количество товаров в корзине (суммируем все количества)
     cart_count = sum(item.quantity for item in cart.items.all())
-
-    messages.success(request, f'Товар {product.name} добавлен в корзину! ({quantity} шт.)')
-
-    return JsonResponse({"cart_count": cart_count})
+    return JsonResponse({"cart_count": cart_count, "success": True})
 
 from django.urls import reverse
 
@@ -54,13 +51,18 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import Cart
 
-@login_required
 def cart_view(request):
+    # Если пользователь не авторизован
+    if not request.user.is_authenticated:
+        messages.error(request, "Чтобы посмотреть корзину войдите в аккаунт")
+        return redirect('users:login')  # или redirect('your_login_url_name')
+
     cart, created = Cart.objects.get_or_create(user=request.user)  # Получаем корзину
     cart_items = cart.items.all()  # Берём все товары из `CartItem`
-    total_price = sum(item.total_price() for item in cart_items)  
+    total_price = sum(item.total_price() for item in cart_items)
 
     return render(request, "carts/cart.html", {"cart_items": cart_items, "total_price": total_price})
+
 
 from django.db.models import Sum
 

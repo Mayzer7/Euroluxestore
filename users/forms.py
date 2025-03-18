@@ -1,6 +1,8 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.password_validation import validate_password
+from django.core.exceptions import ValidationError
 from .models import User
 
 class UserRegistrationForm(UserCreationForm):
@@ -13,24 +15,24 @@ class UserRegistrationForm(UserCreationForm):
         model = User
         fields = ('username', 'email', 'password1', 'password2')
 
-
+import re
 
 class CustomUserChangeForm(UserChangeForm):
     phone_number = forms.CharField(
-        max_length=15, 
-        required=False, 
+        max_length=15,
+        required=False,
         widget=forms.TextInput(attrs={'placeholder': 'Номер телефона'})
     )
 
     password1 = forms.CharField(
-        label="Новый пароль", 
-        widget=forms.PasswordInput(attrs={'placeholder': 'Введите новый пароль'}), 
+        label="Новый пароль",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Введите новый пароль'}),
         required=False
     )
     
     password2 = forms.CharField(
-        label="Повторите пароль", 
-        widget=forms.PasswordInput(attrs={'placeholder': 'Повторите новый пароль'}), 
+        label="Повторите пароль",
+        widget=forms.PasswordInput(attrs={'placeholder': 'Повторите новый пароль'}),
         required=False
     )
 
@@ -38,13 +40,12 @@ class CustomUserChangeForm(UserChangeForm):
         model = User
         fields = ['username', 'email', 'phone_number', 'image']
 
-    def clean(self):
-        cleaned_data = super().clean()
-        password1 = cleaned_data.get("password1")
-        password2 = cleaned_data.get("password2")
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get("phone_number")
 
-        if password1 or password2:
-            if password1 != password2:
-                self.add_error("password2", "Пароли не совпадают")
+        if phone_number:
+            # Разрешаем только цифры и + в начале
+            if not re.match(r'^\+?\d{7,15}$', phone_number):
+                raise ValidationError("Введите корректный номер телефона (7-15 цифр, можно с +).")
 
-        return cleaned_data
+        return phone_number

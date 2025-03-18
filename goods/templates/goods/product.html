@@ -109,7 +109,7 @@
                             {% if review.user.image %}
                                 <img src="{{ review.user.image.url }}" alt="Аватар пользователя" class="avatar">
                             {% else %}
-                                <img src="{% static 'deps/images/baseavatar.jpg' %}" alt="Аватар пользователя" class="avatar">
+                                <img src="{% static 'deps/images/baseavatar.png' %}" alt="Аватар пользователя" class="avatar">
                             {% endif %}
                         </div>
                         <strong>{{ review.user.username }}</strong>
@@ -259,14 +259,12 @@
                     .then(data => {
                         if (data.success) {
                             console.log('Товар успешно добавлен в корзину');
-                            // Обновляем корзину
                             if (cartCount) {
-                                cartCount.textContent = data.cart_count;  // Обновляем счетчик товаров в корзине
+                                cartCount.textContent = data.cart_count;
                             }
-                            window.location.reload(true);  // Принудительное обновление страницы
-                        } else {
-                            console.error('Ошибка добавления в корзину');
-                            window.location.reload(true); 
+                            window.location.reload(true);
+                        } else if (data.redirect) {
+                            window.location.href = data.redirect;  // Перенаправляем на страницу входа
                         }
                     })
                     .catch(error => console.error('Ошибка при добавлении в корзину:', error));

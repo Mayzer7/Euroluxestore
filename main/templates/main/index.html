@@ -264,7 +264,7 @@
                                 {% if review.user.image %}
                                     <img src="{{ review.user.image.url }}" alt="Аватар пользователя" class="avatar">
                                 {% else %}
-                                    <img src="{% static 'deps/images/baseavatar.jpg' %}" alt="Аватар пользователя" class="avatar">
+                                    <img src="{% static 'deps/images/baseavatar.png' %}" alt="Аватар пользователя" class="avatar">
                                 {% endif %}
                                 <strong>{{ review.user.username }}</strong>
                                 <span class="review-date">- {{ review.created_at|date:"d M Y" }}</span>
