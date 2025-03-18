@@ -27,8 +27,11 @@
     
     <div class="search-container">
         <img class="search-icon" src="https://cdn-icons-png.flaticon.com/512/622/622669.png" alt="Search">
-        <input type="text" class="search-input" placeholder="Поиск по названию...">
+        <form method="get" action="{% url 'catalog:catalog' %}">
+            <input type="text" class="search-input" placeholder="Поиск по названию..." name="search" value="{{ search_query|default:'' }}" id="search-input">
+        </form>
     </div>
+    
 
     {% comment %} КОРЗИНА {% endcomment %}
     <a href="{% url 'carts:cart_view' %}" class="icon-link">

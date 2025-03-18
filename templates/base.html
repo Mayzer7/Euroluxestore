@@ -32,6 +32,13 @@
     {% endblock %}
 
     <script>
+        document.getElementById("search-input").addEventListener("keypress", function(event) {
+            // Проверяем, была ли нажата клавиша Enter (код клавиши 13)
+            if (event.key === "Enter") {
+                this.form.submit();  // Отправляем форму
+            }
+        });
+
         document.addEventListener("DOMContentLoaded", () => {
             function updateCartCount() {
                 fetch("{% url 'carts:cart_count' %}", {

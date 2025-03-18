@@ -15,7 +15,7 @@ from .forms import ReviewForm
 from django.db.models import Avg
 
 
-from django.db.models import F, ExpressionWrapper, DecimalField
+from django.db.models import Q, F, ExpressionWrapper, DecimalField
 
 
 class CatalogView(TemplateView):
@@ -31,6 +31,14 @@ class CatalogView(TemplateView):
 
         for product in products_list:
             product.avg_rating = round(product.avg_rating or 0)  # Округляем до целого числа
+
+        # Обработка поиска
+        search_query = self.request.GET.get('search', '')
+        if search_query:
+            products_list = products_list.filter(
+                Q(name__icontains=search_query) | Q(description__icontains=search_query)
+            )
+            context['search_query'] = search_query  # Передаем запрос в контекст, чтобы отображать его в шаблоне
 
         # Фильтрация по категории
         category_slug = self.kwargs.get('category_slug') or self.request.GET.get('category')
