@@ -91,9 +91,12 @@
                             <div class="order-items">
                                 {% for item in order.items.all %}
                                     <div class="order-item">
-                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                        <a href="{% url 'goods:product_detail' item.product.slug %}">
+                                            <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                        </a>
+
                                         <div class="order-item-info">
-                                            <a class="item-name">{{ item.product.name }}</a>
+                                            <a href="{% url 'goods:product_detail' item.product.slug %}" class="item-name">{{ item.product.name }}</a>
                                             <p class="item-price">Цена: {{ item.product.sell_price }} ₽</p>
                                             <p class="item-quantity">Количество: {{ item.quantity }} шт.</p>
                                         </div>
@@ -111,39 +114,42 @@
         </div>
 
         <!-- Блок корзины -->
-        <div class="cart-card" id="order">
+        <div class="cart-card">
             <h3>Корзина</h3>
             {% if cart_items %}
                 <div class="cart">
                     {% for item in cart_items %}
-                        <div class="cart-item">
-                            <a href="{% url 'goods:product_detail' item.product.slug %}">
-                                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" class="cart-img">
-                            </a>
-                            <div class="cart-details">
-                                <p>
-                                    <a href="{% url 'goods:product_detail' item.product.slug %}">
-                                        <strong>{{ item.product.name }}</strong>
-                                    </a>
-                                </p>
-                                <p>Цена за 1шт: {{ item.product.sell_price }} ₽</p>
-                                <p>Количество: {{ item.quantity }} шт.</p>
-                                <p>Цена: {{ item.total_price }} ₽</p>
-
-                                <!-- Кнопка удаления -->
-                                <form action="{% url 'carts:remove_from_cart' item.id %}" method="post" style="display:inline;">
-                                    {% csrf_token %}
-                                    <button type="submit" style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">
-                                        Удалить
-                                    </button>
-                                </form>
+                        <div class="order">
+                            <div class="order-header">
+                                <h3>Товар: <strong>{{ item.product.name }}</strong></h3>
+                                <p class="order-total">Итоговая цена: <strong>{{ item.total_price }} ₽</strong></p>
                             </div>
+
+                            <h4>Товары:</h4>
+                            <div class="order-items">
+                                <div class="order-item">
+                                    <a href="{% url 'goods:product_detail' item.product.slug %}">
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                    </a>
+                                    <div class="order-item-info">
+                                        <p class="item-price">Цена за 1шт: {{ item.product.sell_price }} ₽</p>
+                                        <p class="item-quantity">Количество: {{ item.quantity }} шт.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Кнопка удаления -->
+                            <form action="{% url 'carts:remove_from_cart' item.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-btn">
+                                    Удалить
+                                </button>
+                            </form>
                         </div>
                     {% endfor %}
                 </div>
                 <div class="result">
                     <p><strong>Итого: {{ total_price }} ₽</strong></p>
-                    
                     <a href="{% url 'orders:create_order' %}">
                         <button class="shop-now-button">
                             Оформить заказ 
@@ -151,9 +157,10 @@
                     </a>
                 </div>
             {% else %}
-                <p>Корзина пуста.</p>
+                <p class="cart-clear">Корзина пуста.</p>
             {% endif %}
         </div>
+
 
 
     </div>
