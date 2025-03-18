@@ -448,7 +448,7 @@ h1 {
 
 
 
-
+/* ОТЗЫВЫ О ТОВАРЕ */
 .reviews-container {
     max-width: 1200px;
     margin: 50px auto 0;
@@ -466,6 +466,16 @@ h1 {
 .reviews-rating {
     font-size: 18px;
     margin-bottom: 20px;
+}
+
+.title-review {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.title-review h2 {
+    font-weight: 900;
+    font-size: 40px;
 }
 
 .review {
@@ -487,7 +497,7 @@ h1 {
 
 .review-rating {
     font-weight: bold;
-    color: hsl(175, 38%, 19%); ;
+    color: black;
 }
 
 .review-comment {
@@ -496,7 +506,7 @@ h1 {
 }
 
 .review-form {
-    margin-top: 30px;
+    text-align: center;
     background: #fff;
     padding: 20px;
     border-radius: 10px;
@@ -504,10 +514,11 @@ h1 {
 }
 
 .review-form h3 {
-    font-size: 20px;
+    font-size: 22px;
     margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
 }
-
 .review-form button {
     background: #007bff;
     color: white;
@@ -566,8 +577,8 @@ h1 {
 }
 
 .review-image {
-    max-width: 100px;
-    max-height: 100px;
+    max-width: 200px;
+    max-height: 200px;
     object-fit: cover; /* Сохранение пропорций изображения, обрезка, если оно слишком большое */
     border-radius: 5px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -576,32 +587,158 @@ h1 {
 
 
 
-.hidden { display: none; }
+.hidden { 
+    display: none; 
+}
 
-    .add-image { 
-        margin-top: 10px; 
-        cursor: pointer; 
-        padding: 5px 10px; 
-        background-color: #007bff; 
-        color: white; 
-        border: none; 
-        border-radius: 5px; 
-        font-size: 16px;
-    }
-    .add-image:hover { background-color: #0056b3; }
+.add-image { 
+    margin-top: 10px; 
+    cursor: pointer; 
+    padding: 5px 10px; 
+    background-color: black; 
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    font-size: 16px;
+}
 
+.add-image:hover {
+    background-color: black; 
+}
 
-
-
-    .review-avatar img.avatar {
-        width: 40px; /* Устанавливаем размер аватарки */
-        height: 40px; /* Устанавливаем размер аватарки */
-        border-radius: 50%; /* Это сделает аватарку круглой */
-        object-fit: cover; /* Обеспечивает, чтобы изображение не деформировалось */
-        margin-right: 10px; /* Отступ между аватаркой и именем пользователя */
-    }
-    .review-header {
-        display: flex;
-        align-items: center;
-    }
+.review-avatar img.avatar {
+    width: 40px; /* Устанавливаем размер аватарки */
+    height: 40px; /* Устанавливаем размер аватарки */
+    border-radius: 50%; /* Это сделает аватарку круглой */
+    object-fit: cover; /* Обеспечивает, чтобы изображение не деформировалось */
+    margin-right: 10px; /* Отступ между аватаркой и именем пользователя */
+}
+.review-header {
+    display: flex;
+    align-items: center;
+}
     
+
+
+/* ОСТАВИТЬ ОТЗЫВ */
+
+.send-review-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 1200px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.review-form {
+    width: 100%;
+}
+
+.review-form h3 {
+    text-align: center;
+    font-size: 40px;
+    font-weight: 900;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.review-form .form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.review-form textarea {
+    resize: none;
+}
+
+.image-upload {
+    margin: 15px 0;
+}
+
+.image-upload label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 5px;
+}
+
+#image-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#image-container input {
+    flex: 1;
+    min-width: 120px;
+}
+
+.hidden {
+    display: none;
+}
+
+.review-form button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    background: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.review-form button[type="submit"]:hover {
+    background: #333333;
+}
+
+.login-message {
+    text-align: center;
+    font-size: 16px;
+    color: #555;
+}
+
+.login-message a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.login-message a:hover {
+    text-decoration: underline;
+}
+
+
+.rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    gap: 5px;
+}
+
+.rating input {
+    display: none;
+}
+
+.rating label {
+    font-size: 50px;
+    color: #ccc;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.rating input:checked ~ label {
+    color: #FFD700;
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
+    color: #FFD700;
+}

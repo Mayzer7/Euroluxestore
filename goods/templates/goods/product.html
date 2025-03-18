@@ -99,8 +99,10 @@
 
         
         <div class="reviews-container">
-            <h2 class="reviews-title">Отзывы о товаре</h2>
-            <p class="reviews-rating">Средний рейтинг: <strong>{{ avg_rating }}/5</strong></p>
+            <div class="title-review">
+                <h2 class="reviews-title">Отзывы о товаре</h2>
+                <p class="reviews-rating">Средний рейтинг: <strong>{{ avg_rating }}/5</strong></p>
+            </div>
         
             {% for review in reviews %}
                 <div class="review">
@@ -116,7 +118,7 @@
                         <span class="review-date">- {{ review.created_at|date:"d M Y" }}</span>
                     </div>
                     <p class="review-rating">
-                        Рейтинг:
+                        Рейтинг:    
                         {% for _ in "12345"|slice:review.rating %}
                             ⭐
                         {% endfor %}
@@ -143,28 +145,44 @@
         </div>
         
         {% if user.is_authenticated %}
-            <div class="review-form">
-                <h3>Оставить отзыв</h3>
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    
-                    {{ review_form.rating }}
-                    {{ review_form.comment }}
-                    
-                    <div class="image-upload">
-                        <label>Загрузите фото:</label>
+            <div class="send-review-container">
+                <div class="review-form">
+                    <h3>Оставить отзыв</h3>
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         
-                        <div id="image-container">
-                            <input type="file" name="image_1" id="image_1" class="form-control">
-                            <input type="file" name="image_2" id="image_2" class="form-control hidden">
-                            <input type="file" name="image_3" id="image_3" class="form-control hidden">
+                        {{ review_form.comment }}
+                        <div class="rating">
+                            <input type="radio" id="star5" name="rating" value="5">
+                            <label for="star5" title="Отлично">★</label>
+                            
+                            <input type="radio" id="star4" name="rating" value="4">
+                            <label for="star4" title="Хорошо">★</label>
+                            
+                            <input type="radio" id="star3" name="rating" value="3">
+                            <label for="star3" title="Нормально">★</label>
+                            
+                            <input type="radio" id="star2" name="rating" value="2">
+                            <label for="star2" title="Плохо">★</label>
+                            
+                            <input type="radio" id="star1" name="rating" value="1">
+                            <label for="star1" title="Ужасно">★</label>
                         </div>
+                        
+                        <div class="image-upload">
+                            <label>Загрузите фото:</label>
+                            
+                            <div id="image-container">
+                                <input type="file" name="image_1" id="image_1" class="form-control">
+                                <input type="file" name="image_2" id="image_2" class="form-control">
+                                <input type="file" name="image_3" id="image_3" class="form-control">
+                            </div>
 
-                        <button type="button" id="add-image-btn" class="add-image">+</button>
-                    </div>
-
-                    <button type="submit">Отправить</button>
-                </form>
+                        </div>
+    
+                        <button type="submit" class="send-review-button">Отправить</button>
+                    </form>
+                </div>
             </div>
         {% else %}
             <p class="login-message">
@@ -198,26 +216,6 @@
     
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Скрываем дополнительные поля при загрузке страницы
-            document.getElementById("image_2").style.display = "none";
-            document.getElementById("image_3").style.display = "none";
-    
-            let imageIndex = 1; // Счетчик загруженных изображений
-            const maxImages = 3;
-            const addButton = document.getElementById("add-image-btn");
-            const imageInputs = ["image_2", "image_3"];
-    
-            addButton.addEventListener("click", function () {
-                if (imageIndex < maxImages) {
-                    document.getElementById(imageInputs[imageIndex - 1]).style.display = "block";
-                    imageIndex++;
-                }
-                if (imageIndex === maxImages) {
-                    addButton.style.display = "none";
-                }
-            });
-        });
 
         document.addEventListener('DOMContentLoaded', () => {
             // Получаем нужные элементы
