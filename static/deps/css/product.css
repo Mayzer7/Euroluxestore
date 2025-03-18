@@ -534,17 +534,15 @@ h1 {
 
 .login-message {
     margin-top: 20px;
-    font-size: 16px;
+    font-size: 40px;
     text-align: center;
     padding: 15px;
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .login-message a {
     color: #007bff;
-    font-weight: bold;
+    font-weight: 900;
+    font-size: 24px;
     text-decoration: none;
 }
 
@@ -716,29 +714,29 @@ h1 {
 }
 
 
-.rating {
+.rating-review {
     display: flex;
     flex-direction: row-reverse;
     justify-content: center;
     gap: 5px;
 }
 
-.rating input {
+.rating-review input {
     display: none;
 }
 
-.rating label {
+.rating-review label {
     font-size: 50px;
     color: #ccc;
     cursor: pointer;
     transition: color 0.3s;
 }
 
-.rating input:checked ~ label {
+.rating-review input:checked ~ label {
     color: #FFD700;
 }
 
-.rating label:hover,
-.rating label:hover ~ label {
+.rating-review label:hover,
+.rating-review label:hover ~ label {
     color: #FFD700;
 }
