@@ -398,6 +398,8 @@ h1 {
     margin: auto;
     display: block;
     border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    cursor: zoom-in;
 }
 
 .close-modal {

@@ -197,3 +197,8 @@ body, html {
 .icon-link:hover svg path {
     fill: gray; 
 }
+
+
+.cart-count {
+    font-weight: 600;
+}

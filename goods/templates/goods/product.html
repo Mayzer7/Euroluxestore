@@ -308,6 +308,33 @@
                         modal.style.display = 'none';
                     }
                 });
+
+                modalImg.addEventListener('click', (e) => {
+                    const img = e.target;
+                
+                    if (!img.classList.contains('zoomed')) {
+                        // Получаем размеры изображения
+                        const rect = img.getBoundingClientRect();
+                        
+                        // Вычисляем координаты клика относительно изображения
+                        const offsetX = (e.clientX - rect.left) / rect.width;
+                        const offsetY = (e.clientY - rect.top) / rect.height;
+                
+                        // Рассчитываем смещение так, чтобы курсор оставался в той же точке
+                        const translateX = (0.5 - offsetX) * 100;
+                        const translateY = (0.5 - offsetY) * 100;
+                
+                        // Применяем увеличение и смещение
+                        img.style.transform = `scale(2) translate(${translateX}%, ${translateY}%)`;
+                        img.style.cursor = "zoom-out"; // Меняем курсор
+                        img.classList.add('zoomed');
+                    } else {
+                        // Сбрасываем увеличение
+                        img.style.transform = "scale(1)";
+                        img.style.cursor = "zoom-in"; 
+                        img.classList.remove('zoomed');
+                    }
+                });
         
                 // Переключение на предыдущее изображение
                 prevBtn.addEventListener('click', () => {

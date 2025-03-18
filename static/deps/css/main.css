@@ -727,104 +727,124 @@ hr {
 
 /* Фотографии в отзывах */
 /* Основной контейнер отзывов */
-.review-carousel {
-    overflow: hidden;
-    padding: 20px 0;
-}
 
-/* Слайдер с отзывами */
-.review-slider {
-    display: flex;
-    gap: 15px;
-    transition: transform 0.4s ease-in-out;
-}
+
 
 /* Карточка отзыва */
 .review-card {
-    width: 220px;
-    min-height: 220px; /* Минимальная высота */
-    background: #fff;
-    border-radius: 10px;
-    padding: 15px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    user-select: none;
+    width: 280px;
+    min-height: 320px;
+    background: linear-gradient(135deg, #fff, #f1f1f1); /* Градиентный фон */
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
     text-align: center;
     flex-shrink: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: transform 0.3s ease;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Ховер эффект */
+/* Ховер эффект с тенью и поднятием */
 .review-card:hover {
-    transform: translateY(-5px);
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
 }
 
-/* Заголовок отзыва (аватар + имя + дата) */
-.review-header {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    font-size: 14px;
-    color: #444;
+/* Лейбл "Купил" с градиентом */
+.purchased-tag {
+    background: linear-gradient(90deg, #4CAF50, #2196F3);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    margin-top: 10px;
+    text-transform: uppercase;
+}
+
+/* Название продукта (главный акцент) */
+.product-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #2C3E50;
+    margin-top: 20px;
+    transition: color 0.3s ease;
+    text-align: center;
+}
+
+/* При наведении название продукта становится акцентным */
+.product-name:hover {
+    color: #3498db;
+}
+
+/* Рейтинг (звезды) */
+.stars {
+    color: #FFD700; /* Золотистые звезды */
+    font-size: 20px;
+    margin: 10px 0;
 }
 
 /* Аватар пользователя */
 .avatar {
-    width: 50px;
-    height: 50px;
+    width: 55px;
+    height: 55px;
     border-radius: 50%;
     object-fit: cover;
     border: 2px solid #ddd;
+    transition: transform 0.2s ease;
 }
 
-/* Рейтинг (звёзды) */
-.stars {
-    color: #e6b800;
-    font-size: 18px;
-    margin: 5px 0;
+.avatar:hover {
+    transform: scale(1.1);
 }
 
-/* Текст комментария */
-.review-text {
-    font-size: 15px;
-    margin: 5px 0;
+/* Заголовок отзыва */
+.review-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #333;
+    position: relative;
+}
+
+/* Комментарий отзыва */
+h3 {
+    font-size: 16px;
     color: #333;
     font-weight: normal;
-    min-height: 20px; /* Чтобы не было скачков высоты */
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 15px;
+    transition: color 0.3s ease;
 }
 
-/* Контейнер фото (скрывается, если нет фото) */
+/* Контейнер фото */
 .review-images {
     display: flex;
     justify-content: center;
     gap: 8px;
     flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-/* Если нет фото, скрываем блок */
-.review-images:empty {
-    display: none;
+    margin-top: 15px;
 }
 
 /* Изображения в отзывах */
 .review-image {
-    width: 60px;
-    height: 60px;
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    border-radius: 6px;
+    border-radius: 8px;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .review-image:hover {
     transform: scale(1.1);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
+
 
 /* Адаптивность */
 @media (max-width: 1024px) {
@@ -847,7 +867,7 @@ hr {
 
 
 
-/* STAY UPTO DATE ABOUT OUR LATEST OFFERS */
+/* БУДЬТЕ В КУРСЕ НАШИХ ПОСЛЕДНИХ ПРЕДЛОЖЕНИЙ */
 
 .about-container {
     display: flex;
@@ -1003,5 +1023,72 @@ footer {
 
 .social-icons a svg {
     margin-right: 5px;
+}
+
+
+
+
+
+/* Модальное окно */
+#imageModal {
+    display: none;
+    position: fixed;
+    z-index: 2000; /* Выше, чем messageModal */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    max-width: 80%;
+    max-height: 80vh;
+    margin: auto;
+    display: block;
+    border-radius: 8px;
+    transition: transform 0.3s ease-in-out;
+    cursor: zoom-in;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: white;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    transform: translateY(-50%);
+    background-color: white;
+    border: none;
+    font-size: 30px;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: background-color 0.3s ease;
+}
+
+.prev-btn:hover, .next-btn:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.prev-btn {
+    left: 20px;
+}
+
+.next-btn {
+    right: 20px;
+}
+
+/* Убедимся, что миниатюры кликабельны */
+.thumbnail:hover {
+    opacity: 0.8;
 }
 
