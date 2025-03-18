@@ -31,5 +31,28 @@
 
     {% endblock %}
 
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            function updateCartCount() {
+                fetch("{% url 'carts:cart_count' %}", {
+                    method: "GET",
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest",
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const cartCount = document.querySelector(".cart-count");
+                    if (cartCount) {
+                        cartCount.textContent = data.cart_count;
+                    }
+                })
+                .catch(error => console.error("Ошибка обновления корзины:", error));
+            }
+        });
+    </script>
+    
+    
+
 </body>
 </html>

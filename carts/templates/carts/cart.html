@@ -6,9 +6,9 @@
             {% for item in cart_items %}
                 <li>
                     <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 50px; height: 50px;">
-                    {{ item.product.name }} - цена за 1шт {{ item.product.sell_price }}, пользователь заказал {{ item.quantity }} шт. - {{ item.total_price }} ₽
+                    {{ item.product.name }} - цена за 1 шт {{ item.product.sell_price }}, количество: {{ item.quantity }} - {{ item.total_price }} ₽
 
-                    <!-- Кнопка удаления -->
+                    <!-- Форма удаления -->
                     <form action="{% url 'carts:remove_from_cart' item.id %}" method="post" style="display:inline;">
                         {% csrf_token %}
                         <button type="submit" style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">
@@ -22,5 +22,6 @@
     {% else %}
         <p>Корзина пуста.</p>
     {% endif %}
+
     <h1><a href="{% url "users:profile" %}#order">Перейти к оформлению</a></h1>
 {% endblock %}

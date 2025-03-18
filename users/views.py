@@ -7,7 +7,7 @@ from .forms import UserRegistrationForm, CustomUserChangeForm
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.forms import UserChangeForm
-from carts.models import Cart
+from carts.models import Cart, CartItem
 from orders.models import Order
 from users.models import User
 
@@ -28,10 +28,15 @@ class ProfileView(LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cart_items = Cart.objects.filter(user=self.request.user)
+
+        cart, created = Cart.objects.get_or_create(user=self.request.user)
+        cart_items = cart.items.all()  # Все товары из корзины пользователя
+        total_price = sum(item.total_price() for item in cart_items)  
+
         context['cart_items'] = cart_items
-        context['total_price'] = sum(item.total_price() for item in cart_items)
+        context['total_price'] = total_price
         context['orders'] = Order.objects.filter(user=self.request.user).prefetch_related('items__product')
+
         return context
 
     def form_valid(self, form):
@@ -52,8 +57,6 @@ class ProfileView(LoginRequiredMixin, UpdateView):
     def form_invalid(self, form):
         messages.error(self.request, "Ошибка при сохранении данных.")
         return super().form_invalid(form)
-
-
 
 
 def login_view(request):

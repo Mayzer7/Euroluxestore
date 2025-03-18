@@ -2,18 +2,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import Order, OrderItem
-from carts.models import Cart
+from carts.models import Cart, CartItem
 from .forms import OrderForm
 
 @login_required
 def create_order(request):
-    cart_items = Cart.objects.filter(user=request.user)
+    cart = Cart.objects.filter(user=request.user).first()
 
-    if not cart_items.exists():
+    if not cart or not cart.items.exists():
         messages.error(request, "Корзина пуста!")
         return redirect('carts:cart_view')
 
-    total_price = sum(item.total_price() for item in cart_items)
+    cart_items = cart.items.all()
+    total_price = cart.total_price()  # Используем метод total_price() из Cart
 
     if request.method == "POST":
         form = OrderForm(request.POST)
@@ -27,7 +28,7 @@ def create_order(request):
                     )
                     return redirect("carts:cart_view")
 
-            # Если проверки пройдены, создаём заказ
+            # Создаём заказ
             order = form.save(commit=False)
             order.user = request.user
             order.total_price = total_price
@@ -48,7 +49,7 @@ def create_order(request):
                 product.save()
 
             # Очищаем корзину
-            cart_items.delete()
+            cart.items.all().delete()
 
             messages.success(request, "Вы оформили заказ, дальнейшие указания придут на почту")
             return redirect('main:index')
