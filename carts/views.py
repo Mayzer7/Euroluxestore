@@ -55,13 +55,20 @@ def cart_view(request):
     # Если пользователь не авторизован
     if not request.user.is_authenticated:
         messages.error(request, "Чтобы посмотреть корзину войдите в аккаунт")
-        return redirect('users:login')  # или redirect('your_login_url_name')
+        return redirect('users:login')  
 
     cart, created = Cart.objects.get_or_create(user=request.user)  # Получаем корзину
     cart_items = cart.items.all()  # Берём все товары из `CartItem`
     total_price = sum(item.total_price() for item in cart_items)
 
-    return render(request, "carts/cart.html", {"cart_items": cart_items, "total_price": total_price})
+    # Передаем title в контекст
+    context = {
+        "cart_items": cart_items,
+        "total_price": total_price,
+        "title": "EUROLUXE - Корзина"
+    }
+
+    return render(request, "carts/cart.html", context)
 
 
 from django.db.models import Sum

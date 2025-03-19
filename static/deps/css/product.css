@@ -160,17 +160,6 @@ body, html {
     text-decoration: underline;
 }
 
-.breadcrumb-container {
-    display: flex;
-    gap: 20px;
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px 8px 0 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
 .product-container {
     display: flex;
     gap: 20px;
@@ -185,6 +174,17 @@ body, html {
 .product-images {
     display: flex;
     gap: 10px;
+}
+
+.breadcrumb-container {
+    display: flex;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px 8px 0 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .dopImg {

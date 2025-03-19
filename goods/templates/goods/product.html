@@ -9,7 +9,7 @@
 {% block content %}
     <div class="breadcrumb-container">
         <nav class="breadcrumb">
-            <a href="{% url "main:index" %}">Главная</a> > <a href="{% url "goods:catalog" %}">Каталог</a> > <a href="{% url 'goods:product_detail' product.id %}">{{ product.name }}</a>
+            <a href="{% url "main:index" %}">Главная</a> > <a href="{% url "goods:catalog" %}">Каталог</a> > <a href="{% url 'goods:product_detail' product.slug %}">{{ product.name }}</a>
         </nav>
     </div>
 

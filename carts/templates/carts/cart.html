@@ -1,27 +1,205 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" href="{% static "deps/css/profile.css" %}">
+{% endblock css %}
+
+
 {% block content %}
-    <h1>Ваша корзина</h1>
-    {% if cart_items %}
-        <ul>
-            {% for item in cart_items %}
-                <li>
-                    <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}" style="width: 50px; height: 50px;">
-                    {{ item.product.name }} - цена за 1 шт {{ item.product.sell_price }}, количество: {{ item.quantity }} - {{ item.total_price }} ₽
+    <div class="profile-container">
+        <h2 class="profile-title">Корзина</h2>
+        <!-- Блок корзины -->
+        <div class="cart-card">
+            {% if cart_items %}
+                <div class="cart">
+                    {% for item in cart_items %}
+                        <div class="order">
+                            <div class="order-header">
+                                <h3>Товар: <strong>{{ item.product.name }}</strong></h3>
+                                <p class="order-total">Итоговая цена: <strong>{{ item.total_price }} ₽</strong></p>
+                            </div>
 
-                    <!-- Форма удаления -->
-                    <form action="{% url 'carts:remove_from_cart' item.id %}" method="post" style="display:inline;">
-                        {% csrf_token %}
-                        <button type="submit" style="background: red; color: white; border: none; padding: 5px 10px; cursor: pointer;">
-                            Удалить
+                            <h4>Товары:</h4>
+                            <div class="order-items">
+                                <div class="order-item">
+                                    <a href="{% url 'goods:product_detail' item.product.slug %}">
+                                        <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+                                    </a>
+                                    <div class="order-item-info">
+                                        <p class="item-price">Цена за 1шт: {{ item.product.sell_price }} ₽</p>
+                                        <p class="item-quantity">Количество: {{ item.quantity }} шт.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Кнопка удаления -->
+                            <form action="{% url 'carts:remove_from_cart' item.id %}" method="post" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit" class="remove-btn">
+                                    Удалить
+                                </button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="result">
+                    <p><strong>Итого: {{ total_price }} ₽</strong></p>
+                    <a href="{% url 'orders:create_order' %}">
+                        <button class="shop-now-button">
+                            Оформить заказ 
                         </button>
-                    </form>
-                </li>
-            {% endfor %}
-        </ul>
-        <p>Итого: {{ total_price }} ₽</p>
-    {% else %}
-        <p>Корзина пуста.</p>
-    {% endif %}
+                    </a>
+                </div>
+            {% else %}
+                <p class="cart-clear">Корзина пуста.</p>
+            {% endif %}
+        </div>
 
-    <h1><a href="{% url "users:profile" %}#order">Перейти к оформлению</a></h1>
-{% endblock %}
+
+
+    </div>
+    <script>    
+        document.addEventListener('DOMContentLoaded', () => {
+            // Анимации появления при скролле
+            const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+        
+            elements.forEach(element => {
+                observer.observe(element);
+            });
+
+            // Color selection
+            const colors = document.querySelectorAll('.color');
+            colors.forEach(color => {
+                color.addEventListener('click', () => {
+                    colors.forEach(c => c.classList.remove('active'));
+                    color.classList.add('active');
+                });
+            });
+
+            // Size selection
+            const sizes = document.querySelectorAll('.size');
+            sizes.forEach(size => {
+                size.addEventListener('click', () => {
+                    sizes.forEach(s => s.classList.remove('active'));
+                    size.classList.add('active');
+                });
+            });
+
+            // Quantity control
+            const quantityValue = document.querySelector('.quantity-value');
+            const decrementBtn = document.querySelector('.quantity-btn:nth-child(1)');
+            const incrementBtn = document.querySelector('.quantity-btn:nth-child(3)');
+
+            decrementBtn.addEventListener('click', () => {
+                let value = parseInt(quantityValue.textContent);
+                if (value > 1) {
+                    quantityValue.textContent = value - 1;
+                }
+            });
+
+            incrementBtn.addEventListener('click', () => {
+                let value = parseInt(quantityValue.textContent);
+                quantityValue.textContent = value + 1;
+            });
+
+            // Add to Cart (simple alert for demo)
+            const addToCartBtn = document.querySelector('.add-to-cart');
+            addToCartBtn.addEventListener('click', () => {
+                alert('Product added to cart!');
+            });
+
+
+
+
+            // Логика для изображений
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const mainImg = document.querySelector('.mainImg img');
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            const closeModal = document.querySelector('.close-modal');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+
+            // Массив всех изображений (основное + миниатюры)
+            const images = [
+                mainImg.src, // Основное изображение идет первым
+                ...Array.from(thumbnails).map(thumbnail => thumbnail.src) // Миниатюры
+            ];
+            let currentIndex = 0;
+
+            // Функция для обновления главного изображения
+            function updateMainImage(index) {
+                mainImg.src = images[index];
+            }
+
+            // Клик по миниатюре для изменения главного изображения
+            thumbnails.forEach((thumbnail, index) => {
+                thumbnail.addEventListener('click', () => {
+                    currentIndex = index + 1; // +1, так как основное изображение идет первым
+                    updateMainImage(currentIndex);
+                });
+            });
+
+            // Открытие модального окна при клике на главное изображение
+            mainImg.addEventListener('click', () => {
+                modal.style.display = 'flex';
+                modalImg.src = images[currentIndex];
+            });
+
+            // Закрытие модального окна
+            closeModal.addEventListener('click', () => {
+                modal.style.display = 'none';
+                updateMainImage(currentIndex); // Синхронизация главного изображения при закрытии
+            });
+
+            // Закрытие модального окна при клике вне изображения
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                    updateMainImage(currentIndex); // Синхронизация главного изображения
+                }
+            });
+
+            // Переключение на предыдущее изображение
+            prevBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex - 1 + images.length) % images.length;
+                modalImg.src = images[currentIndex];
+                updateMainImage(currentIndex); // Обновляем главное изображение
+            });
+
+            // Переключение на следующее изображение
+            nextBtn.addEventListener('click', () => {
+                currentIndex = (currentIndex + 1) % images.length;
+                modalImg.src = images[currentIndex];
+                updateMainImage(currentIndex); // Обновляем главное изображение
+            });
+
+            // Переключение с клавиатуры
+            document.addEventListener('keydown', (e) => {
+                if (modal.style.display === 'flex') {
+                    if (e.key === 'ArrowLeft') {
+                        prevBtn.click();
+                    } else if (e.key === 'ArrowRight') {
+                        nextBtn.click();
+                    } else if (e.key === 'Escape') {
+                        modal.style.display = 'none';
+                        updateMainImage(currentIndex); // Синхронизация при закрытии
+                    }
+                }
+            });
+        });        
+    </script>
+{% endblock content %}

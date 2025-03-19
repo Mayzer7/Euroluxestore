@@ -141,7 +141,9 @@ body, html {
 }
 
 
-
+.page-wrapper {
+    padding-bottom: 50px;
+}
 
 .profile-container {
     gap: 20px;
@@ -149,7 +151,7 @@ body, html {
     margin: 0 auto;
     background-color: hsl(220, 37%, 8%);
     padding: 20px;
-    border-radius: 8px 8px 0 0;
+    border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -340,7 +342,6 @@ body, html {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
 }
-
 .order-card h3 {
     font-size: 30px;
     font-weight: 900;
@@ -488,6 +489,171 @@ body, html {
 }
 
 
+
+
+
+/* СТИЛИ ДЛЯ СТРАНИЦЫ С ОФОРМЛЕНИЕМ ЗАКАЗА */
+
+.order-card-page {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 100%; /* Увеличил ширину контейнера */
+    max-width: 1100px; /* Ограничение максимальной ширины для удобства чтения */
+    margin: auto; /* Центрирование контейнера */
+}
+
+
+
+.order-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.order-table th,
+.order-table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+
+.order-table th {
+    background-color: #f4f4f4;
+}
+
+.product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.order-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+
+
+
+
+
+
+.form-group-page {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 15px;
+}
+.form-group-page label {
+    font-size: 1rem;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.order-form input,
+.order-form select,
+.order-form button {
+    width: 97.5%;
+    padding: 12px;
+    font-size: 1rem;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+}
+
+.order-form input:focus,
+.order-form select:focus {
+    border: 2px solid #2a9d8f;
+    outline: none;
+}
+
+.order-form select {
+    width: 100%; /* Увеличил ширину выпадающего списка */
+}
+
+
+.order-form button {
+    background-color: #2a9d8f;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.order-form button:hover {
+    background-color: #21867a;
+    transform: scale(1.05);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.order-card {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.error {
+    color: red;
+    font-size: 0.875rem;
+    margin-top: 5px;
+}
+
+.cart-clear {
+    color: #888;
+    font-size: 1.2rem;
+}
+
+/* Стили для поля ввода адреса */
+#id_address {
+    margin-top: 5px;
+    width: 98%; /* Растягиваем по горизонтали */
+    border-radius: 5px; /* Закругленные края */
+    padding: 12px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s;
+}
+
+#id_address:focus {
+    border-color: #21867a; /* Черный ободок при фокусе */
+    outline: none;
+
+}
+
+.order-form textarea {
+    resize: none;
+}
+
+/* Стили для адаптивности */
+@media (max-width: 768px) {
+    .order-table th, .order-table td {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+
+    .product-image {
+        width: 40px;
+        height: 40px;
+    }
+
+    .profile-title {
+        font-size: 1.5rem;
+    }
+}
+
+.order-card h3 {
+    text-align: center;
+    font-size: 30px;
+    font-weight: 900;
+    margin-bottom: 15px;
+}
 
 /* Стили для блока корзины */
 .cart-card {
