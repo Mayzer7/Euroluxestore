@@ -68,6 +68,7 @@ body, html {
 
 .nav a {
     text-decoration: none;
+    white-space: nowrap;
     color: #000000;
     font-size: 16px;
     padding: 5px;
@@ -189,7 +190,17 @@ body, html {
     font-weight: 900;
     color: #000;
     margin: 0;
+    white-space: nowrap;
 }
+
+.text-line-mobile {
+    display: none;
+    font-size: 36px;
+    font-weight: 900;
+    color: #000;
+    margin: 0;
+}
+
 
 .description p {
     font-size: 16px;
@@ -231,6 +242,10 @@ body, html {
 }
 
 .info-number {
+    background: linear-gradient(90deg, hsl(175, 38%, 19%), hsl(175, 38%, 30%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
     font-size: 40px; 
     font-weight: bold; 
     color: #000000;
@@ -248,37 +263,152 @@ body, html {
     height: 616px;
 }
 
+@media (max-width: 1300px) {
+    .text-line {
+        font-size: 40px;
+    }
 
-/* БРЕНДЫ */
-
-.brands-content {
-    display: flex; 
-    justify-content: center; 
-    align-items: center; 
-    gap: 120px; 
-    background-color: hsl(175, 38%, 19%); 
-    padding: 40px 0; 
-    overflow-x: auto; 
+    .info-number {
+        font-size: 30px;
+    }
 }
 
+@media (max-width: 1100px) {
+    .content {
+        flex-direction: column;
+        height: auto;
+        padding: 20px;
+    }
+
+    .content-left {
+        align-items: center;
+        margin-right: 0;
+        margin-top: 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    .text-line {
+        display: none;
+    }
+
+    .text-line-mobile {
+        display: flex;
+    }
+
+    .description p {
+        max-width: none;
+        font-size: 14px;
+        max-width: 100%;
+        text-align: center;
+    }
+
+    .shop-now-button {
+        width: 100%;
+        padding: 20px 60px;
+        font-size: 16px;
+    }
+
+    .content-img {
+        width: 100%;
+        height: auto;
+        margin-top: 30px;
+    }
+}
+
+@media (max-width: 770px) {
+    .text-line-mobile {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 524px) {
+    .info-container {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 300px) {
+    .description p {
+        font-size: 10px;
+    }
+
+    .shop-now-button {
+        padding: 20px 20px;
+    }
+}
+
+/* БРЕНДЫ */
+/* Основной контейнер брендов */
+.brands-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 120px; /* уменьшили gap для более компактного расположения */
+    background-color: hsl(175, 38%, 19%);
+    padding: 40px 0;
+    overflow-x: auto;
+}
+
+/* Логотипы брендов */
 .brand-logo {
-    height: 60px; 
-    object-fit: contain; 
+    height: 60px;
+    object-fit: contain;
     border-radius: 15px;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
 
+/* Эффекты при наведении */
 .brand-logo:hover {
-    transform: scale(1.3); 
-    filter: brightness(1.2); 
+    transform: scale(1.3);
+    filter: brightness(1.2);
 }
 
+/* Эффекты при наведении на все логотипы кроме того, на который навели */
 .brands-content:hover .brand-logo:not(:hover) {
-    transform: scale(0.85); 
-    filter: brightness(0.7); 
+    transform: scale(0.85);
+    filter: brightness(0.7);
 }
 
+/* Медиазапросы для адаптивности */
 
+@media (max-width: 1150px) {
+    .brands-content {
+        gap: 80px; /* Уменьшаем расстояние между брендами */
+        padding: 40px 0; /* Уменьшаем отступы */
+    }   
+}
+
+@media (max-width: 960px) {
+    .brands-content {
+        gap: 40px; /* Уменьшаем расстояние между брендами */
+        padding: 40px 0; /* Уменьшаем отступы */
+    }
+}
+
+@media (max-width: 760px) {
+    .brand-logo:hover {
+        transform: none;
+        filter: none;
+    }
+
+    .brands-content {
+        gap: 20px; /* Уменьшаем расстояние между брендами */
+        padding: 40px 0; /* Уменьшаем отступы */
+    }
+
+}
+
+@media (max-width: 630px) {
+    .brands-content {
+        gap: 10px; /* Уменьшаем расстояние между брендами */
+        padding: 40px 0; /* Уменьшаем отступы */
+    }
+
+    .brand-logo {
+        height: 50px;
+    }
+}
 
 /* НОВАЯ КОЛЛЕКЦИЯ */
 
