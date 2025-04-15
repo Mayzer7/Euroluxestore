@@ -17,6 +17,8 @@ from django.db.models import Avg
 
 from django.db.models import Q, F, ExpressionWrapper, DecimalField
 
+from .services.moderation import is_image_clean
+
 
 class CatalogView(TemplateView):
     template_name = 'goods/catalog.html'
@@ -133,6 +135,15 @@ class ProductDetailView(View):
             messages.error(request, "Поле с комментарием пустое")
 
         if form.is_valid():
+            images = [form.cleaned_data.get(f'image_{i}') for i in range(1, 4)]
+            
+            for image in images:
+                if image:
+                    image.file.seek(0)  # на случай, если файл уже читался
+                    if not is_image_clean(image.file, request.user.username):
+                        messages.error(request, "Одно из загруженных изображений содержит запрещённый контент.")
+                        return redirect('goods:product_detail', product_slug=product.slug)
+            
             review = form.save(commit=False)
             review.product = product
             review.user = request.user

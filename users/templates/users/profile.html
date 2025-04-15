@@ -16,12 +16,21 @@
                 <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="avatar-container">
-                        {% if user.image %}
-                            <img src="{{ user.image.url }}" alt="Аватар пользователя" class="avatar">
-                        {% else %}
-                            <img src="{% static 'deps/images/baseavatar.png' %}" alt="Аватар пользователя" class="avatar">
-                        {% endif %}
-                        <input type="file" name="image" accept="image/*">
+                        <!-- Аватарка: отображаем выбранное или дефолтное изображение -->
+                        <img id="avatarPreview"
+                            src="{% if user.image %}{{ user.image.url }}{% else %}{% static 'deps/images/baseavatar.png' %}{% endif %}"
+                            data-default-src="{% if user.image %}{{ user.image.url }}{% else %}{% static 'deps/images/baseavatar.png' %}{% endif %}"
+                            alt="Аватар пользователя"
+                            class="avatar"
+                        />
+
+                        <!-- Кастомизированная кнопка выбора файла -->
+                        <label for="avatar-upload" class="upload-button">Загрузить аватарку</label>
+                        <input type="file" id="avatar-upload" name="image" accept="image/*" class="upload-input" style="display: none;">
+
+                        <!-- 🔽 Добавляем место для сообщения -->
+                        <div id="upload-message" class="avatar-notification"></div>
+
                         {% comment %} {% if form.image.errors %}
                             <div class="error">{{ form.image.errors }}</div>
                         {% endif %} {% endcomment %}
@@ -166,6 +175,37 @@
     </div>
     <script>    
         document.addEventListener('DOMContentLoaded', () => {
+
+            const input = document.getElementById('avatar-upload');
+            const preview = document.getElementById('avatarPreview');
+            const message = document.getElementById('upload-message');
+
+            input.addEventListener('change', function () {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.addEventListener('load', function () {
+                        preview.src = this.result;
+                    });
+
+                    reader.readAsDataURL(file);
+
+                    let firstEight = file.name.slice(0, 8)
+                    let afterPoint = file.name.split('.').pop();
+
+                    let result = firstEight + '.' + afterPoint
+
+                    // Сообщение
+                    message.innerHTML = `Вы загрузили аватар: <br>"${result}", <br>нажмите сохранить снизу!`;
+                } else {
+                    // Если пользователь убрал файл, возвращаем дефолтное изображение
+                    preview.src = preview.dataset.defaultSrc;
+                    message.textContent = '';
+                }
+            });
+
+
             // Анимации появления при скролле
             const elements = document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right');
             
