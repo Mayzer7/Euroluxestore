@@ -437,7 +437,7 @@ body, html {
 .product-card {
     user-select: none; /* Запрещает выделение текста */
     width: 350px;
-    height: 500px;
+    height: 520px;
     margin: 0 20px;
     background: #fff;
     border-radius: 15px;
@@ -455,7 +455,7 @@ body, html {
 .product-card-top {
     user-select: none; /* Запрещает выделение текста */
     width: 350px;
-    height: 500px;
+    height: 520px;
     margin: 0 20px;
     background: #fff;
     border-radius: 15px;
@@ -501,6 +501,10 @@ body, html {
 }
 
 .product-card:hover .new-arrivals-images img {
+    transform: scale(1.1); 
+}
+
+.product-card-top:hover .new-arrivals-images img {
     transform: scale(1.1); 
 }
 
@@ -688,6 +692,9 @@ hr {
 
 /* Адаптивность */
 @media (max-width: 768px) {
+
+    /* сюда */
+
     .browse-head {
         font-size: 30px;
         margin-bottom: 40px;
@@ -727,13 +734,6 @@ hr {
     }
 }
 
-
-
-
-
-
-/* Секция отзывов */
-/* Общие стили */
 .reviews-section {
     text-align: center;
     margin: 80px auto;
@@ -749,6 +749,7 @@ hr {
 }
 
 .header-controls h2 {
+    white-space: nowrap;
     font-size: 40px;
     font-weight: 900;
     color: #000;
@@ -855,9 +856,21 @@ hr {
     border: 2px solid #ddd; /* Небольшая рамка */
 }
 
-/* Фотографии в отзывах */
-/* Основной контейнер отзывов */
+@media (max-width: 600px) {
+    .header-controls h2 {
+        font-size: 24px;
+    }
+}
 
+@media (max-width: 410px) {
+    .header-controls {
+        gap: 0px;
+    }
+
+    .header-controls h2 {
+        font-size: 22px;
+    }
+}
 
 
 /* Карточка отзыва */
