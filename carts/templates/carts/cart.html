@@ -15,12 +15,11 @@
                 <div class="cart">
                     {% for item in cart_items %}
                         <div class="order">
-                            <div class="order-header">
-                                <h3>Товар: <strong>{{ item.product.name }}</strong></h3>
+                            <div class="order-header-cart">
+                                <h3><strong>{{ item.product.name }}</strong></h3>
                                 <p class="order-total">Итоговая цена: <strong>{{ item.total_price }} ₽</strong></p>
                             </div>
 
-                            <h4>Товары:</h4>
                             <div class="order-items">
                                 <div class="order-item">
                                     <a href="{% url 'goods:product_detail' item.product.slug %}">
@@ -55,10 +54,8 @@
                 <p class="cart-clear">Корзина пуста.</p>
             {% endif %}
         </div>
-
-
-
     </div>
+
     <script>    
         document.addEventListener('DOMContentLoaded', () => {
             // Анимации появления при скролле

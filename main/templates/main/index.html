@@ -310,19 +310,22 @@
 
     <div class="about-container fade-in">
         <footer>
-                <div class="aboutletter">
-                    <div class="about-text">
-                        <h2>БУДЬТЕ В КУРСЕ НАШИХ<br>ПОСЛЕДНИХ ПРЕДЛОЖЕНИЯХ</h2>
-                    </div>
-                    <form class="subscribe" method="post" action=".">
-                        {% csrf_token %}
-                        <div class="email-container">
-                            <img class="search-icon" src="{% static 'deps/icons/email-icon.svg' %}" alt="Email">
-                            <input type="email" name="email" class="search-input" placeholder="Введите ваш email адрес..." required>
-                        </div>
-                        <button type="submit">Подписаться на новости</button>
-                    </form>
+            <div class="aboutletter">
+                <div class="about-text">
+                    <h2>БУДЬТЕ В КУРСЕ НАШИХ<br>ПОСЛЕДНИХ ПРЕДЛОЖЕНИЯХ</h2>
                 </div>
+                
+                <form class="subscribe" method="post" action=".">
+                    {% csrf_token %}
+                    <div class="email-container">
+                        <img class="search-icon" src="{% static 'deps/icons/email-icon.svg' %}" alt="Email">
+                        <input type="email" name="email" class="search-input" placeholder="Введите ваш email адрес..." required>
+                    </div>
+                    
+                    <button type="submit">Подписаться на новости</button>
+                </form>
+            </div>
+            
             <div class="footer-content">
                 <div class="about">
                     <h3>EUROLUXE</h3>

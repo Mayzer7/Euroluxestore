@@ -66,7 +66,7 @@
                     <div class="form-group">
                         <label for="password">Повторите пароль</label>
                         <div class="input-container">
-                            <input autocomplete="new-password" class="profile-input" type="password" name="password2" placeholder="Введите новый пароль повторно">
+                            <input autocomplete="new-password" class="profile-input" type="password" name="password2" placeholder="Введите повторно пароль">
                         </div>
                     </div>
 
@@ -129,12 +129,11 @@
                 <div class="cart">
                     {% for item in cart_items %}
                         <div class="order">
-                            <div class="order-header">
-                                <h3>Товар: <strong>{{ item.product.name }}</strong></h3>
-                                <p class="order-total">Итоговая цена: <strong>{{ item.total_price }} ₽</strong></p>
+                            <div class="order-header-cart">
+                                <h3><strong>{{ item.product.name }}</strong></h3> 
+                                <p class="order-total-cart">Итоговая цена: {{ item.total_price }} ₽</p>
                             </div>
 
-                            <h4>Товары:</h4>
                             <div class="order-items">
                                 <div class="order-item">
                                     <a href="{% url 'goods:product_detail' item.product.slug %}">

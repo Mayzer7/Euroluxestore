@@ -1,4 +1,9 @@
-body, html {
+html, body {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
     margin: 0;
     padding: 0;
     height: 100%;
@@ -153,6 +158,7 @@ body, html {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 .profile-title {
@@ -176,7 +182,8 @@ body, html {
 
 /* ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ */
 .profile-card {
-    background: white; 
+    background: white;
+    width: 40%;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -270,7 +277,8 @@ body, html {
     font-size: 14px; 
     font-weight: 600; 
     border: none; 
-    padding: 20px 110px; 
+    padding: 20px 0;
+    width: 100%; 
     border-radius: 30px; 
     cursor: pointer; 
     text-transform: uppercase; 
@@ -287,8 +295,9 @@ body, html {
     color: white;   
     font-size: 14px; 
     font-weight: 600; 
+    width: 100%;
     border: none; 
-    padding: 20px 125px; 
+    padding: 20px 0; 
     border-radius: 30px; 
     cursor: pointer; 
     text-transform: uppercase; 
@@ -369,6 +378,12 @@ body, html {
 
 /* Общая сумма */
 .order-total {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: right;
+}
+
+.order-total-cart {
     font-size: 18px;
     font-weight: bold;
     text-align: right;
@@ -648,6 +663,9 @@ body, html {
     }
 }
 
+
+
+
 .order-card h3 {
     text-align: center;
     font-size: 30px;
@@ -686,12 +704,22 @@ body, html {
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    white-space: nowrap;
 }
 
-.order-total {
-    font-size: 18px;
-    font-weight: bold;
-    text-align: right;
+.order-header-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 10px;
+    white-space: normal;
+}
+
+.order-header-cart h3,
+.order-header-cart p {
+    margin-top: 20px;
 }
 
 /* Блок товаров */
@@ -799,7 +827,7 @@ body, html {
 }
 
 .shop-now-button {
-    background-color: #000000;
+    background: linear-gradient(90deg, hsl(175, 38%, 19%), hsl(175, 38%, 30%));
     color: white;
     font-size: 14px;
     font-weight: 600;
@@ -808,11 +836,13 @@ body, html {
     border-radius: 30px;
     cursor: pointer;
     text-transform: uppercase;
-    transition: background-color 0.3s ease;
+    transition: background 0.3s ease;
+    border: 2px solid transparent;
 }
 
+/* Ховер эффект — можно сделать чуть светлее или поменять направление */
 .shop-now-button:hover {
-    background-color: #333333;
+    background: linear-gradient(90deg, hsl(175, 38%, 25%), hsl(175, 38%, 35%));
 }
 
 .upload-button {
@@ -845,4 +875,85 @@ body, html {
     font-size: 14px; 
     color: #333;
     font-weight: 600;
+}
+
+@media (max-width: 950px) {
+    .order-header {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .order-item {
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .order-header-cart h3 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 800px) {
+    .order-header-cart h3 {
+        font-size: 18px;
+    }
+
+    .order-total-cart {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 650px) {
+    .order-header-cart {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 570px) {
+    .profile-container {
+        max-width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .profile-card {
+        width: 100%;
+    }
+
+    .profile-sections {
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 0 20px;
+    }
+
+    .order-header-cart h3 {
+        font-size: 18px;
+    }
+
+    .result {
+        white-space: nowrap;    
+    }
+
+    .result p strong {
+        font-size: 18px;
+    }
+
+    .shop-now-button {
+        padding: 20px 20px;
+    }
+
+    .remove-btn {
+        padding: 20px 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .result {
+        flex-direction: column;
+    }
+
+    .remove-btn {
+        width: 100%;
+    }
 }

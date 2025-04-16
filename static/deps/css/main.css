@@ -1051,8 +1051,10 @@ footer {
     background: #fff;
     padding-top: 40px;
 }
+
 .aboutletter {
-    width: 1200px;
+    max-width: 1200px;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

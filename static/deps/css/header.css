@@ -47,6 +47,10 @@ body, html {
     gap: 15px;
 }
 
+.nav a {
+    white-space: nowrap;
+}
+
 .dropdown {
     display: flex;
     align-items: center;
@@ -172,6 +176,7 @@ body, html {
     flex: 1;
     font-size: 14px;
     color: #555;
+    font-weight: bold;
 }
 
 .search-input::placeholder {
